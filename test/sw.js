@@ -1,5 +1,5 @@
 // Offline-Speicher der Machbarkeitsprobe. Bei jeder neuen Fassung die Nummer erhöhen.
-const FASSUNG = 'probe-v1';
+const FASSUNG = 'probe-v2';
 const DATEIEN = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg'];
 
 self.addEventListener('install', (e) => {
