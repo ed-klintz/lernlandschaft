@@ -18,7 +18,8 @@
    bestaetigung (Satz „…, weil …“ für die richtige Antwort; die Seite setzt „✓ Richtig.“ davor), tipps [Tipp 1, Tipp 2], loesungsweg, sokommst, weiterueben,
    heftsatz (Satzanfang für „Wo lag mein Fehler?“), vergleich (was beim Checkpoint verglichen wird), code* (Fachbegriff, keine Ziffer),
    checkliste (Produktstation), oeffnetMit (Code, der die Station auch ohne Vorgänger öffnet), partnerCode (Wort für zwei),
-   Vorbau: typ "beschriften" mit kontrolle { art: "beschriften", bild (Name in BILDER), punkte [{ x, y (Prozent im Bild), begriff }] } – Tippen-Tippen, kein Ziehen;
+   Vorbau: phasen [{ auftrag, … }] – mehrschrittige Station: jeder Schritt erscheint erst, wenn der davor geschafft ist; Schritt mit vermuten { frage, optionen } zeigt nur die Vermutung; etappen [{ nach, code, phase }] startet beim Schritt mit dem Index phase;
+   typ "beschriften" mit kontrolle { art: "beschriften", bild (Name in BILDER), punkte [{ x, y (Prozent im Bild), begriff }] } – Tippen-Tippen, kein Ziehen;
    typ "video" mit video { id (YouTube), titel, start, ende } – lädt erst nach einem Tipp (Zwei-Klick), mit Link als Ersatz.
    etappen [{ nach (was dann im Heft steht), code (Fachbegriff, keine Ziffer) }] – Zwischenstand; nur in langen Stationen, höchstens zwei (Spez D6),
    minuten (Zeitansatz; erscheint auf Wahlkacheln), stufe 1–3 und wofuer (nur Wahlstationen: ★ Festigen · ★★ Anwenden · ★★★ Weiterdenken).
@@ -28,7 +29,7 @@ const LANDSCHAFT = {
   thema: "Sucht – Wirkweise der Stoffe",
   frage: "Was machen Drogen an der Synapse – und warum ist das gefährlich?",   // erscheint oben auf der Landkarte
   jahrgang: 7,
-  version: "Vorbau V1 · 11.11.2026",
+  version: "Vorbau V2 · 11.11.2026",
   freischaltung: "nacheinander",
   checkpoint: false,                 // NaWi 07: kein Abgleich zu zweit (Entscheidung der Lehrkraft 10.11.2026, F3)
   partnerCode: false,
@@ -55,43 +56,89 @@ const LANDSCHAFT = {
       code: "DOPAMIN" },
 
     { nr: 2, typ: "beschriften", pflicht: true, minuten: 10, titel: "Die Synapse beschriften",
-      auftrag: "**Tippe** auf eine Zahl im Bild, dann auf den passenden Begriff. **Zeichne** die Synapse danach beschriftet ins Heft.",
-      ziel: "Du kannst die Teile einer Synapse im Bild benennen.",
-      heft: "Skizze der Synapse mit sechs Begriffen.",
+      auftrag: "Du hast die Synapse **beschriftet**, den Weg des Signals **geordnet** und die Skizze ins Heft **gezeichnet**.",
+      ziel: "Du kannst die Synapse beschriften und den Weg des Signals nennen.",
+      heft: "Skizze der Synapse mit sechs Begriffen und einem Pfeil für das Signal.",
       buch: "S. 146",
-      kontrolle: { art: "beschriften", bild: "synapse",
-        punkte: [{ x: 18.3, y: 15.8, zx: 45, zy: 18.4, begriff: "das Endknöpfchen" }, { x: 18.3, y: 84.2, zx: 33.3, zy: 67.1, begriff: "das synaptische Bläschen" },
-                 { x: 59, y: 9, zx: 64.3, zy: 25.3, begriff: "der Transmitter" }, { x: 59, y: 91, zx: 65.3, zy: 80, begriff: "der synaptische Spalt" },
-                 { x: 88.3, y: 15.8, zx: 74.2, zy: 17.1, begriff: "der Rezeptor" }, { x: 88.3, y: 79, begriff: "die Nachbarzelle" }] },
-      bestaetigung: "Alles passt, weil du dem Weg des Signals folgst: vom Endknöpfchen über den Spalt zum Rezeptor der Nachbarzelle.",
-      tipps: ["Der Spalt ist die Lücke zwischen den beiden Zellen.", "Transmitter sind die kleinen Teilchen. Rezeptoren sitzen an der Nachbarzelle – wie Schlösser."],
-      loesungsweg: "1 Endknöpfchen · 2 synaptisches Bläschen · 3 Transmitter · 4 synaptischer Spalt · 5 Rezeptor · 6 Nachbarzelle.",
-      sokommst: "Fang links an: Dort kommt der elektrische Impuls an. Folge dem Signal nach rechts.",
-      weiterueben: "Buch S. 146, Bild der Synapse.",
-      heftsatz: "Ich habe … verwechselt, weil …",
+      phasen: [
+        { auftrag: "**Tippe** eine Zahl im Bild und den passenden Begriff an.",
+          kontrolle: { art: "beschriften", bild: "synapse",
+            punkte: [{ x: 18.3, y: 15.8, zx: 45, zy: 18.4, begriff: "das Endknöpfchen" }, { x: 18.3, y: 84.2, zx: 33.3, zy: 67.1, begriff: "das synaptische Bläschen" },
+                     { x: 59, y: 9, zx: 64.3, zy: 25.3, begriff: "der Transmitter" }, { x: 59, y: 91, zx: 65.3, zy: 80, begriff: "der synaptische Spalt" },
+                     { x: 88.3, y: 15.8, zx: 74.2, zy: 17.1, begriff: "der Rezeptor" }, { x: 88.3, y: 79, begriff: "die Nachbarzelle" }] },
+          bestaetigung: "Alle sechs Begriffe sitzen.",
+          tipps: ["Der Spalt ist die Lücke zwischen den beiden Zellen.", "Transmitter sind die kleinen Teilchen. Rezeptoren sitzen an der Nachbarzelle – wie Schlösser."],
+          loesungsweg: "1 Endknöpfchen · 2 synaptisches Bläschen · 3 Transmitter · 4 synaptischer Spalt · 5 Rezeptor · 6 Nachbarzelle.",
+          sokommst: "Fang links an: Dort kommt der elektrische Impuls an. Folge dem Signal nach rechts.",
+          heftsatz: "Ich habe … verwechselt, weil …" },
+        { auftrag: "**Ordne** den Weg des Signals. Das Bild hilft dir.",
+          zeichnung: "synapse",
+          kontrolle: { art: "auswahl", frage: "In welcher Reihenfolge läuft das Signal?",
+            optionen: ["Impuls → Bläschen geben Transmitter frei → Spalt → Rezeptor",
+                       { text: "Impuls → Rezeptor → Spalt → Bläschen", hinweis: "Der Rezeptor sitzt an der Nachbarzelle. Dort kommt das Signal zuletzt an." },
+                       { text: "Transmitter → Impuls → Bläschen → Rezeptor", hinweis: "Am Anfang steht der elektrische Impuls. Erst er setzt die Transmitter frei." }], richtig: 0 },
+          bestaetigung: "Das stimmt, weil erst der Impuls die Transmitter aus den Bläschen freisetzt.",
+          tipps: ["Womit beginnt alles – links im Bild?", "Die Transmitter müssen erst durch den Spalt, bevor sie am Rezeptor ankommen."],
+          loesungsweg: "Der Impuls kommt im Endknöpfchen an. Die Bläschen geben Transmitter frei. Die Transmitter wandern durch den Spalt und besetzen die Rezeptoren der Nachbarzelle.",
+          sokommst: "Folge im Bild dem Pfeil von links nach rechts.",
+          heftsatz: "Ich habe die Reihenfolge von … und … vertauscht." },
+        { auftrag: "**Zeichne** die Synapse ins Heft. **Beschrifte** sie und **zeichne** den Weg des Signals als Pfeil ein.",
+          heft: "Skizze der Synapse mit sechs Begriffen und einem Pfeil für das Signal.",
+          buch: "S. 146",
+          checkliste: ["Meine Skizze zeigt Endknöpfchen, Spalt und Nachbarzelle.", "Alle sechs Begriffe stehen an der richtigen Stelle.", "Ein Pfeil zeigt den Weg des Signals."] }
+      ],
       code: "REZEPTOR" },
 
     { nr: 3, typ: "simulation", pflicht: true, minuten: 15, titel: "Was macht die Droge an der Synapse?",
-      auftrag: "**Vermute** zuerst. **Stelle** dann jede Droge ein und **sende** einen Impuls. **Notiere** die besetzten Rezeptoren in einer Tabelle.",
+      auftrag: "Du hast **vermutet**, am Modell **geprüft** und drei Drogen **verglichen**.",
       ziel: "Du kannst am Modell zeigen, wie Drogen das Signal verändern.",
-      heft: "Tabelle: Einstellung | Rezeptoren nach einem Impuls | nach dem Warten.",
+      heft: "Vermutung und Tabelle: Einstellung | besetzte Rezeptoren nach einem Impuls | nach dem Warten.",
       buch: "S. 147, Bild 1",
-      sim: "synapse_droge",
-      vermutung: { frage: "Droge A hemmt den Dopamin-Abbau. Wie lange bleibt das Signal?", optionen: ["länger", "kürzer", "gleich lang"] },
-      modellgrenze: "Echte Synapsen haben tausende Rezeptoren, das Modell vier.",
-      etappen: [{ nach: "Meine Vermutung und zwei Zeilen der Tabelle stehen im Heft.", code: "W4TPE" },
-                { nach: "Die Tabelle hat alle vier Zeilen.", code: "H9KXN" }],
-      kontrolle: { art: "auswahl", frage: "Bei welcher Einstellung sind Rezeptoren besetzt, **ohne** dass ein Impuls kommt?",
-        optionen: [{ text: "ohne Droge", hinweis: "Ohne Droge und ohne Impuls bleibt alles ruhig. Probier es aus." },
-                   "Nachschlüssel",
-                   { text: "Droge A", hinweis: "Droge A verändert nur, wie lange Dopamin im Spalt bleibt. Ohne Impuls ist kein Dopamin da." },
-                   { text: "Droge B", hinweis: "Droge B füllt die Bläschen stärker. Frei wird das Dopamin erst mit einem Impuls." }], richtig: 1 },
-      bestaetigung: "Das stimmt, weil der Nachschlüssel selbst in den Rezeptor passt – ganz ohne Dopamin.",
-      tipps: ["Stell jede Droge ein und sende keinen Impuls. Wo sind trotzdem Rezeptoren besetzt?", "Welche Droge braucht kein Dopamin, um zu wirken?"],
-      loesungsweg: "Nur der Nachschlüssel besetzt Rezeptoren ohne Impuls. Droge A und Droge B verändern, wie viel Dopamin nach einem Impuls im Spalt ist und wie lange es bleibt.",
-      sokommst: "Vergleiche in deiner Tabelle die Spalte vor dem ersten Impuls.",
-      weiterueben: "Buch S. 147 Nr. 1.",
-      heftsatz: "Mein Fehler war, dass …",
+      etappen: [{ nach: "Schritt 2 ist geschafft: Vermutung geprüft, zwei Zeilen der Tabelle stehen im Heft.", code: "W4TPE", phase: 2 },
+                { nach: "Schritt 3 ist geschafft: Die Tabelle hat alle vier Zeilen.", code: "H9KXN", phase: 3 }],
+      phasen: [
+        { auftrag: "**Vermute**, bevor du das Modell siehst. **Schreibe** deine Vermutung mit einem Grund ins Heft.",
+          heft: "Ich vermute: Das Signal bleibt …, weil …",
+          vermuten: { frage: "Droge A hemmt den Abbau von Dopamin. Wie lange bleibt das Signal an der Nachbarzelle?", optionen: ["länger", "kürzer", "gleich lang"] } },
+        { auftrag: "**Prüfe** deine Vermutung. **Sende** ohne Droge einen Impuls und **warte**. Dann dasselbe mit Droge A.",
+          heft: "Tabelle, Zeile 1 und 2: Einstellung | besetzt nach einem Impuls | nach dem Warten.",
+          zeigtVermutung: true,
+          sim: "synapse_droge", simOpt: { modi: [0, 2] },
+          kontrolle: { art: "auswahl", frage: "Droge A: ein Impuls, dann warten. Wie viele Rezeptoren sind besetzt?",
+            optionen: [{ text: "0", hinweis: "So ist es ohne Droge. Stell Droge A ein und probier es noch einmal." },
+                       "2",
+                       { text: "4", hinweis: "Vier sind es erst nach einem zweiten Impuls. Gefragt ist ein Impuls." }], richtig: 1 },
+          bestaetigung: "Das stimmt, weil das Dopamin nicht abgebaut wird: Das Signal bleibt länger. Vergleiche mit deiner Vermutung im Heft.",
+          tipps: ["Stell Droge A ein, sende einen Impuls und tippe auf Warten.", "Lies unter dem Bild: „Besetzt: … von 4“."],
+          loesungsweg: "Ohne Droge: 2 besetzt, nach dem Warten 0. Droge A: 2 besetzt, nach dem Warten immer noch 2. Das Signal bleibt also länger.",
+          sokommst: "Vergleiche in deiner Tabelle die Spalte „nach dem Warten“.",
+          heftsatz: "Meine Vermutung war …, das Modell zeigt …" },
+        { auftrag: "**Untersuche** jetzt den Nachschlüssel und Droge B. **Ergänze** deine Tabelle.",
+          heft: "Tabelle, Zeile 3 und 4.",
+          sim: "synapse_droge", simOpt: { modi: [0, 1, 3] },
+          modellgrenze: "Echte Synapsen haben tausende Rezeptoren, das Modell vier.",
+          kontrolle: { art: "auswahl", frage: "Bei welcher Einstellung sind Rezeptoren besetzt, **ohne** dass ein Impuls kommt?",
+            optionen: [{ text: "ohne Droge", hinweis: "Ohne Droge und ohne Impuls bleibt alles ruhig. Probier es aus." },
+                       "Nachschlüssel",
+                       { text: "Droge B", hinweis: "Droge B füllt die Bläschen stärker. Frei wird das Dopamin erst mit einem Impuls." }], richtig: 1 },
+          bestaetigung: "Das stimmt, weil der Nachschlüssel selbst in den Rezeptor passt – ganz ohne Dopamin.",
+          tipps: ["Stell jede Droge ein und sende keinen Impuls. Wo sind trotzdem Rezeptoren besetzt?", "Welche Droge braucht kein Dopamin, um zu wirken?"],
+          loesungsweg: "Nur der Nachschlüssel besetzt Rezeptoren ohne Impuls. Droge B setzt bei einem Impuls doppelt so viel Dopamin frei.",
+          sokommst: "Vergleiche in deiner Tabelle, was vor dem ersten Impuls zu sehen ist.",
+          heftsatz: "Mein Fehler war, dass …" },
+        { auftrag: "**Vergleiche** die Einstellungen mit deiner Tabelle. **Tippe** eine Einstellung und die passende Beobachtung an.",
+          heft: "Ein Satz je Droge: Was verändert sie an der Synapse?",
+          kontrolle: { art: "zuordnen", paare: [["ohne Droge", "Dopamin wird nach dem Signal abgebaut."],
+                                               ["Nachschlüssel", "Rezeptoren sind besetzt, ohne Impuls."],
+                                               ["Droge A", "Dopamin bleibt im Spalt."],
+                                               ["Droge B", "Ein Impuls setzt mehr Dopamin frei."]] },
+          bestaetigung: "Die Paare passen: Jede Droge verstärkt das Signal auf einem anderen Weg.",
+          tipps: ["Lies in deiner Tabelle Zeile für Zeile.", "Nur eine Einstellung wirkt ohne Impuls. Nur bei einer bleibt das Dopamin nach dem Warten."],
+          loesungsweg: "ohne Droge: Dopamin wird abgebaut · Nachschlüssel: besetzt Rezeptoren ohne Impuls · Droge A: Dopamin bleibt im Spalt · Droge B: mehr Dopamin pro Impuls.",
+          sokommst: "Jede Zeile deiner Tabelle gehört zu genau einem Satz.",
+          weiterueben: "Buch S. 147 Nr. 1.",
+          heftsatz: "Ich habe … und … verwechselt, weil …" }
+      ],
       code: "TRANSMITTER" },
 
     { nr: 4, typ: "selbstkontrolle", pflicht: true, minuten: 10, titel: "Schlüssel, Schloss oder Nachschlüssel?",
@@ -145,13 +192,45 @@ const LANDSCHAFT = {
       loesungsweg: "a) Dopamin: Schlüssel des Körpers · b) Dopamin-Rezeptor: Schloss · c) Nikotin: Nachschlüssel.",
       code: "ENTZUG" },
 
-    { nr: 8, typ: "video", pflicht: false, stufe: 2, minuten: 15, titel: "Vaping – was macht das Nikotin?",
-      wofuer: "Anwenden: Fachbegriffe im Film wiederfinden.",
-      ziel: "Du erkennst drei Fachbegriffe aus dem Unterricht im Film wieder.",
-      auftrag: "**Sieh** dir den Film an. **Notiere** drei Fachbegriffe aus dem Unterricht, die vorkommen, und **erkläre** jeden in einem Satz.",
-      heft: "Drei Fachbegriffe mit je einem Satz.",
-      video: { id: "gaF1Yjdwq0w", titel: "Warum Vaping so fantastisch ist" },   // Auswahl der Lehrkraft (11.11.2026); optional start/ende in Sekunden
-      loesungsweg: "Mögliche Begriffe: Nikotin, Rezeptor, Dopamin, Belohnungssystem, Toleranz, Entzug. Prüfe: Kannst du jeden Begriff in einem Satz erklären?",
+    { nr: 8, typ: "video", pflicht: false, stufe: 2, minuten: 15, titel: "Vaping – warum „zu gut“ ein Problem ist",
+      wofuer: "Anwenden: mit dem Wissen über Rezeptoren und Belohnung einen Film prüfen.",
+      ziel: "Du kannst erklären, warum das Angenehme am Vaping süchtig macht.",
+      auftrag: "Du hast den Titel des Films **gedeutet**, drei Ausschnitte **ausgewertet** und einen Rat **formuliert**.",
+      heft: "Vermutung · zwei Wirkungen · Kreislauf mit Pfeilen · ein Satz für eine Freundin oder einen Freund.",
+      phasen: [
+        { auftrag: "Der Film heißt „Warum Vaping so fantastisch ist“. **Vermute**, was er zeigen will. **Schreibe** deine Vermutung ins Heft.",
+          heft: "Ich vermute: Der Film will zeigen, dass …",
+          vermuten: { frage: "Was will ein Film mit diesem Titel wohl zeigen?",
+            optionen: ["Vaping ist harmlos.", "Vaping ist so schädlich wie Rauchen.", "Gerade das Angenehme am Vaping ist das Problem."] } },
+        { auftrag: "**Sieh** dir den Anfang an. **Notiere** zwei Wirkungen von Nikotin, die sich gut anfühlen.",
+          heft: "Zwei angenehme Wirkungen von Nikotin.",
+          video: { id: "gaF1Yjdwq0w", titel: "Warum Vaping so fantastisch ist", start: 18, ende: 109 },
+          kontrolle: { art: "auswahl", frage: "Warum zählt der Film zuerst auf, was an Nikotin angenehm ist?",
+            optionen: [{ text: "Weil er für Vapes wirbt.", hinweis: "Achte auf das Ende des Ausschnitts: Der Film nennt Vaping bei Jugendlichen eine wachsende Epidemie." },
+                       "Weil das Angenehme erklärt, warum so viele anfangen.",
+                       { text: "Weil Nikotin gesund ist.", hinweis: "Der Film sagt gleich danach: Nikotin gehört zu den Stoffen, die am stärksten süchtig machen." }], richtig: 1 },
+          bestaetigung: "Das passt, weil eine Droge nur dann viele Menschen erreicht, wenn sie sich zuerst gut anfühlt.",
+          tipps: ["Was sagt der Film direkt nach der Liste über Nikotin?", "Überlege: Würde jemand mit etwas anfangen, das sich nur schlecht anfühlt?"],
+          loesungsweg: "Der Film nennt zuerst die angenehmen Wirkungen, zum Beispiel bessere Konzentration und weniger Stress. Sie erklären, warum Menschen anfangen. Danach nennt er das Problem: Nikotin macht stark süchtig.",
+          heftsatz: "Ich dachte zuerst, der Film …" },
+        { auftrag: "**Sieh** dir den Ausschnitt zum Gehirn an. **Achte** auf die Wörter Rezeptor und Belohnungssystem.",
+          heft: "Ein Satz: Vapes liefern mehr Nikotin als Zigaretten, weil …",
+          zeigtVermutung: true,
+          video: { id: "gaF1Yjdwq0w", titel: "Warum Vaping so fantastisch ist", start: 458, ende: 627 },
+          kontrolle: { art: "auswahl", frage: "Vapes sind weniger unangenehm als Zigaretten. Warum macht genau das sie gefährlicher für die Sucht?",
+            optionen: [{ text: "Weil im Vape mehr Giftstoffe sind.", hinweis: "Der Film sagt das Gegenteil: Rauchen ist schädlicher. Es geht um die Menge an Nikotin." },
+                       "Weil man viel öfter dampft und so mehr Nikotin ins Gehirn kommt.",
+                       { text: "Weil Vapes teurer sind.", hinweis: "Vom Preis spricht der Ausschnitt nicht. Achte darauf, wie oft und wo man dampfen kann." }], richtig: 1 },
+          bestaetigung: "Das stimmt, weil viel Nikotin die Rezeptoren im Belohnungssystem ständig besetzt – das Verlangen wächst. Vergleiche mit deiner Vermutung.",
+          tipps: ["Warum schafft kaum jemand 20 Zigaretten am Tag – aber leicht ein ganzes Vape?", "Nikotin wirkt wie ein Nachschlüssel am Rezeptor. Was passiert, wenn sehr viel davon kommt?"],
+          loesungsweg: "Dampfen kratzt nicht und riecht kaum. Deshalb dampfen viele ständig, auch drinnen. So kommt sehr viel Nikotin ins Gehirn. Es besetzt Rezeptoren, die mit dem Belohnungssystem verbunden sind. Ohne Nikotin folgt der Entzug: gereizt sein, schlecht schlafen, starkes Verlangen.",
+          sokommst: "Verbinde zwei Dinge: wie oft gedampft wird und was Nikotin am Rezeptor macht.",
+          heftsatz: "Ich habe übersehen, dass …" },
+        { auftrag: "**Sieh** dir das Ende an. **Zeichne** den Kreislauf aus Stress und Nikotin mit Pfeilen. **Schreibe** dann einen Satz, den du einer Freundin oder einem Freund sagen würdest – ohne Angst zu machen.",
+          heft: "Kreislauf mit Pfeilen und ein Satz für eine Freundin oder einen Freund.",
+          video: { id: "gaF1Yjdwq0w", titel: "Warum Vaping so fantastisch ist", start: 627, ende: 697 },
+          loesungsweg: "Kreislauf: Stress → Vape → kurz entspannt → Nikotin fehlt → neuer Stress → Vape. Wer Angst macht, macht noch mehr Stress – und treibt den Kreislauf an. Ein hilfreicher Satz macht keinen Druck, zum Beispiel: „Die schlimmsten Tage sind nach etwa drei Tagen vorbei – ich helfe dir dabei.“" }
+      ],
       code: "RAUSCH" },
 
     { nr: 9, typ: "stimmt", pflicht: false, stufe: 3, minuten: 10, titel: "Immer weniger nötig?",
@@ -189,11 +268,12 @@ const SIMULATIONEN = {
   // Modell mit vier Rezeptoren. Regeln (fest, nachrechenbar):
   // ohne Droge: Impuls setzt 2 Dopamin frei, Warten baut alles ab · Nachschlüssel: 3 Rezeptoren sofort besetzt, bleiben ·
   // Droge A (Abbau gehemmt): Warten baut nichts ab, Dopamin sammelt sich · Droge B (mehr Dopamin): Impuls setzt 4 frei.
-  synapse_droge(box) {
+  synapse_droge(box, opt) {
+    const ZEIGEN = (opt && opt.modi) || [0, 1, 2, 3];
     const MODI = ["ohne Droge", "Nachschlüssel", "Droge A", "Droge B"];
     const STAERKE = ["kein Signal", "schwaches Signal", "schwaches Signal", "starkes Signal", "sehr starkes Signal"];
-    let m = 0, dop = 0, nach = 0, text = "Stell eine Droge ein oder sende einen Impuls.";
-    box.innerHTML = `<div class="simwahl" role="group" aria-label="Einstellung">${MODI.map((n, i) => `<button class="btn sekundaer simctl modus" data-m="${i}" aria-pressed="${i === 0}">${n}</button>`).join('')}</div>
+    let m = ZEIGEN[0], dop = 0, nach = 0, text = "Wähle eine Einstellung und sende einen Impuls.";
+    box.innerHTML = `<div class="simwahl" role="group" aria-label="Einstellung">${ZEIGEN.map(i => `<button class="btn sekundaer simctl modus" data-m="${i}" aria-pressed="${i === m}">${MODI[i]}</button>`).join('')}</div>
       <div class="bildbox" id="simBild"></div>
       <div class="simwerte"><button class="btn simctl" id="simImpuls">Impuls senden</button><button class="btn sekundaer simctl" id="simWarten">Warten</button></div>
       <p class="simtext" id="simText" role="status" aria-live="polite"></p>`;
@@ -210,7 +290,7 @@ const SIMULATIONEN = {
       box.querySelector('#simBild').innerHTML = synapseSvg(teile, true);
       const n = nach + dop;
       box.querySelector('#simText').innerHTML = `<b>Besetzt: ${n} von 4</b> – ${STAERKE[n]}. ${text}`;
-      box.querySelectorAll('.modus').forEach((b, i) => { b.setAttribute('aria-pressed', i === m); b.classList.toggle('gewaehlt', i === m); });
+      box.querySelectorAll('.modus').forEach(b => { const an = +b.dataset.m === m; b.setAttribute('aria-pressed', an); b.classList.toggle('gewaehlt', an); });
     }
     box.querySelectorAll('.modus').forEach(b => b.addEventListener('click', () => {
       m = +b.dataset.m; dop = 0; nach = m === 1 ? 3 : 0;
@@ -344,6 +424,11 @@ a.videolink { display:inline-block; min-height:52px; padding:11px 16px; margin-t
 .videobox { display:grid; gap:10px; }
 .videobox iframe { width:100%; aspect-ratio:16 / 9; border:0; border-radius:12px; background:#000; }
 .videotitel { margin:0; font-weight:700; }
+.schrittleiste { display:flex; gap:6px; margin:0 0 10px; }
+.schrittleiste span { flex:1; height:8px; border-radius:4px; background:var(--linie); }
+.schrittleiste span.fertig { background:var(--akzent); }
+.schrittleiste span.jetzt { background:var(--orange); }
+.zuordnen .opt.aktiv { border-color:var(--orange); border-width:3px; }
 .videolink { color:var(--akzent-dunkel); font-weight:700; }
 .simbox .bildbox { max-width:340px; margin:0 auto; }
 .zuordnen .opt.aktiv { border-color:var(--orange); border-width:3px; }
@@ -420,16 +505,18 @@ footer .meta { font-size:16px; color:var(--grau); }
     duenn: "Bearbeite die Pflichtstationen der Reihe nach. Jeder Code kommt in deinen Laufzettel im Heft.",
     sachlich: "Pflichtstationen in Reihenfolge, Wahlstationen danach. Codes in den Laufzettel im Heft eintragen."
   };
-  L.stationen.forEach(s => { const k = s.kontrolle; if (k && k.art === 'beschriften') k.paare = k.punkte.map((p, i) => [String(i + 1), p.begriff]); });
+  L.stationen.forEach(s => [s].concat(s.phasen || []).forEach(x => { const k = x.kontrolle; if (k && k.art === 'beschriften') k.paare = k.punkte.map((p, i) => [String(i + 1), p.begriff]); }));
   const ZU = k => k.art === 'zuordnen' || k.art === 'beschriften';
   const pflicht = L.stationen.filter(s => s.pflicht && s.typ !== 'abgabe');
   const wahl = L.stationen.filter(s => !s.pflicht);
   const KEY = 'll4_' + L.titel;
-  const LEER = () => ({ erledigt: {}, versuche: {}, offen: {}, partner: {}, etappe: {}, aktuell: null });
+  const LEER = () => ({ erledigt: {}, versuche: {}, offen: {}, partner: {}, etappe: {}, phase: {}, vm: {}, aktuell: null });
+  let filmOk = false;   // Film von YouTube: einmal zugestimmt, gilt bis zum Schließen der Seite
   const hatEtappen = L.stationen.some(s => s.etappen && s.etappen.length);
   let zustand = LEER();
   try { const g = localStorage.getItem(KEY); if (g) zustand = Object.assign(LEER(), JSON.parse(g)); } catch (e) {}
   function speichern() { try { localStorage.setItem(KEY, JSON.stringify(zustand)); } catch (e) {} }
+  function zeit(sek) { return Math.floor(sek / 60) + ':' + String(sek % 60).padStart(2, '0'); }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   // **fett** und Formeln wie „G : A = 1“ zusammenhalten (kein Umbruch mitten in der Formel)
   function md(t) {
@@ -521,6 +608,15 @@ footer .meta { font-size:16px; color:var(--grau); }
     pflicht.slice(0, pflicht.indexOf(s)).forEach(p => { zustand.erledigt[p.nr] = true; });
   }
   function dialogZwischen(s) {
+    if (s._basis) {
+      const e = s.etappen.filter(x => x.phase <= s._i).pop(), erste = s.etappen[0];
+      const d = document.createElement('div'); d.className = 'dialog'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'dlgTitel');
+      d.innerHTML = `<div class="box"><h2 id="dlgTitel">Zwischenstand</h2>${e ? `<p>${md(e.nach)}</p><div class="codebox"><div>Dein Zwischenstand für Station ${s.nr}:</div><div class="code">${esc(e.code)}</div>
+        <div class="hint">Trag ihn mit Bleistift in das Feld „Zwischenstand“ auf deinem Laufzettel ein. Damit startest du wieder bei Schritt ${e.phase + 1}.</div></div>`
+        : `<p>Den ersten Zwischenstand gibt es nach Schritt ${erste.phase}. Bis dahin gilt der Code deiner letzten Station.</p>`}
+        <div class="knoepfe"><button class="btn" id="dlgZu">Schließen</button></div></div>`;
+      document.body.appendChild(d); d.querySelector('#dlgZu').addEventListener('click', () => d.remove()); return;
+    }
     const d = document.createElement('div'); d.className = 'dialog'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'dlgTitel');
     d.innerHTML = `<div class="box"><h2 id="dlgTitel">Zwischenstand</h2><p>Was steht schon in deinem Heft? Tippe es an.</p>
       <div class="checkliste">${s.etappen.map((e, i) => `<button class="check" data-i="${i}" aria-pressed="false"><span class="kaestchen">☐</span>${md(e.nach)}</button>`).join('')}</div>
@@ -557,7 +653,7 @@ footer .meta { font-size:16px; color:var(--grau); }
         if (i < 0) continue;
         davorErledigt(x);
         if (!istFrei(x)) zustand.offen[x.nr] = true;
-        if (!istErledigt(x)) zustand.etappe[x.nr] = Math.max(zustand.etappe[x.nr] || 0, i + 1);
+        if (!istErledigt(x)) { if (x.phasen) zustand.phase[x.nr] = Math.max(zustand.phase[x.nr] || 0, x.etappen[i].phase); else zustand.etappe[x.nr] = Math.max(zustand.etappe[x.nr] || 0, i + 1); }
         speichern(); d.remove(); zeigeStation(x); return;
       }
       const s = L.stationen.find(x => x.code && x.code.toUpperCase() === c);
@@ -580,8 +676,18 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (n && n !== s) setHaupt('weiter', `Weiter zu Station ${n.nr} ›`, () => zeigeStation(n));
     else setHaupt('weiter', 'Zur Karte ›', zeigeKarte);
   }
+  const SCHRITTFELDER = ['auftrag', 'heft', 'buch', 'kontrolle', 'checkliste', 'sim', 'simOpt', 'video', 'merke', 'bild', 'zeichnung', 'schritte', 'vermuten', 'vermutung', 'zeigtVermutung',
+    'modellgrenze', 'loesungsweg', 'sokommst', 'weiterueben', 'heftsatz', 'tipps', 'bestaetigung'];
+  function sicht(s) {   // ein Schritt als eigene Ansicht: nur seine Felder, alles andere bleibt verborgen
+    const i = Math.min(zustand.phase[s.nr] || 0, s.phasen.length - 1), p = Object.create(s);
+    SCHRITTFELDER.forEach(f => { p[f] = undefined; }); Object.assign(p, s.phasen[i]);
+    p._basis = s; p._i = i; p._n = s.phasen.length; return p;
+  }
+  const nichtLetzter = s => !!s._basis && s._i < s._n - 1;
   function zeigeStation(s) {
     if (!istFrei(s)) { zeigeKarte(); dialogCode(s, sperrGrund(s)); return; }
+    if (s._basis) s = s._basis;
+    if (s.phasen && !istErledigt(s)) s = sicht(s);
     zustand.aktuell = s.nr; speichern();
     const f = fortschritt();
     app.innerHTML = `
@@ -600,13 +706,15 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (s.sim) mat = `<section class="kasten" aria-label="Simulation">${s.vermutung ? vermutungHtml(s) : ''}<div class="simbox${s.vermutung && !zustand.erledigt[s.nr] && !etappe ? ' gesperrt' : ''}" id="simbox"></div>
       ${s.modellgrenze ? `<p class="modellgrenze">Grenze des Modells: ${md(s.modellgrenze)}</p>` : ''}</section>`;
     if (s.video) mat = `<section class="kasten" aria-label="Video"><h2>Film</h2><div class="videobox" id="videobox">
-        <p class="videotitel">„${esc(s.video.titel)}“ – auf YouTube</p>
+        <p class="videotitel">„${esc(s.video.titel)}“ – auf YouTube${s.video.start != null ? ` · Ausschnitt ${zeit(s.video.start)}${s.video.ende ? '–' + zeit(s.video.ende) : ''}` : ''}</p>
         <button class="btn" id="videoLaden">Film laden</button>
         <p class="hinweiszeile">Der Film kommt von YouTube. Erst wenn du tippst, wird er geladen. Nimm Kopfhörer.</p></div>
-        <p class="hinweiszeile">Der Film startet nicht? <a class="videolink" href="${'https://www.youtube.com/watch?v=' + encodeURIComponent(s.video.id)}" target="_blank" rel="noopener">Auf YouTube öffnen</a> oder die Lehrkraft fragen.</p></section>`;
+        <p class="hinweiszeile">Der Film startet nicht? <a class="videolink" href="${'https://www.youtube.com/watch?v=' + encodeURIComponent(s.video.id) + (s.video.start ? '&t=' + s.video.start + 's' : '')}" target="_blank" rel="noopener">Auf YouTube öffnen</a> oder die Lehrkraft fragen.</p></section>`;
+    if (s.zeichnung) mat = `<section class="kasten"><h2>Abbildung</h2><div class="bildbox">${BILDER[s.zeichnung]}</div></section>`;
     if (s.bild) mat = `<section class="kasten"><h2>Abbildung</h2><img src="${s.bild}" alt="" style="width:100%"></section>`;
     if (s.schritte) mat = `<section class="kasten"><h2>So geht es</h2><ol class="schritte">${s.schritte.map(x => '<li>' + md(x) + '</li>').join('')}</ol></section>`;
-    fa.innerHTML = `${etappe ? `<div class="rueck"><p class="meldung info"><span class="sym">Zwischenstand:</span> ${md(etappe.nach)} Mach an dieser Stelle weiter.</p></div>` : ''}<section class="kasten"><h2>Auftrag</h2><p class="auftrag">${md(s.auftrag)}</p>
+    fa.innerHTML = `${etappe ? `<div class="rueck"><p class="meldung info"><span class="sym">Zwischenstand:</span> ${md(etappe.nach)} Mach an dieser Stelle weiter.</p></div>` : ''}<section class="kasten"><h2>${s._n ? `Schritt ${s._i + 1} von ${s._n}` : 'Auftrag'}</h2>${s._n ? `<div class="schrittleiste" aria-hidden="true">${s.phasen.map((x, i) => `<span class="${i < s._i ? 'fertig' : i === s._i ? 'jetzt' : ''}"></span>`).join('')}</div>` : ''}<p class="auftrag">${md(s.auftrag)}</p>
+        ${s.zeigtVermutung && zustand.vm[s.nr] ? `<p class="heftzeile">Deine Vermutung: „${md(zustand.vm[s.nr])}“</p>` : ''}
         ${s.ziel ? `<p class="ziel"><span class="pfeil">→</span> ${md(s.ziel)}</p>` : ''}
         ${s.heft ? `<p class="heftzeile">Ins Heft: ${md(s.heft)}</p>` : ''}
         ${s.buch ? `<span class="buch">Buch ${esc(s.buch)}</span>` : ''}</section>`;
@@ -618,16 +726,32 @@ footer .meta { font-size:16px; color:var(--grau); }
       f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) + '?' + q.join('&');
       f.title = v.titel; f.allow = 'encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
       f.referrerPolicy = 'strict-origin-when-cross-origin'; f.loading = 'lazy';
-      fm.querySelector('#videobox').replaceChildren(f);
+      const kopf = fm.querySelector('.videotitel'); filmOk = true;
+      fm.querySelector('#videobox').replaceChildren(kopf, f);
     });
-    if (s.sim && SIMULATIONEN[s.sim]) { SIMULATIONEN[s.sim](fm.querySelector('#simbox')); if (s.vermutung && !zustand.erledigt[s.nr] && !etappe) simSperren(fm, true); bindeVermutung(s, fm); }
+    if (vl && filmOk) vl.click();
+    if (s.sim && SIMULATIONEN[s.sim]) { SIMULATIONEN[s.sim](fm.querySelector('#simbox'), s.simOpt); if (s.vermutung && !zustand.erledigt[s.nr] && !etappe) simSperren(fm, true); bindeVermutung(s, fm); }
     if (s.typ === 'abgabe') {
       rechts.innerHTML = `<section class="kasten"><h2>Abgabe</h2><p>${md(L.hinweisProdukt)}</p></section>`;
       setHaupt('weiter', 'Zur Karte ›', zeigeKarte); return; }
     if (istErledigt(s)) { rechts.innerHTML = codeBox(s, 'Schon erledigt – dein Code zur Erinnerung.'); weiterNach(s); return; }
+    if (s.vermuten) { vermutenStation(s, rechts); return; }
     if (s.checkliste) { checklisteStation(s, rechts); return; }
     if (!s.kontrolle) { vergleichStation(s, rechts); return; }
     pruefStation(s, rechts);
+  }
+  function vermutenStation(s, box) {
+    box.dataset.direkt = '1';
+    box.innerHTML = `<section class="kasten"><h2>Deine Vermutung</h2><p class="frage">${md(s.vermuten.frage)}</p>
+      <div class="optionen">${s.vermuten.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(o)}<span class="mark"></span></button>`).join('')}</div>
+      <div class="rueck" id="rueck" role="status" aria-live="polite"></div><div id="codeziel"></div></section>`;
+    const fb = setHaupt('fertig', 'Steht im Heft – weiter ›', () => bestanden(s, box), true);
+    box.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+      box.querySelectorAll('.opt').forEach(x => { x.classList.remove('gewaehlt'); x.setAttribute('aria-pressed', 'false'); });
+      b.classList.add('gewaehlt'); b.setAttribute('aria-pressed', 'true');
+      zustand.vm[s.nr] = s.vermuten.optionen[+b.dataset.i]; speichern(); fb.disabled = false;
+      meldung(box, 'info', 'Ins Heft:', 'Schreib deine Vermutung mit einem Grund auf. Ob sie stimmt, prüfst du gleich selbst.');
+    }));
   }
   function vermutungHtml(s) {
     return `<div class="vermutung" id="vermutung"><p class="frage">Erst vermuten: ${md(s.vermutung.frage)}</p>
@@ -678,12 +802,17 @@ footer .meta { font-size:16px; color:var(--grau); }
     });
   }
   function zumCode(s, box) {
-    if (!L.checkpoint) { bestanden(s, box); return; }
+    if (!L.checkpoint || nichtLetzter(s)) { bestanden(s, box); return; }
     const z = box.querySelector('#codeziel'); z.innerHTML = vergleichBox(s);
     setHaupt('verglichen', 'Verglichen – Code zeigen', () => bestanden(s, box));
     z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   function bestanden(s, box) {
+    if (nichtLetzter(s)) {   // Schritt geschafft: erst jetzt erscheint der nächste
+      const weiter = () => { zustand.phase[s.nr] = s._i + 1; zustand.versuche[s.nr] = 0; speichern(); zeigeStation(s._basis); window.scrollTo(0, 0); };
+      if (box.dataset.direkt) { weiter(); return; }
+      setHaupt('weiter', `Weiter zu Schritt ${s._i + 2} ›`, weiter); return;
+    }
     zustand.erledigt[s.nr] = true; speichern();
     const z = box.querySelector('#codeziel'); z.innerHTML = codeBox(s); bindePartner(s, z);
     const f = fortschritt(); app.querySelector('.fortschritt > div').style.width = (100 * f.n / f.von) + '%';
@@ -692,6 +821,7 @@ footer .meta { font-size:16px; color:var(--grau); }
     z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   function checklisteStation(s, box) {
+    box.dataset.direkt = '1';
     box.innerHTML = `<section class="kasten"><h2>Prüfe dein Heft</h2><div class="checkliste">${s.checkliste.map((c, i) => `<button class="check" data-i="${i}" aria-pressed="false"><span class="kaestchen">☐</span>${md(c)}</button>`).join('')}</div>
       <div class="rueck" role="status" aria-live="polite" id="rueck"></div><div id="codeziel"></div></section>`;
     const ch = box.querySelectorAll('.check');
@@ -702,6 +832,7 @@ footer .meta { font-size:16px; color:var(--grau); }
     }));
   }
   function vergleichStation(s, box) {
+    box.dataset.direkt = '1';
     box.innerHTML = `<section class="kasten"><h2>Vergleichen</h2><p>Arbeite zuerst im Heft. Dann deckst du die Lösung auf.</p>${vergleichBox(s)}
       <div class="hilfe"><button class="btn sekundaer" id="aufdecken">Lösung aufdecken</button></div>
       <div class="rueck" id="rueck" role="status" aria-live="polite"></div><div id="loesung"></div><div id="codeziel"></div></section>`;
@@ -721,7 +852,7 @@ footer .meta { font-size:16px; color:var(--grau); }
           ${nT > 1 ? `<button class="btn sekundaer" id="tipp2" disabled>Tipp 2</button>` : ''}
           <button class="btn sekundaer" id="loesweg" disabled>Lösungsweg</button></div>
         <div class="hilfetext" id="hilfetext"></div><div id="loesung"></div><div id="codeziel"></div></section>`;
-    const zust = { wahl: null, paare: {}, aktiv: null, fest: {} };
+    const zust = { wahl: null, paare: {}, aktiv: null, aktivR: null, fest: {} };
     bindeEingabe(s, box, zust);
     const t1 = box.querySelector('#tipp1'), t2 = box.querySelector('#tipp2'), lw = box.querySelector('#loesweg'), ht = box.querySelector('#hilfetext');
     if (t1) t1.addEventListener('click', () => { t1.disabled = true; ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 1:</b> ${md(s.tipps[0])}</div>`); if (t2) t2.disabled = false; });
@@ -744,11 +875,11 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (k.art === 'auswahl') return `<p class="frage">${md(k.frage)}</p><div class="optionen">${k.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(optText(o))}<span class="mark"></span></button>`).join('')}</div>`;
     if (k.art === 'beschriften') return `<div class="beschriften"><div class="bildbox">${BILDER[k.bild]}<svg class="linien" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${k.punkte.map(p => p.zx == null ? '' : `<line x1="${p.x}" y1="${p.y}" x2="${p.zx}" y2="${p.zy}"/>`).join('')}</svg>${k.punkte.map((p, i) => `<button class="opt links marke${p.y > 70 ? ' oben' : ''}" data-i="${i}" style="left:${p.x}%;top:${p.y}%" aria-label="Stelle ${i + 1} im Bild">${i + 1}<span class="mark"></span></button>`).join('')}</div>
         <div class="begriffe">${mische(k.punkte.map(p => p.begriff)).map(t => `<button class="opt rechts" data-t="${esc(t)}">${md(t)}<span class="mark"></span></button>`).join('')}</div></div>
-        <p class="hinweiszeile">Erst die Zahl antippen, dann den Begriff.</p>`;
+        <p class="hinweiszeile">Tippe eine Zahl und einen Begriff an – die Reihenfolge ist egal. Nochmal tippen löst das Paar.</p>`;
     if (k.art === 'zuordnen') {
       const li = k.paare.map(p => p[0]), re = mische(k.paare.map(p => p[1]));
       return `<div class="zuordnen">${li.map((t, i) => `<button class="opt links" data-i="${i}">${md(t)}<span class="mark"></span></button><button class="opt rechts" data-t="${esc(re[i])}">${md(re[i])}<span class="mark"></span></button>`).join('')}</div>
-        <p class="hinweiszeile">Erst links tippen, dann rechts. Nochmal tippen löst das Paar.</p>`;
+        <p class="hinweiszeile">Tippe links und rechts an – die Reihenfolge ist egal. Nochmal tippen löst das Paar.</p>`;
     }
     return '';
   }
@@ -768,15 +899,15 @@ footer .meta { font-size:16px; color:var(--grau); }
           b.classList.toggle('fest', !!z.fest[i]); b.disabled = !!z.fest[i];
           b.querySelector('.mark').textContent = z.fest[i] ? '✓ passt' : i in z.paare ? 'Paar ' + (+i + 1) : ''; });
         R_.forEach(b => { const e = Object.entries(z.paare).find(([, t]) => t === b.dataset.t); const fest = e && z.fest[e[0]];
-          b.classList.toggle('paar', !!e && !fest); b.classList.toggle('fest', !!fest); b.disabled = !!fest;
+          b.classList.toggle('paar', !!e && !fest); b.classList.toggle('aktiv', z.aktivR === b.dataset.t); b.classList.toggle('fest', !!fest); b.disabled = !!fest;
           b.querySelector('.mark').textContent = fest ? '✓ passt' : e ? 'Paar ' + (+e[0] + 1) : ''; });
       };
       if (k.art === 'beschriften') { const alt = z.male; z.male = function () { alt();
         L_.forEach(b => { const i = b.dataset.i; b.querySelector('.mark').textContent = z.fest[i] ? '✓ ' + z.paare[i] : i in z.paare ? z.paare[i] : ''; });
         R_.forEach(b => { const e = Object.entries(z.paare).find(([, t]) => t === b.dataset.t); b.querySelector('.mark').textContent = e ? (z.fest[e[0]] ? '✓ ' : '') + 'Nr. ' + (+e[0] + 1) : ''; }); }; }
-      L_.forEach(b => b.addEventListener('click', () => { const i = b.dataset.i; if (z.fest[i]) return; if (i in z.paare) { delete z.paare[i]; z.aktiv = null; } else z.aktiv = z.aktiv === i ? null : i; z.male(); }));
+      L_.forEach(b => b.addEventListener('click', () => { const i = b.dataset.i; if (z.fest[i]) return; if (i in z.paare) { delete z.paare[i]; z.aktiv = null; } else if (z.aktivR != null) { z.paare[i] = z.aktivR; z.aktivR = null; z.aktiv = null; } else z.aktiv = z.aktiv === i ? null : i; z.male(); }));
       R_.forEach(b => b.addEventListener('click', () => { const t = b.dataset.t; const e = Object.entries(z.paare).find(([, x]) => x === t);
-        if (e) { if (z.fest[e[0]]) return; delete z.paare[e[0]]; z.aktiv = null; } else if (z.aktiv !== null) { z.paare[z.aktiv] = t; z.aktiv = null; } z.male(); }));
+        if (e) { if (z.fest[e[0]]) return; delete z.paare[e[0]]; z.aktiv = null; } else if (z.aktiv !== null) { z.paare[z.aktiv] = t; z.aktiv = null; z.aktivR = null; } else z.aktivR = z.aktivR === t ? null : t; z.male(); }));
     }
   }
   function meldung(box, art, sym, text) {
