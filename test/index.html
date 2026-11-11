@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Probe Lernlandschaft · Fassung 2</title>
+<title>Probe Lernlandschaft · Fassung 3</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1f4e79">
 <style>
@@ -222,10 +222,8 @@ if (typeof document !== 'undefined') (function () {
       h += '<button class="hell" data-a="karte">‹ Übersicht</button>';
       h += '<h1>Station ' + stand.cur + '<span class="probe">' + esc(LL.stationen[stand.cur - 1].titel) + '</span></h1>';
       h += '<button class="hell" data-a="zwischen">Zwischenstand</button>';
-    } else if (sicht.name === 'lehrkraft') {
-      h += '<button class="hell" data-a="karte">‹ Übersicht</button><h1>Lehrkraft-Hilfe</h1>';
     } else {
-      h += '<h1>' + esc(LL.titel) + '<span class="probe">Testfassung 2 · Beispielinhalte</span></h1>';
+      h += '<h1>' + esc(LL.titel) + '<span class="probe">Testfassung 3 · Beispielinhalte</span></h1>';
       if (!leer(stand)) h += '<button class="hell" data-a="meincode">Mein Code</button>';
     }
     el('kopf').innerHTML = h;
@@ -258,7 +256,7 @@ if (typeof document !== 'undefined') (function () {
     if (wahl) h += '<h2>Wahl · Such dir aus, was zu dir passt</h2><div class="zwei">' + wahl + '</div>';
     if (alleFertig()) h += '<div class="karte"><p class="gross">Alle Stationen geschafft.</p></div>';
     el('inhalt').innerHTML = h;
-    el('fuss').innerHTML = '<button class="text" data-a="neu">Neu anfangen</button> <button class="text" data-a="lehrkraft">Lehrkraft</button>';
+    el('fuss').innerHTML = '<button class="text" data-a="neu">Neu anfangen</button>';
   }
 
   function station() {
@@ -284,42 +282,9 @@ if (typeof document !== 'undefined') (function () {
     el('fuss').innerHTML = '';
   }
 
-  function lehrkraft() {
-    var h = '<div class="karte"><strong>Code für einen beliebigen Stand</strong>' +
-            '<p class="klein">Für Kinder, die ihren Code verloren haben. Ankreuzen, was erledigt ist.</p>';
-    LL.stationen.forEach(function (s, i) {
-      h += '<label class="wahl"><input type="checkbox" data-lk="' + i + '"> Station ' + (i + 1) + ' · ' + esc(s.titel) + '</label>';
-    });
-    h += '<div class="reihe" style="margin-top:8px"><label>Angefangen: <select id="lkcur"><option value="0">keine</option>';
-    LL.stationen.forEach(function (s, i) { h += '<option value="' + (i + 1) + '">Station ' + (i + 1) + '</option>'; });
-    h += '</select></label><label>Etappe: <select id="lket"><option>1</option><option>2</option><option>3</option></select></label></div>';
-    h += '<div id="lkaus"></div></div>';
-    h += '<div class="karte"><strong>Codes der Pflichtstrecke</strong><table><tr><th>Stand</th><th>Code</th></tr>';
-    var done = 0;
-    LL.stationen.forEach(function (s, i) {
-      if (s.art !== 'pflicht') return;
-      for (var e = 1; e < s.teile.length; e++) h += '<tr><td>Station ' + (i + 1) + ' · Etappe ' + e + '</td><td class="c">' + Code.bilden({ done: done, cur: i + 1, et: e }) + '</td></tr>';
-      done |= 1 << i;
-      h += '<tr><td><strong>Station ' + (i + 1) + ' geschafft</strong></td><td class="c">' + Code.bilden({ done: done, cur: 0, et: 0 }) + '</td></tr>';
-    });
-    h += '</table></div>';
-    el('inhalt').innerHTML = h;
-    el('fuss').innerHTML = '';
-    lkRechne();
-  }
-  function lkRechne() {
-    var done = 0;
-    document.querySelectorAll('[data-lk]').forEach(function (c) { if (c.checked) done |= 1 << (+c.dataset.lk); });
-    var cur = +el('lkcur').value, st = cur ? { done: done, cur: cur, et: +el('lket').value } : { done: done, cur: 0, et: 0 };
-    el('lket').disabled = !cur;
-    el('lkaus').innerHTML = Code.gueltig(st)
-      ? (leer(st) ? '<p class="klein">Noch nichts angekreuzt.</p>' : '<div class="code">' + Code.bilden(st) + '</div><p class="klein">' + esc(beschreibe(st)) + '</p>')
-      : '<p class="meldung fehler">Diesen Stand kann es nicht geben (Reihenfolge der Pflichtstationen, Wahl erst nach der Pflicht, Etappe).</p>';
-  }
-
   function zeichne() {
     kopf();
-    ({ karte: karte, station: station, fertig: fertig, lehrkraft: lehrkraft })[sicht.name]();
+    ({ karte: karte, station: station, fertig: fertig })[sicht.name]();
     window.scrollTo(0, 0);
   }
 
@@ -338,7 +303,6 @@ if (typeof document !== 'undefined') (function () {
 
   var aktion = {
     karte: function () { sicht.name = 'karte'; zeichne(); },
-    lehrkraft: function () { sicht.name = 'lehrkraft'; zeichne(); },
     dialogzu: dialogZu,
     meincode: function () { zeigeCode('Mein Code'); },
     zwischen: function () { zeigeCode('Zwischenstand'); },
@@ -379,8 +343,6 @@ if (typeof document !== 'undefined') (function () {
     if (b && !b.disabled && aktion[b.dataset.a]) aktion[b.dataset.a](b);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'codefeld') aktion['codeprüfen'](); });
-  document.addEventListener('input', function (e) { if (e.target.closest('#inhalt') && sicht.name === 'lehrkraft') lkRechne(); });
-  document.addEventListener('change', function (e) { if (sicht.name === 'lehrkraft') lkRechne(); });
 
   if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(function () {}); }
   if (stand.cur && stand.et > 0) sicht.name = 'station'; else { stand.cur = 0; stand.et = 0; }
