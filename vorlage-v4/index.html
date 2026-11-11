@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lernlandschaft</title>
+<script>
+/* ============================================================
+   DATENBLOCK – nur dieser Block wird je Einsatz gefüllt.
+   Regeln: 00_Regeln/Spezifikationen/Spez_Lernlandschaft.md (Vorlage V4, Testfassung 11.11.2026)
+   Alles unterhalb von "ENDE DATENBLOCK" bleibt unverändert.
+
+   Felder je Station (* = Pflichtfeld):
+   nr*, typ* ("nachlesen" | "simulation" | "buchaufgabe" | "stimmt" | "selbstkontrolle" | "konstruktion" | "produkt" | "abgabe"),
+   pflicht*, titel*, auftrag* (Operatoren **fett**, bis zur ersten Handlung kurz), ziel (Ziel-Halbsatz nach Spez_Zieltypen, du-Form),
+   heft (was ins Heft kommt), buch, merke, sim + vermutung { frage, optionen } + modellgrenze, bild, schritte,
+   kontrolle { art: "auswahl" (optionen: Text oder { text, hinweis }, richtig) | "zahl" (wert, toleranz, einheit) | "zuordnen" (paare) },
+   bestaetigung (Satz „…, weil …“ für die richtige Antwort; die Seite setzt „✓ Richtig.“ davor), tipps [Tipp 1, Tipp 2], loesungsweg, sokommst, weiterueben,
+   heftsatz (Satzanfang für „Wo lag mein Fehler?“), vergleich (was beim Checkpoint verglichen wird), code* (Fachbegriff, keine Ziffer),
+   checkliste (Produktstation), oeffnetMit (Code, der die Station auch ohne Vorgänger öffnet), partnerCode (Wort für zwei),
+   etappen [{ nach (was dann im Heft steht), code (Fachbegriff, keine Ziffer) }] – Zwischenstand; nur in langen Stationen, höchstens zwei (Spez D6),
+   minuten (Zeitansatz; erscheint auf Wahlkacheln), stufe 1–3 und wofuer (nur Wahlstationen: ★ Festigen · ★★ Anwenden · ★★★ Weiterdenken).
+   ============================================================ */
+const LANDSCHAFT = {
+  titel: "Rechtwinklige Dreiecke – Üben",
+  thema: "Trigonometrie (Beispiel)",
+  frage: "Wie findest du im rechtwinkligen Dreieck eine fehlende Seite?",   // erscheint oben auf der Landkarte
+  jahrgang: 7,                       // 5–10: Rahmen, Schriftgröße, Weiche (Spalten bis 7, Liste ab 8). Testfassung: auf 7 gestellt (erster Einsatz NaWi 07)
+  version: "V4 Testfassung 11.11.2026",
+  freischaltung: "nacheinander",     // "nacheinander" (Pflicht der Reihe nach) | "frei" (nach Diagnose, Jg 9/10)
+  checkpoint: true,                  // true → vor dem Prüfen kurz vergleichen (R10); NaWi 07: false
+  partnerCode: false,                // true → Stationen mit partnerCode: "WORT" geben jeder Person eine Hälfte
+  weiche: true,                      // true → Wahlstationen öffnen nach der letzten Pflichtstation (Weiche „Ich will …“)
+  rahmen: "",                        // leer = nach Jahrgang; sonst "erzaehlend" | "duenn" | "sachlich"
+  hinweisProdukt: "Nur für diese Station brauchst du PowerPoint: Deine Datei liegt in deinem OneDrive.",
+  stationen: [
+    { nr: 1, typ: "nachlesen", pflicht: true, minuten: 10, titel: "Seiten im rechtwinkligen Dreieck",
+      auftrag: "**Lies** den Merke-Kasten. **Schreibe** ihn mit eigenen Worten ins Heft. **Entscheide** dann.",
+      ziel: "Du kannst die drei Seiten richtig benennen.",
+      heft: "Merksatz in eigenen Worten.",
+      buch: "S. 124",
+      merke: "Die längste Seite heißt **Hypotenuse**. Sie liegt dem rechten Winkel gegenüber. Die anderen Seiten sind die **Katheten**: Die **Ankathete** liegt am Winkel α an, die **Gegenkathete** liegt α gegenüber.",
+      kontrolle: { art: "auswahl", frage: "Welche Aussage stimmt?",
+        optionen: [{ text: "Die Hypotenuse liegt immer unten.", hinweis: "Die Lage entscheidet nicht – dreh das Dreieck im Kopf." },
+                   "Die Hypotenuse liegt dem rechten Winkel gegenüber.",
+                   { text: "Die Ankathete ist immer die kürzeste Seite.", hinweis: "Welche Kathete die Ankathete ist, hängt vom Winkel ab, nicht von der Länge." }], richtig: 1 },
+      bestaetigung: "Das gilt immer, weil die Hypotenuse als längste Seite dem rechten Winkel gegenüberliegt – egal, wie das Dreieck gedreht ist.",
+      tipps: ["Schau in den Merke-Kasten: Wo liegt die Hypotenuse?", "Dreh das Dreieck im Kopf. Bleibt die längste Seite dieselbe?"],
+      loesungsweg: "Die Lage des Dreiecks spielt keine Rolle. Die Hypotenuse ist immer die Seite gegenüber dem rechten Winkel.",
+      sokommst: "Such zuerst den rechten Winkel. Die Seite gegenüber ist die Hypotenuse.",
+      weiterueben: "Buch S. 124 Nr. 2.",
+      heftsatz: "Mein Fehler war, dass …",
+      vergleich: "Vergleicht eure Merksätze: Stehen alle drei Fachbegriffe darin?",
+      code: "HYPOTENUSE" },
+
+    { nr: 2, typ: "simulation", pflicht: true, minuten: 15, titel: "Was passiert mit G : A?",
+      auftrag: "**Vermute** zuerst. **Verändere** dann α und **notiere** drei Werte in einer Tabelle (α | G : A). **Schreibe**: Je größer α, desto …",
+      ziel: "Du hast einen Je-desto-Satz mit Begründung im Heft.",
+      buch: "S. 123",
+      sim: "steigungsdreieck",
+      etappen: [{ nach: "Meine Vermutung und die Tabelle mit drei Werten stehen im Heft.", code: "STEIGUNG" }],
+      vermutung: { frage: "Was passiert mit G : A, wenn α größer wird?", optionen: ["wird größer", "bleibt gleich", "wird kleiner"] },
+      modellgrenze: "Die Werte sind gerundet. Genau rechnest du im Heft.",
+      kontrolle: { art: "auswahl", frage: "Bei welchem Winkel ist G : A genau 1?",
+        optionen: [{ text: "bei 30°", hinweis: "Bei 30° ist die Gegenkathete kürzer als die Ankathete." }, "bei 45°",
+                   { text: "bei 60°", hinweis: "Bei 60° ist die Gegenkathete schon länger als die Ankathete." },
+                   { text: "bei keinem Winkel", hinweis: "Doch: Bei einem Winkel sind beide Katheten gleich lang." }], richtig: 1 },
+      bestaetigung: "Bei 45° ist G : A = 1, weil dann beide Katheten gleich lang sind.",
+      tipps: ["Wann sind Gegenkathete und Ankathete gleich lang?", "Stell α auf 45° und lies G : A ab."],
+      loesungsweg: "Bei 45° sind beide Katheten gleich lang, also G : A = 1. Bei größeren Winkeln wird die Gegenkathete länger als die Ankathete.",
+      sokommst: "Gleich lange Katheten geben das Verhältnis 1. Such den Winkel, bei dem das passiert.",
+      weiterueben: "Buch S. 126 Nr. 5.",
+      heftsatz: "Mein Fehler war, dass …",
+      vergleich: "Vergleicht eure Je-desto-Sätze: Steht ein „weil“ darin?",
+      code: "TANGENS" },
+
+    { nr: 3, typ: "buchaufgabe", pflicht: true, minuten: 15, titel: "Seite berechnen",
+      auftrag: "**Rechne** Buch S. 129 Nr. 1 blau oder rot ins Heft. **Gib** dein Ergebnis für a) ein.",
+      ziel: "Du kannst eine fehlende Seite mit tan berechnen.",
+      heft: "Rechnung mit Formel und Einheit.",
+      buch: "S. 129 Nr. 1",
+      kontrolle: { art: "zahl", frage: "a) Gesuchte Seite in cm, eine Stelle nach dem Komma:", wert: 7.9, toleranz: 0.15, einheit: "cm" },
+      bestaetigung: "Das passt, weil a = 4,2 cm · tan 62° ≈ 7,9 cm ist.",
+      tipps: ["Welche Seiten kennst du, welche suchst du? Gegenkathete und Ankathete – das passt zu tan.", "Stell die Formel um: a = b · tan α."],
+      loesungsweg: "Gegeben: Ankathete b = 4,2 cm und α = 62°. Gesucht: Gegenkathete a. a = b · tan α = 4,2 cm · tan 62° ≈ 7,9 cm.",
+      sokommst: "Markiere zuerst, welche Seite gegeben und welche gesucht ist. Dann wählst du sin, cos oder tan.",
+      weiterueben: "Buch S. 129 Nr. 2.",
+      heftsatz: "Mein Fehler war, dass …",
+      vergleich: "Vergleicht eure Formeln: Habt ihr dieselbe Winkelfunktion gewählt?",
+      code: "ANKATHETE" },
+
+    { nr: 4, typ: "selbstkontrolle", pflicht: true, minuten: 10, titel: "sin, cos oder tan?",
+      auftrag: "**Tippe** links auf ein Verhältnis, dann rechts auf seinen Namen.",
+      ziel: "Du kannst jedes Seitenverhältnis seinem Namen zuordnen.",
+      heft: "Die drei Verhältnisse als Merkzeile.",
+      kontrolle: { art: "zuordnen", paare: [["Gegenkathete : Hypotenuse", "sin α"], ["Ankathete : Hypotenuse", "cos α"], ["Gegenkathete : Ankathete", "tan α"]] },
+      bestaetigung: "Die Paare passen, weil sin und cos die Hypotenuse brauchen, tan aber nur die beiden Katheten.",
+      tipps: ["Nur ein Verhältnis kommt ohne Hypotenuse aus.", "sin: Gegenkathete durch Hypotenuse. cos: Ankathete durch Hypotenuse."],
+      loesungsweg: "sin α = Gegenkathete : Hypotenuse, cos α = Ankathete : Hypotenuse, tan α = Gegenkathete : Ankathete.",
+      sokommst: "Fang mit tan an: Es ist das einzige Verhältnis ohne Hypotenuse.",
+      weiterueben: "Buch S. 125 Nr. 3.",
+      heftsatz: "Mein Fehler war, dass …",
+      vergleich: "Vergleicht eure Paare: Wo wart ihr unsicher?",
+      code: "KOSINUS" },
+
+    { nr: 5, typ: "produkt", pflicht: true, minuten: 15, titel: "Mein Lösungsweg",
+      auftrag: "**Wähle** eine rote Aufgabe aus Station 3. **Erkläre** im Heft in drei Sätzen, wie du vorgegangen bist.",
+      ziel: "Jemand anderes kann deinen Weg ohne Rückfrage nachrechnen.",
+      heft: "Drei Sätze: gegeben – Formel – Ergebnis mit Einheit.",
+      checkliste: ["Was gegeben ist, steht im ersten Satz.", "Die Formel steht da – mit sin, cos oder tan.", "Das Ergebnis hat eine Einheit."],
+      oeffnetMit: "LOESUNGSWEG",
+      code: "ERGEBNIS" },
+
+    { nr: 6, typ: "buchaufgabe", pflicht: false, stufe: 1, minuten: 10, titel: "Seiten benennen",
+      wofuer: "Festigen: Seiten sicher erkennen.",
+      ziel: "Du erkennst alle drei Seiten auf einen Blick.",
+      auftrag: "**Benenne** in Buch S. 125 Nr. 1 alle Seiten. **Prüfe** mit der Lösung.",
+      heft: "Die Seiten jedes Dreiecks mit Namen.",
+      buch: "S. 125 Nr. 1",
+      loesungsweg: "Hypotenuse: gegenüber dem rechten Winkel. Ankathete: am Winkel. Gegenkathete: gegenüber dem Winkel.",
+      code: "SINUS" },
+
+    { nr: 7, typ: "konstruktion", pflicht: false, stufe: 2, minuten: 15, titel: "Konstruieren und prüfen",
+      wofuer: "Anwenden: Rechnung und Zeichnung vergleichen.",
+      ziel: "Du prüfst eine Rechnung mit einer Zeichnung.",
+      auftrag: "**Konstruiere** ein rechtwinkliges Dreieck mit c = 7 cm und α = 35°. **Miss** a und **vergleiche** mit der Rechnung.",
+      heft: "Konstruktion und Vergleich.",
+      buch: "S. 129 Nr. 4",
+      loesungsweg: "a = 7 cm · sin 35° ≈ 4,0 cm. Messwerte zwischen 3,8 cm und 4,2 cm sind in Ordnung.",
+      code: "PLANSKIZZE" },
+
+    { nr: 8, typ: "stimmt", pflicht: false, stufe: 3, minuten: 10, titel: "Kann sin α größer als 1 sein?",
+      wofuer: "Weiterdenken: eine Behauptung begründet prüfen.",
+      ziel: "Du hast eine begründete Ja/Nein-Antwort im Heft.",
+      auftrag: "„sin α kann größer als 1 sein.“ **Stimmt das? Begründe** im Heft.",
+      heft: "Begründung in einem Satz.",
+      buch: "S. 126 Nr. 7",
+      loesungsweg: "Nein. sin α = Gegenkathete : Hypotenuse. Die Hypotenuse ist die längste Seite, also ist der Bruch kleiner als 1.",
+      code: "KATHETE" }
+  ]
+};
+
+/* SIMULATIONEN – eigene SVG-Zeichnungen. Je Landschaft nach Bedarf ergänzen.
+   Eine Simulation ist eine Funktion (box) → sie zeichnet in den Container. Bedienelemente: class "simctl" (bis zur Vermutung gesperrt). */
+const SIMULATIONEN = {
+  steigungsdreieck: function (box) {
+    box.innerHTML = `
+      <div class="simkopf"><span class="simlabel">α = <output id="simA">35°</output></span>
+        <div class="simregler"><button class="btn klein simctl" data-d="-1" aria-label="Winkel kleiner">−</button>
+        <input type="range" class="simctl" id="simR" min="5" max="85" step="1" value="35" aria-label="Winkel α">
+        <button class="btn klein simctl" data-d="1" aria-label="Winkel größer">+</button></div></div>
+      <svg viewBox="0 24 420 280" class="simsvg" role="img" aria-label="Rechtwinkliges Dreieck mit dem Winkel α">
+        <polygon id="tri" points="40,260 360,260 360,100" fill="#f3f6fa" stroke="#1d2a3a" stroke-width="4" stroke-linejoin="round"/>
+        <path id="rw" d="M340,260 L340,240 L360,240" fill="none" stroke="#1d2a3a" stroke-width="3"/>
+        <path id="arc" d="" fill="none" stroke="#b23a2a" stroke-width="3"/>
+        <text x="64" y="244" font-size="31" fill="#b23a2a">α</text>
+        <text x="120" y="296" font-size="31" fill="#1d2a3a">Ankathete A</text>
+        <text id="tG" x="368" y="190" font-size="31" fill="#1d2a3a">G</text>
+      </svg>
+      <div class="simwerte"><button class="btn sekundaer simctl" id="simZeig">G : A anzeigen</button>
+        <output id="simV" class="simout" hidden></output></div>`;
+    const r = box.querySelector('#simR'), out = box.querySelector('#simA'), tri = box.querySelector('#tri'),
+          arc = box.querySelector('#arc'), tG = box.querySelector('#tG'), v = box.querySelector('#simV');
+    function zeichne() {
+      const a = +r.value, A = 320, G = Math.tan(a * Math.PI / 180) * A, Gmax = 230;
+      const s = G > Gmax ? Gmax / G : 1, Ax = 40 + A * s, Gy = 260 - G * s;
+      tri.setAttribute('points', `40,260 ${Ax},260 ${Ax},${Gy}`);
+      box.querySelector('#rw').setAttribute('d', `M${Ax - 20},260 L${Ax - 20},240 L${Ax},240`);
+      const rad = a * Math.PI / 180, R = 50;
+      arc.setAttribute('d', `M${40 + R},260 A${R},${R} 0 0 0 ${40 + R * Math.cos(rad)},${260 - R * Math.sin(rad)}`);
+      tG.setAttribute('x', Math.min(Ax + 8, 396)); tG.setAttribute('y', (260 + Gy) / 2);
+      out.textContent = a + '°';
+      v.textContent = 'G : A = ' + (G / A).toFixed(2).replace('.', ',');
+    }
+    r.addEventListener('input', zeichne);
+    box.querySelectorAll('[data-d]').forEach(b => b.addEventListener('click', () => { r.value = +r.value + +b.dataset.d; zeichne(); }));
+    box.querySelector('#simZeig').addEventListener('click', () => { v.hidden = false; });
+    zeichne();
+  }
+};
+/* ============================ ENDE DATENBLOCK ============================ */
+</script>
+<style>
+:root { --akzent:#1f6f8b; --akzent-dunkel:#175466; --akzentbg:#e8f1f5; --text:#1d2a3a; --grau:#5f6b7a; --rand:#7a8591; --linie:#c9d1da;
+  --flaeche:#f3f6fa; --ok:#23692a; --okbg:#e6f4e8; --nein:#b23a2a; --neinbg:#fbe9e6; --orange:#a84f00; --orangebg:#fff3e6; --pa:#1f7a70;
+  --grund:20px; --fussh:76px; }
+body.jg56 { --grund:22px; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { margin:0; background:#fff; color:var(--text); font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size:var(--grund); line-height:1.5; -webkit-text-size-adjust:100%; }
+button, input, output { font:inherit; color:inherit; }
+button { touch-action:manipulation; cursor:pointer; }
+p { margin:0; }
+b, strong { font-weight:700; }
+.nowrap, .formel { white-space:nowrap; }
+.btn { min-height:52px; min-width:52px; padding:8px 20px; border-radius:12px; border:2px solid var(--akzent); background:var(--akzent); color:#fff;
+  font-weight:600; line-height:1.25; }
+.btn:active { background:var(--akzent-dunkel); border-color:var(--akzent-dunkel); }
+.btn.sekundaer { background:#fff; color:var(--akzent); }
+.btn.sekundaer:active { background:var(--akzentbg); }
+.btn.klein { padding:0; width:52px; font-size:28px; }
+.btn[disabled] { background:#fff; color:var(--grau); border-color:var(--linie); border-style:dashed; }
+.btn.warnung { background:#fff; color:var(--nein); border-color:var(--nein); }
+/* Kopf und Fortschritt */
+header.kopf { display:flex; align-items:center; gap:12px; padding:8px 16px; border-bottom:2px solid var(--linie); background:#fff; position:sticky; top:0; z-index:5; }
+header.kopf h1 { font-size:28px; line-height:1.25; margin:0; flex:1; font-weight:700; }
+.thema, .typ { font-size:16px; color:var(--grau); border:2px solid var(--rand); border-radius:8px; padding:2px 10px; white-space:nowrap; }
+.leiste { margin:8px 16px 0; display:flex; align-items:center; gap:12px; }
+.fortschritt { flex:1; height:10px; background:var(--linie); border-radius:5px; overflow:hidden; }
+.fortschritt > div { height:100%; background:var(--akzent); width:0; transition:width .3s; }
+.fortschritt-text { font-size:16px; color:var(--grau); white-space:nowrap; }
+main { padding:12px 16px calc(var(--fussh) + 16px); }
+/* Landkarte */
+.frage-kasten { border-left:8px solid var(--akzent); background:var(--akzentbg); border-radius:10px; padding:10px 16px; margin:0 0 10px; font-weight:600; }
+.rahmen { margin:0 0 6px; }
+.laufzettel { color:var(--grau); margin:0 0 14px; }
+.hinweiszeile { color:var(--grau); margin:8px 0 0; }
+h2.abschnitt { font-size:22px; line-height:1.3; margin:18px 0 10px; }
+.karte { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px; }
+.kachel { position:relative; min-height:112px; border:3px solid var(--rand); border-radius:16px; background:#fff; text-align:left; padding:12px 16px;
+  display:flex; flex-direction:column; gap:4px; color:var(--text); }
+.kachel .kopfzeile { display:flex; align-items:center; gap:10px; }
+.kachel .nr { font-size:30px; font-weight:800; color:var(--akzent); line-height:1; }
+.kachel .zustand { margin-left:auto; font-size:16px; font-weight:600; border-radius:8px; padding:1px 8px; }
+.kachel .kt { font-weight:600; line-height:1.3; }
+.kachel .ks { font-size:16px; color:var(--grau); }
+.kachel.erledigt { border-color:var(--ok); background:var(--okbg); }
+.kachel.erledigt .zustand { color:var(--ok); }
+.kachel.zu { border-style:dashed; background:var(--flaeche); }
+.kachel.zu .zustand { color:var(--grau); }
+.kachel.naechste { border-color:var(--akzent); box-shadow:0 0 0 3px var(--akzentbg); }
+.kachel .sterne, .stufe .sterne { color:var(--orange); font-weight:800; letter-spacing:.05em; }
+.weiche-text { margin:0 0 10px; }
+.weiche.spalten { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; align-items:start; }
+.weiche.spalten .spalte { display:grid; gap:10px; }
+.weiche.liste .stufen { display:grid; gap:8px; margin-bottom:12px; }
+.weiche.liste .karte { grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); }
+.stufe { min-height:52px; width:100%; text-align:left; border:2px solid var(--rand); border-radius:12px; background:#fff; padding:8px 14px; color:var(--text); }
+.stufe.gewaehlt { border-color:var(--orange); border-width:3px; background:var(--orangebg); }
+.stufe .kaestchen { font-weight:700; margin-right:6px; }
+.wahl-zu { color:var(--grau); margin:0 0 10px; }
+.unten { margin-top:22px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+/* Station */
+.station { display:grid; gap:14px; align-items:start; grid-template-columns:1fr; grid-template-areas:"auftrag" "material" "pruef"; }
+.f-auftrag { grid-area:auftrag; } .f-material { grid-area:material; } .f-pruef { grid-area:pruef; }
+.f-auftrag, .f-material, .f-pruef { display:grid; gap:14px; align-content:start; min-width:0; }
+.f-material:empty { display:none; }
+@media (min-width:760px) {
+  .station { grid-template-columns:1fr 1fr; grid-template-rows:auto 1fr; grid-template-areas:"auftrag pruef" "material pruef"; }
+  .station.sim { grid-template-areas:"auftrag material" "pruef material"; }
+  .station.zu-ordnen { grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:"auftrag" "material" "pruef"; }
+}
+@media (min-width:1000px) {
+  .station.sim { grid-template-columns:1fr 1.1fr 1fr; grid-template-rows:auto; grid-template-areas:"auftrag material pruef"; }
+  .station.zu-ordnen { grid-template-columns:.8fr 1.2fr; grid-template-rows:auto 1fr; grid-template-areas:"auftrag pruef" "material pruef"; }
+}
+.kasten { border:2px solid var(--rand); border-radius:14px; padding:10px 16px 14px; background:#fff; }
+.kasten h2 { font-size:var(--grund); line-height:1.4; margin:0 0 4px; color:var(--akzent-dunkel); font-weight:700; }
+.auftrag { }
+.ziel { margin-top:6px; font-weight:600; }
+.ziel .pfeil { color:var(--akzent); }
+.heftzeile { margin-top:6px; }
+.buch { display:inline-block; margin-top:8px; font-size:16px; color:var(--grau); border:2px solid var(--rand); border-radius:8px; padding:0 10px; }
+.merke { background:var(--orangebg); border-left:10px solid var(--orange); border-radius:10px; padding:10px 16px; }
+.merke h2 { color:var(--orange); }
+.frage { font-weight:600; margin:0 0 10px; }
+.optionen { display:grid; gap:10px; }
+.opt { min-height:52px; width:100%; text-align:left; padding:8px 16px; border:2px solid var(--rand); border-radius:12px; background:#fff; color:var(--text); line-height:1.35; }
+.opt.gewaehlt { border-color:var(--akzent); border-width:3px; background:var(--akzentbg); }
+.opt.falsch { border-color:var(--nein); background:var(--neinbg); color:var(--nein); }
+.opt.richtig, .opt.fest { border-color:var(--ok); background:var(--okbg); color:var(--ok); }
+.opt .mark { float:right; font-weight:700; margin-left:8px; }
+.zuordnen { display:grid; grid-template-columns:minmax(0, 1.3fr) minmax(0, 1fr); gap:10px 14px; }
+.zuordnen .opt.paar { border-color:var(--akzent); background:var(--akzentbg); }
+.zuordnen .opt.aktiv { border-color:var(--orange); border-width:3px; }
+.zahlfeld { display:flex; align-items:center; gap:10px; }
+input.zahl { font-size:26px; min-height:56px; width:180px; padding:6px 12px; border:2px solid var(--rand); border-radius:10px; background:#fff; }
+input.zahl:focus, .dialog input:focus { outline:3px solid var(--akzent); outline-offset:2px; }
+.vergleich { display:flex; gap:12px; align-items:center; border:2px solid var(--pa); border-radius:12px; padding:8px 12px; margin-top:10px; }
+.vergleich img { width:44px; height:44px; flex:none; }
+.vergleich .titel { font-weight:700; color:var(--pa); }
+.rueck { margin-top:10px; }
+.rueck .meldung { padding:8px 14px; border-radius:12px; border:2px solid; }
+.rueck .ok { background:var(--okbg); color:var(--ok); border-color:var(--ok); }
+.rueck .nein { background:var(--neinbg); color:var(--nein); border-color:var(--nein); }
+.rueck .info { background:var(--flaeche); color:var(--text); border-color:var(--rand); }
+.rueck .sym { font-weight:800; margin-right:4px; }
+.hilfe { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; align-items:center; }
+.hilfe .btn { padding:8px 12px; }
+.hilfe .titel { font-size:18px; color:var(--grau); margin-right:2px; }
+.hilfetext { display:grid; gap:8px; margin-top:10px; }
+.hilfetext .stufe-box { border:2px solid var(--rand); border-radius:12px; padding:8px 14px; background:var(--flaeche); }
+.loesung { border:2px solid var(--akzent); border-radius:12px; padding:10px 14px; margin-top:10px; display:grid; gap:8px; }
+.loesung .teil b { color:var(--akzent-dunkel); }
+.heftauftrag { border-left:8px solid var(--orange); background:var(--orangebg); border-radius:8px; padding:8px 12px; font-weight:600; }
+.codebox { margin-top:12px; border:3px solid var(--ok); background:var(--okbg); border-radius:14px; padding:10px 16px; text-align:center; }
+.codebox .code { font-size:34px; font-weight:800; letter-spacing:.06em; color:var(--ok); word-break:break-all; line-height:1.3; }
+.codebox .hint { font-size:18px; color:var(--text); }
+.checkliste { display:grid; gap:10px; }
+.check { min-height:52px; width:100%; text-align:left; padding:8px 14px; border:2px solid var(--rand); border-radius:12px; background:#fff; color:var(--text); line-height:1.35; }
+.check .kaestchen { font-weight:700; margin-right:6px; }
+.check.an { border-color:var(--ok); background:var(--okbg); }
+ol.schritte { padding-left:26px; margin:0; } ol.schritte li { margin:6px 0; }
+.vermutung .optionen { margin-top:6px; grid-template-columns:repeat(auto-fit, minmax(96px, 1fr)); }
+.vermutung .opt { text-align:center; padding:6px 8px; }
+.vm-notiz { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.simbox { margin-top:8px; }
+.simkopf { display:flex; flex-wrap:nowrap; gap:10px; align-items:center; }
+.simlabel { white-space:nowrap; }
+.simregler { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+input[type=range] { flex:1; min-width:60px; height:52px; -webkit-appearance:none; appearance:none; background:transparent; }
+input[type=range]::-webkit-slider-runnable-track { height:10px; background:var(--rand); border-radius:5px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:44px; height:44px; border-radius:50%; background:var(--akzent); margin-top:-17px; border:3px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); }
+.simsvg { width:100%; max-height:20vh; display:block; margin:2px auto; }
+.simwerte { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.simout { font-size:24px; font-weight:700; }
+.modellgrenze { color:var(--grau); margin-top:4px; }
+/* Fuß */
+footer.fuss { position:fixed; left:0; right:0; bottom:0; min-height:var(--fussh); background:#fff; border-top:2px solid var(--linie);
+  display:flex; align-items:center; gap:12px; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); z-index:5; }
+footer .haupt { margin-left:auto; min-width:180px; font-size:22px; }
+footer .meta { font-size:16px; color:var(--grau); }
+/* Code-Dialog */
+.dialog { position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; z-index:20; padding:16px; }
+.dialog .box { background:#fff; border-radius:16px; padding:18px 20px; max-width:520px; width:100%; display:grid; gap:12px; }
+.dialog h2 { margin:0; font-size:26px; line-height:1.25; }
+.dialog input { font-size:26px; min-height:56px; width:100%; padding:6px 12px; border:2px solid var(--rand); border-radius:10px; letter-spacing:.04em; }
+.dialog .knoepfe { display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap; }
+.unsichtbar { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function () {
+  const L = LANDSCHAFT, app = document.getElementById('app');
+  const PA = "data:image/png;base64,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";
+  if ((L.jahrgang || 7) <= 6) document.body.classList.add('jg56');
+  const TYPNAME = { nachlesen: "Nachlesen + Selbsttest", simulation: "Simulation", buchaufgabe: "Buchaufgabe", stimmt: "Stimmt das?",
+    selbstkontrolle: "Selbstkontrolle", konstruktion: "Konstruktion", produkt: "Produkt", abgabe: "Abgabe" };
+  const STUFE = { 1: { sterne: "★", name: "Festigen", wille: "Ich will es leichter." }, 2: { sterne: "★★", name: "Anwenden", wille: "Ich will so weitermachen." },
+                  3: { sterne: "★★★", name: "Weiterdenken", wille: "Ich will eine Herausforderung." } };
+  const rahmen = L.rahmen || (L.jahrgang <= 6 ? "erzaehlend" : L.jahrgang <= 8 ? "duenn" : "sachlich");
+  const RAHMENTEXT = {
+    erzaehlend: "Deine Expedition: Jede Station ist ein Ort auf der Karte. Mit jedem Code sammelst du einen Schlüssel.",
+    duenn: "Bearbeite die Pflichtstationen der Reihe nach. Jeder Code kommt in deinen Laufzettel im Heft.",
+    sachlich: "Pflichtstationen in Reihenfolge, Wahlstationen danach. Codes in den Laufzettel im Heft eintragen."
+  };
+  const pflicht = L.stationen.filter(s => s.pflicht && s.typ !== 'abgabe');
+  const wahl = L.stationen.filter(s => !s.pflicht);
+  const KEY = 'll4_' + L.titel;
+  const LEER = () => ({ erledigt: {}, versuche: {}, offen: {}, partner: {}, etappe: {}, aktuell: null });
+  const hatEtappen = L.stationen.some(s => s.etappen && s.etappen.length);
+  let zustand = LEER();
+  try { const g = localStorage.getItem(KEY); if (g) zustand = Object.assign(LEER(), JSON.parse(g)); } catch (e) {}
+  function speichern() { try { localStorage.setItem(KEY, JSON.stringify(zustand)); } catch (e) {} }
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  // **fett** und Formeln wie „G : A = 1“ zusammenhalten (kein Umbruch mitten in der Formel)
+  function md(t) {
+    return esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/([A-Za-zÄÖÜäöüαβγ0-9,]+(?:\s?(?:=|≈|·)\s?| : )[A-Za-zÄÖÜäöüαβγ0-9,°]+(?:(?:\s?(?:=|≈|·)\s?| : )[A-Za-zÄÖÜäöüαβγ0-9,°]+)*)/g, '<span class="formel">$1</span>');
+  }
+  function istErledigt(s) { return !!zustand.erledigt[s.nr]; }
+  function pflichtFertig() { return pflicht.every(istErledigt); }
+  function istFrei(s) {
+    if (zustand.offen[s.nr]) return true;
+    if (!s.pflicht) return L.weiche ? pflichtFertig() : true;
+    if (s.typ === 'abgabe') return pflicht.every(istErledigt);
+    if (L.freischaltung === 'frei') return true;
+    const i = pflicht.indexOf(s); return i <= 0 || istErledigt(pflicht[i - 1]);
+  }
+  function fortschritt() { return { n: pflicht.filter(istErledigt).length, von: pflicht.length }; }
+  function naechstePflicht() { return pflicht.find(s => !istErledigt(s)); }
+  function sperrGrund(s) {
+    if (!s.pflicht) return 'Wahlstationen öffnen, wenn alle Pflichtstationen erledigt sind.';
+    const i = pflicht.indexOf(s), vor = pflicht[i - 1];
+    return vor ? `Diese Station ist noch zu. Erledige zuerst Station ${vor.nr} – oder gib ihren Code aus deinem Laufzettel ein.` : 'Diese Station ist noch zu.';
+  }
+
+  /* ---------- Landkarte ---------- */
+  function zeigeKarte() {
+    zustand.aktuell = null; speichern();
+    const f = fortschritt(), n = naechstePflicht();
+    const pf = pflicht.filter(s => s.typ !== 'produkt'), produkt = pflicht.filter(s => s.typ === 'produkt');
+    app.innerHTML = `
+      <header class="kopf"><h1>${esc(L.titel)}</h1><span class="thema">${esc(L.thema || '')}</span></header>
+      <div class="leiste"><div class="fortschritt" aria-hidden="true"><div style="width:${100 * f.n / f.von}%"></div></div>
+        <span class="fortschritt-text">${f.n} von ${f.von} Pflichtstationen erledigt</span></div>
+      <main>
+        ${L.frage ? `<p class="frage-kasten">Darum geht es: ${md(L.frage)}</p>` : ''}
+        <p class="rahmen">${RAHMENTEXT[rahmen]}</p>
+        <p class="laufzettel">Laufzettel im Heft – je Station eine Zeile: Station · Code · Wie sicher? (☺ sicher · 😐 unsicher · ? nicht gelöst) · Datum${hatEtappen ? '. Darunter ein Feld „Zwischenstand“ (Bleistift).' : ''}</p>
+        <h2 class="abschnitt">Pflichtstationen – der Reihe nach</h2>
+        <div class="karte">${pf.concat(produkt).map(kachel).join('')}</div>
+        ${wahl.length ? wahlBereich() : ''}
+        <div class="unten"><button class="btn sekundaer" id="reset">Neu starten</button><span class="meta" id="resetText"></span></div>
+      </main>
+      <footer class="fuss"><button class="btn sekundaer" id="codeEingabe">Code eingeben</button><span class="meta">${esc(L.version)}</span>
+        ${n ? `<button class="btn haupt" id="weiter">Station ${n.nr} ›</button>` : ''}</footer>`;
+    app.querySelectorAll('.kachel').forEach(k => k.addEventListener('click', () => {
+      const s = L.stationen.find(x => x.nr == k.dataset.nr);
+      if (!istFrei(s)) { dialogCode(s, sperrGrund(s)); return; }
+      zeigeStation(s);
+    }));
+    app.querySelectorAll('.stufe').forEach(b => b.addEventListener('click', () => {
+      app.querySelectorAll('.stufe').forEach(x => { x.classList.remove('gewaehlt'); x.setAttribute('aria-pressed', 'false'); x.querySelector('.kaestchen').textContent = '☐'; });
+      b.classList.add('gewaehlt'); b.setAttribute('aria-pressed', 'true'); b.querySelector('.kaestchen').textContent = '☒';
+    }));
+    const w = app.querySelector('#weiter'); if (w) w.addEventListener('click', () => zeigeStation(n));
+    app.querySelector('#codeEingabe').addEventListener('click', () => dialogCode(null, 'Du hast schon früher gearbeitet? Gib den letzten Code aus deinem Laufzettel ein. Bei den Pflichtstationen reicht der letzte.'));
+    let scharf = null;
+    app.querySelector('#reset').addEventListener('click', e => {
+      const b = e.currentTarget, t = app.querySelector('#resetText');
+      if (!scharf) { b.classList.add('warnung'); b.textContent = 'Wirklich löschen?'; t.textContent = 'Noch einmal tippen löscht den Fortschritt auf diesem Gerät. Dein Laufzettel im Heft bleibt.';
+        scharf = setTimeout(() => { scharf = null; b.classList.remove('warnung'); b.textContent = 'Neu starten'; t.textContent = ''; }, 5000); return; }
+      clearTimeout(scharf); zustand = LEER(); speichern(); zeigeKarte();
+    });
+  }
+  function zustandText(s) { return istErledigt(s) ? '✓ erledigt' : !istFrei(s) ? 'noch zu' : 'offen'; }
+  function kachel(s) {
+    const n = naechstePflicht();
+    const cls = ['kachel', istErledigt(s) ? 'erledigt' : '', !istFrei(s) ? 'zu' : '', n === s ? 'naechste' : ''].join(' ');
+    const unter = s.pflicht ? `${TYPNAME[s.typ]}${s.buch ? ', Buch ' + esc(s.buch) : ''}`
+      : `${s.wofuer ? esc(s.wofuer) : TYPNAME[s.typ]}${s.minuten ? ' (etwa ' + s.minuten + ' min)' : ''}`;
+    return `<button class="${cls}" data-nr="${s.nr}">
+      <span class="kopfzeile"><span class="nr">${s.nr}</span>${s.stufe ? `<span class="sterne" aria-label="${STUFE[s.stufe].name}">${STUFE[s.stufe].sterne}</span>` : ''}<span class="zustand">${zustandText(s)}</span></span>
+      <span class="kt">${md(s.titel)}</span><span class="ks">${unter}</span></button>`;
+  }
+  function wahlBereich() {
+    const offen = !L.weiche || pflichtFertig();
+    const titel = `<h2 class="abschnitt">Wahlaufgaben – du wählst</h2>`;
+    if (!offen) return `${titel}<p class="wahl-zu">Sie öffnen, wenn du alle Pflichtstationen erledigt hast. Antworten ins Heft, weiter im Lernbüro.</p><div class="karte">${wahl.map(kachel).join('')}</div>`;
+    const stufen = [1, 2, 3].filter(st => wahl.some(s => s.stufe === st));
+    const knopf = st => `<button class="stufe" data-stufe="${st}" aria-pressed="false"><span class="kaestchen">☐</span>${STUFE[st].wille} → <span class="sterne">${STUFE[st].sterne}</span>${st === 1 && pflicht[0] && pflicht[0].buch ? ' (lies vorher den Merke-Kasten noch einmal)' : ''}</button>`;
+    if (!stufen.length) return `${titel}<div class="karte">${wahl.map(kachel).join('')}</div>`;
+    if (L.jahrgang <= 7) return `${titel}<p class="weiche-text">Antworten ins Heft, weiter im Lernbüro.</p>
+      <div class="weiche spalten">${stufen.map(st => `<div class="spalte">${knopf(st)}${wahl.filter(s => s.stufe === st).map(kachel).join('')}</div>`).join('')}</div>`;
+    return `${titel}<p class="weiche-text">Antworten ins Heft, weiter im Lernbüro.</p><div class="weiche liste"><div class="stufen">${stufen.map(knopf).join('')}</div>
+      <div class="karte">${wahl.map(kachel).join('')}</div></div>`;
+  }
+  // Pflicht nacheinander: Der Code einer Pflichtstation gilt auch für alle Pflichtstationen davor (Spez D8).
+  // Ausnahme: Stationen mit Öffnungscode (oeffnetMit) – sie sind auch ohne Vorgänger erreichbar.
+  function davorErledigt(s) {
+    if (!s.pflicht || s.oeffnetMit || L.freischaltung !== 'nacheinander') return;
+    pflicht.slice(0, pflicht.indexOf(s)).forEach(p => { zustand.erledigt[p.nr] = true; });
+  }
+  function dialogZwischen(s) {
+    const d = document.createElement('div'); d.className = 'dialog'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'dlgTitel');
+    d.innerHTML = `<div class="box"><h2 id="dlgTitel">Zwischenstand</h2><p>Was steht schon in deinem Heft? Tippe es an.</p>
+      <div class="checkliste">${s.etappen.map((e, i) => `<button class="check" data-i="${i}" aria-pressed="false"><span class="kaestchen">☐</span>${md(e.nach)}</button>`).join('')}</div>
+      <div id="zwCode" role="status" aria-live="polite"><p>Noch nicht so weit? Dann gilt der Code deiner letzten Station.</p></div>
+      <div class="knoepfe"><button class="btn" id="dlgZu">Schließen</button></div></div>`;
+    document.body.appendChild(d);
+    d.querySelector('#dlgZu').addEventListener('click', () => d.remove());
+    const ch = d.querySelectorAll('.check');
+    ch.forEach(b => b.addEventListener('click', () => {
+      const i = +b.dataset.i;
+      ch.forEach((x, k) => { const an = k <= i; x.classList.toggle('an', an); x.setAttribute('aria-pressed', an); x.querySelector('.kaestchen').textContent = an ? '☑' : '☐'; });
+      zustand.etappe[s.nr] = i + 1; speichern();
+      d.querySelector('#zwCode').innerHTML = `<div class="codebox"><div>Dein Zwischenstand für Station ${s.nr}:</div><div class="code">${esc(s.etappen[i].code)}</div>
+        <div class="hint">Trag ihn mit Bleistift in das Feld „Zwischenstand“ auf deinem Laufzettel ein. Damit startest du wieder in Station ${s.nr}.</div></div>`;
+    }));
+  }
+  function dialogCode(station, text) {
+    const d = document.createElement('div'); d.className = 'dialog'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'dlgTitel');
+    d.innerHTML = `<div class="box"><h2 id="dlgTitel">Code eingeben</h2><p>${esc(text)}</p>
+      <input type="text" id="dlgCode" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Code">
+      <p id="dlgMsg" role="status" aria-live="polite"></p>
+      <div class="knoepfe"><button class="btn sekundaer" id="dlgAbbr">Abbrechen</button><button class="btn" id="dlgOk">Code prüfen</button></div></div>`;
+    document.body.appendChild(d);
+    const inp = d.querySelector('#dlgCode'); setTimeout(() => inp.focus(), 50);
+    d.querySelector('#dlgAbbr').addEventListener('click', () => d.remove());
+    const pruefe = () => {
+      const c = inp.value.trim().toUpperCase().replace(/\s+/g, '');
+      if (!c) { d.querySelector('#dlgMsg').textContent = 'Gib zuerst einen Code ein.'; return; }
+      const auf = L.stationen.find(x => x.oeffnetMit && x.oeffnetMit.toUpperCase() === c);
+      if (auf) { zustand.offen[auf.nr] = true; speichern(); d.remove(); zeigeStation(auf); return; }
+      // Zwischenstand: Codewort einer Etappe öffnet die Station an dieser Stelle
+      for (const x of L.stationen) {
+        const i = (x.etappen || []).findIndex(e => e.code && e.code.toUpperCase() === c);
+        if (i < 0) continue;
+        davorErledigt(x);
+        if (!istFrei(x)) zustand.offen[x.nr] = true;
+        if (!istErledigt(x)) zustand.etappe[x.nr] = Math.max(zustand.etappe[x.nr] || 0, i + 1);
+        speichern(); d.remove(); zeigeStation(x); return;
+      }
+      const s = L.stationen.find(x => x.code && x.code.toUpperCase() === c);
+      if (!s) { d.querySelector('#dlgMsg').textContent = 'Diesen Code gibt es nicht. Schau noch einmal in deinen Laufzettel.'; return; }
+      davorErledigt(s);
+      zustand.erledigt[s.nr] = true; speichern(); d.remove(); zeigeKarte();
+    };
+    d.querySelector('#dlgOk').addEventListener('click', pruefe);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') pruefe(); });
+  }
+
+  /* ---------- Station ---------- */
+  function setHaupt(id, text, fn, aus) {
+    const alt = app.querySelector('footer .haupt'); if (alt) alt.remove();
+    const b = document.createElement('button'); b.className = 'btn haupt'; b.id = id; b.textContent = text; if (aus) b.disabled = true;
+    b.addEventListener('click', fn); app.querySelector('footer.fuss').appendChild(b); return b;
+  }
+  function weiterNach(s) {
+    const n = naechstePflicht();
+    if (n && n !== s) setHaupt('weiter', `Weiter zu Station ${n.nr} ›`, () => zeigeStation(n));
+    else setHaupt('weiter', 'Zur Karte ›', zeigeKarte);
+  }
+  function zeigeStation(s) {
+    if (!istFrei(s)) { zeigeKarte(); dialogCode(s, sperrGrund(s)); return; }
+    zustand.aktuell = s.nr; speichern();
+    const f = fortschritt();
+    app.innerHTML = `
+      <header class="kopf"><button class="btn sekundaer" id="zurueck">‹ Karte</button><h1>${s.nr}. ${md(s.titel)}</h1><span class="typ">${s.stufe ? STUFE[s.stufe].sterne + ' ' + STUFE[s.stufe].name : TYPNAME[s.typ]}</span></header>
+      <div class="leiste"><div class="fortschritt" aria-hidden="true"><div style="width:${100 * f.n / f.von}%"></div></div>
+        <span class="fortschritt-text">${f.n} von ${f.von} Pflichtstationen erledigt</span></div>
+      <main><div class="station ${s.sim ? 'sim' : (s.kontrolle && s.kontrolle.art === 'zuordnen') ? 'zu-ordnen' : ''}"><div class="f-auftrag" id="fa"></div><div class="f-material" id="fm"></div><div class="f-pruef" id="rechts"></div></div></main>
+      <footer class="fuss">${s.etappen && s.etappen.length && !istErledigt(s) ? '<button class="btn sekundaer" id="zwischen">Zwischenstand</button>' : ''}<span class="meta">${esc(L.version)}</span></footer>`;
+    app.querySelector('#zurueck').addEventListener('click', zeigeKarte);
+    const zw = app.querySelector('#zwischen'); if (zw) zw.addEventListener('click', () => dialogZwischen(s));
+    const etappe = !istErledigt(s) && s.etappen ? s.etappen[(zustand.etappe[s.nr] || 0) - 1] : null;
+    const fa = app.querySelector('#fa'), fm = app.querySelector('#fm'), rechts = app.querySelector('#rechts');
+    // links: Auftrag (mit Ziel und Heftzeile) und Material
+    let mat = '';
+    if (s.merke) mat = `<section class="merke"><h2>Merke</h2><div>${md(s.merke)}</div></section>`;
+    if (s.sim) mat = `<section class="kasten" aria-label="Simulation">${s.vermutung ? vermutungHtml(s) : ''}<div class="simbox${s.vermutung && !zustand.erledigt[s.nr] && !etappe ? ' gesperrt' : ''}" id="simbox"></div>
+      ${s.modellgrenze ? `<p class="modellgrenze">Grenze des Modells: ${md(s.modellgrenze)}</p>` : ''}</section>`;
+    if (s.bild) mat = `<section class="kasten"><h2>Abbildung</h2><img src="${s.bild}" alt="" style="width:100%"></section>`;
+    if (s.schritte) mat = `<section class="kasten"><h2>So geht es</h2><ol class="schritte">${s.schritte.map(x => '<li>' + md(x) + '</li>').join('')}</ol></section>`;
+    fa.innerHTML = `${etappe ? `<div class="rueck"><p class="meldung info"><span class="sym">Zwischenstand:</span> ${md(etappe.nach)} Mach an dieser Stelle weiter.</p></div>` : ''}<section class="kasten"><h2>Auftrag</h2><p class="auftrag">${md(s.auftrag)}</p>
+        ${s.ziel ? `<p class="ziel"><span class="pfeil">→</span> ${md(s.ziel)}</p>` : ''}
+        ${s.heft ? `<p class="heftzeile">Ins Heft: ${md(s.heft)}</p>` : ''}
+        ${s.buch ? `<span class="buch">Buch ${esc(s.buch)}</span>` : ''}</section>`;
+    fm.innerHTML = mat;
+    if (s.sim && SIMULATIONEN[s.sim]) { SIMULATIONEN[s.sim](fm.querySelector('#simbox')); if (s.vermutung && !zustand.erledigt[s.nr] && !etappe) simSperren(fm, true); bindeVermutung(s, fm); }
+    if (s.typ === 'abgabe') {
+      rechts.innerHTML = `<section class="kasten"><h2>Abgabe</h2><p>${md(L.hinweisProdukt)}</p></section>`;
+      setHaupt('weiter', 'Zur Karte ›', zeigeKarte); return; }
+    if (istErledigt(s)) { rechts.innerHTML = codeBox(s, 'Schon erledigt – dein Code zur Erinnerung.'); weiterNach(s); return; }
+    if (s.checkliste) { checklisteStation(s, rechts); return; }
+    if (!s.kontrolle) { vergleichStation(s, rechts); return; }
+    pruefStation(s, rechts);
+  }
+  function vermutungHtml(s) {
+    return `<div class="vermutung" id="vermutung"><p class="frage">Erst vermuten: ${md(s.vermutung.frage)}</p>
+      <div class="optionen">${s.vermutung.optionen.map((o, i) => `<button class="opt vm" data-i="${i}" aria-pressed="false">${md(o)}</button>`).join('')}</div></div>`;
+  }
+  function simSperren(box, an) {
+    const sb = box.querySelector('#simbox'); if (!sb) return;
+    sb.classList.toggle('gesperrt', an);
+    sb.querySelectorAll('.simctl').forEach(el => { el.disabled = an; });
+  }
+  function bindeVermutung(s, box) {
+    const v = box.querySelector('#vermutung'); if (!v) return;
+    const liste = v.querySelector('.optionen'), frage = v.querySelector('.frage');
+    v.querySelectorAll('.vm').forEach(b => b.addEventListener('click', () => {
+      liste.hidden = true; frage.hidden = true;
+      let n = v.querySelector('.vm-notiz');
+      if (!n) { n = document.createElement('div'); n.className = 'vm-notiz'; v.appendChild(n); }
+      n.innerHTML = `<p><b>Deine Vermutung:</b> „${md(s.vermutung.optionen[+b.dataset.i])}“. Schreib sie ins Heft.</p><button class="btn sekundaer" id="vmAendern">Ändern</button>`;
+      n.hidden = false;
+      n.querySelector('#vmAendern').addEventListener('click', () => { liste.hidden = false; frage.hidden = false; n.hidden = true; });
+      simSperren(box, false);
+    }));
+  }
+  function vergleichBox(s) {
+    if (!L.checkpoint) return '';
+    return `<div class="vergleich"><img src="${PA}" alt="Partnerarbeit"><div><span class="titel">Vor dem Code vergleichen:</span> mit einem Partner, der dieselbe Station bearbeitet hat. ${md(s.vergleich || 'Vergleicht eure Ergebnisse im Heft.')}</div></div>`;
+  }
+  function codeBox(s, hint) {
+    return `<div class="codebox" id="codebox"><div>Dein Code für Station ${s.nr}:</div><div class="code">${esc(s.code)}</div>
+      <div class="hint">${hint || 'Trag ihn in deinen Laufzettel ein: Station · Code · Wie sicher?'}</div></div>${partnerHtml(s)}`;
+  }
+  function partnerHtml(s) {
+    if (!L.partnerCode || !s.partnerCode) return '';
+    if (zustand.partner[s.nr]) return `<div class="rueck"><p class="meldung ok"><span class="sym">✓ Zu zweit:</span> Partner-Code geschafft.</p></div>`;
+    return `<section class="kasten" id="partner"><h2>Partner-Code</h2><p>Habt ihr beide die Station geschafft? Wählt: Wer ist A, wer ist B?</p>
+      <div class="hilfe"><button class="btn sekundaer" data-teil="A">Ich bin A</button><button class="btn sekundaer" data-teil="B">Ich bin B</button></div>
+      <p id="teil" class="heftzeile"></p><div class="zahlfeld" style="margin-top:8px"><input type="text" class="zahl" id="pcode" style="width:100%" autocapitalize="characters" aria-label="Ganzes Wort"><button class="btn" id="pok">Prüfen</button></div>
+      <p id="pmsg" role="status" aria-live="polite"></p></section>`;
+  }
+  function bindePartner(s, box) {
+    const p = box.querySelector('#partner'); if (!p) return;
+    const w = s.partnerCode.toUpperCase(), h = Math.ceil(w.length / 2);
+    p.querySelectorAll('[data-teil]').forEach(b => b.addEventListener('click', () => {
+      p.querySelector('#teil').textContent = `Dein Teil: ${b.dataset.teil === 'A' ? w.slice(0, h) + ' …' : '… ' + w.slice(h)} – setzt das Wort zusammen.`; }));
+    p.querySelector('#pok').addEventListener('click', () => {
+      if (p.querySelector('#pcode').value.trim().toUpperCase() === w) { zustand.partner[s.nr] = true; speichern(); p.outerHTML = partnerHtml(s); }
+      else p.querySelector('#pmsg').textContent = 'Das Wort passt noch nicht. Setzt beide Teile zusammen.';
+    });
+  }
+  function zumCode(s, box) {
+    if (!L.checkpoint) { bestanden(s, box); return; }
+    const z = box.querySelector('#codeziel'); z.innerHTML = vergleichBox(s);
+    setHaupt('verglichen', 'Verglichen – Code zeigen', () => bestanden(s, box));
+    z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function bestanden(s, box) {
+    zustand.erledigt[s.nr] = true; speichern();
+    const z = box.querySelector('#codeziel'); z.innerHTML = codeBox(s); bindePartner(s, z);
+    const f = fortschritt(); app.querySelector('.fortschritt > div').style.width = (100 * f.n / f.von) + '%';
+    app.querySelector('.fortschritt-text').textContent = `${f.n} von ${f.von} Pflichtstationen erledigt`;
+    weiterNach(s);
+    z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function checklisteStation(s, box) {
+    box.innerHTML = `<section class="kasten"><h2>Prüfe dein Heft</h2><div class="checkliste">${s.checkliste.map((c, i) => `<button class="check" data-i="${i}" aria-pressed="false"><span class="kaestchen">☐</span>${md(c)}</button>`).join('')}</div>
+      <div class="rueck" role="status" aria-live="polite" id="rueck"></div><div id="codeziel"></div></section>`;
+    const ch = box.querySelectorAll('.check');
+    const fb = setHaupt('fertig', 'Fertig', () => { fb.disabled = true; bestanden(s, box); }, true);
+    ch.forEach(b => b.addEventListener('click', () => {
+      const an = b.classList.toggle('an'); b.setAttribute('aria-pressed', an); b.querySelector('.kaestchen').textContent = an ? '☑' : '☐';
+      fb.disabled = ![...ch].every(x => x.classList.contains('an'));
+    }));
+  }
+  function vergleichStation(s, box) {
+    box.innerHTML = `<section class="kasten"><h2>Vergleichen</h2><p>Arbeite zuerst im Heft. Dann deckst du die Lösung auf.</p>${vergleichBox(s)}
+      <div class="hilfe"><button class="btn sekundaer" id="aufdecken">Lösung aufdecken</button></div>
+      <div class="rueck" id="rueck" role="status" aria-live="polite"></div><div id="loesung"></div><div id="codeziel"></div></section>`;
+    const fb = setHaupt('fertig', 'Verglichen', () => { fb.disabled = true; bestanden(s, box); }, true);
+    box.querySelector('#aufdecken').addEventListener('click', e => {
+      e.currentTarget.disabled = true;
+      box.querySelector('#loesung').innerHTML = `<div class="loesung"><div class="teil"><b>Lösung:</b> ${md(s.loesungsweg)}</div></div>`;
+      fb.disabled = false;
+    });
+  }
+  function pruefStation(s, box) {
+    const k = s.kontrolle, nT = (s.tipps || []).length;
+    box.innerHTML = `<section class="kasten"><h2>Prüfe dich</h2>${eingabe(k)}
+        <div class="rueck" id="rueck" role="status" aria-live="polite"></div>
+        <div class="hilfe" role="group" aria-label="Hilfe">
+          ${nT > 0 ? `<button class="btn sekundaer" id="tipp1">Tipp 1</button>` : ''}
+          ${nT > 1 ? `<button class="btn sekundaer" id="tipp2" disabled>Tipp 2</button>` : ''}
+          <button class="btn sekundaer" id="loesweg" disabled>Lösungsweg</button></div>
+        <div class="hilfetext" id="hilfetext"></div><div id="loesung"></div><div id="codeziel"></div></section>`;
+    const zust = { wahl: null, paare: {}, aktiv: null, fest: {} };
+    bindeEingabe(s, box, zust);
+    const t1 = box.querySelector('#tipp1'), t2 = box.querySelector('#tipp2'), lw = box.querySelector('#loesweg'), ht = box.querySelector('#hilfetext');
+    if (t1) t1.addEventListener('click', () => { t1.disabled = true; ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 1:</b> ${md(s.tipps[0])}</div>`); if (t2) t2.disabled = false; });
+    if (t2) t2.addEventListener('click', () => { t2.disabled = true; ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 2:</b> ${md(s.tipps[1])}</div>`); });
+    lw.addEventListener('click', () => {
+      lw.disabled = true;
+      box.querySelector('#loesung').innerHTML = `<div class="loesung">
+        <div class="teil"><b>Lösungsweg:</b> ${md(s.loesungsweg)}</div>
+        ${s.sokommst ? `<div class="teil"><b>So kommst du darauf:</b> ${md(s.sokommst)}</div>` : ''}
+        ${s.weiterueben ? `<div class="teil"><b>Weiterüben:</b> ${md(s.weiterueben)}</div>` : ''}
+        <p class="heftauftrag">Wo lag dein Fehler? Schreib einen Satz ins Heft${L.jahrgang <= 8 ? `: „${esc(s.heftsatz || 'Mein Fehler war, dass …')}“` : '.'}</p></div>`;
+      setHaupt('imheft', 'Steht im Heft', () => zumCode(s, box));
+      box.querySelector('#loesung').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    setHaupt('pruefen', 'Prüfen', () => pruefe(s, box, zust));
+  }
+  function eingabe(k) {
+    if (k.art === 'zahl') return `<p class="frage">${md(k.frage)}</p><div class="zahlfeld"><input type="text" inputmode="decimal" class="zahl" id="eZahl" autocomplete="off" aria-label="Deine Zahl">
+      <span class="einheit">${esc(k.einheit || '')}</span></div>`;
+    if (k.art === 'auswahl') return `<p class="frage">${md(k.frage)}</p><div class="optionen">${k.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(optText(o))}<span class="mark"></span></button>`).join('')}</div>`;
+    if (k.art === 'zuordnen') {
+      const li = k.paare.map(p => p[0]), re = mische(k.paare.map(p => p[1]));
+      return `<div class="zuordnen">${li.map((t, i) => `<button class="opt links" data-i="${i}">${md(t)}<span class="mark"></span></button><button class="opt rechts" data-t="${esc(re[i])}">${md(re[i])}<span class="mark"></span></button>`).join('')}</div>
+        <p class="hinweiszeile">Erst links tippen, dann rechts. Nochmal tippen löst das Paar.</p>`;
+    }
+    return '';
+  }
+  function optText(o) { return typeof o === 'string' ? o : o.text; }
+  function optHinweis(o) { return typeof o === 'string' ? '' : (o.hinweis || ''); }
+  function mische(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function bindeEingabe(s, box, z) {
+    const k = s.kontrolle;
+    if (k.art === 'auswahl') box.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+      if (b.classList.contains('falsch')) return;
+      box.querySelectorAll('.opt').forEach(x => { x.classList.remove('gewaehlt'); x.setAttribute('aria-pressed', 'false'); });
+      b.classList.add('gewaehlt'); b.setAttribute('aria-pressed', 'true'); z.wahl = +b.dataset.i; }));
+    if (k.art === 'zuordnen') {
+      const L_ = box.querySelectorAll('.opt.links'), R_ = box.querySelectorAll('.opt.rechts');
+      z.male = function () {
+        L_.forEach(b => { const i = b.dataset.i; b.classList.toggle('paar', i in z.paare && !z.fest[i]); b.classList.toggle('aktiv', z.aktiv === i);
+          b.classList.toggle('fest', !!z.fest[i]); b.disabled = !!z.fest[i];
+          b.querySelector('.mark').textContent = z.fest[i] ? '✓ passt' : i in z.paare ? 'Paar ' + (+i + 1) : ''; });
+        R_.forEach(b => { const e = Object.entries(z.paare).find(([, t]) => t === b.dataset.t); const fest = e && z.fest[e[0]];
+          b.classList.toggle('paar', !!e && !fest); b.classList.toggle('fest', !!fest); b.disabled = !!fest;
+          b.querySelector('.mark').textContent = fest ? '✓ passt' : e ? 'Paar ' + (+e[0] + 1) : ''; });
+      };
+      L_.forEach(b => b.addEventListener('click', () => { const i = b.dataset.i; if (z.fest[i]) return; if (i in z.paare) { delete z.paare[i]; z.aktiv = null; } else z.aktiv = z.aktiv === i ? null : i; z.male(); }));
+      R_.forEach(b => b.addEventListener('click', () => { const t = b.dataset.t; const e = Object.entries(z.paare).find(([, x]) => x === t);
+        if (e) { if (z.fest[e[0]]) return; delete z.paare[e[0]]; z.aktiv = null; } else if (z.aktiv !== null) { z.paare[z.aktiv] = t; z.aktiv = null; } z.male(); }));
+    }
+  }
+  function meldung(box, art, sym, text) {
+    box.querySelector('#rueck').innerHTML = `<p class="meldung ${art}"><span class="sym">${sym}</span> ${text}</p>`;
+  }
+  function pruefe(s, box, z) {
+    const k = s.kontrolle; let richtig = false, fehlt = false, teil = '';
+    if (k.art === 'zahl') {
+      const roh = (box.querySelector('#eZahl').value || '').replace(/[^0-9,.\-]/g, '').replace(',', '.');
+      const v = parseFloat(roh); fehlt = roh === '' || isNaN(v); richtig = !fehlt && Math.abs(v - k.wert) <= (k.toleranz || 0);
+    }
+    if (k.art === 'auswahl') { fehlt = z.wahl === null; richtig = z.wahl === k.richtig; }
+    if (k.art === 'zuordnen') {
+      fehlt = Object.keys(z.paare).length < k.paare.length;
+      if (!fehlt) { let n = 0; k.paare.forEach((p, i) => { if (z.paare[i] === p[1]) { z.fest[i] = true; n++; } else delete z.paare[i]; });
+        richtig = n === k.paare.length; if (!richtig) teil = `${n} von ${k.paare.length} Paaren passen. `; z.male(); }
+    }
+    if (fehlt) { meldung(box, 'info', 'Hinweis:', k.art === 'zahl' ? 'Gib eine Zahl ein, zum Beispiel 7,9.' : k.art === 'zuordnen' ? 'Ordne zuerst alle Paare zu.' : 'Wähle zuerst eine Antwort.'); return; }
+    zustand.versuche[s.nr] = (zustand.versuche[s.nr] || 0) + 1; speichern();
+    const n = zustand.versuche[s.nr];
+    if (richtig) {
+      if (k.art === 'auswahl') { const b = box.querySelector(`.opt[data-i="${z.wahl}"]`); b.classList.add('richtig'); b.querySelector('.mark').textContent = '✓ richtig'; }
+      box.querySelectorAll('.opt').forEach(b => { b.disabled = true; });
+      meldung(box, 'ok', '✓ Richtig.', md(s.bestaetigung || ''));
+      const t1 = box.querySelector('#tipp1'), t2 = box.querySelector('#tipp2'); if (t1) t1.disabled = true; if (t2) t2.disabled = true;
+      box.querySelector('#loesweg').disabled = true;
+      zumCode(s, box); return;
+    }
+    let hinweis = '';
+    if (k.art === 'auswahl') { const b = box.querySelector(`.opt[data-i="${z.wahl}"]`); hinweis = optHinweis(k.optionen[z.wahl]);
+      b.classList.remove('gewaehlt'); b.classList.add('falsch'); b.disabled = true; b.querySelector('.mark').textContent = '✗ falsch'; z.wahl = null; }
+    if (n < 2) { meldung(box, 'nein', '✗ Noch nicht.', `${teil}${hinweis ? md(hinweis) + ' ' : ''}Versuch es noch einmal – ein Tipp hilft.`); return; }
+    meldung(box, 'nein', '✗ Noch nicht richtig.', `${teil}${hinweis ? md(hinweis) + ' ' : ''}Sieh dir den Lösungsweg an – oder versuch es noch einmal.`);
+    box.querySelector('#loesweg').disabled = false;
+  }
+
+  const start = L.stationen.find(x => x.nr === zustand.aktuell);
+  if (start && istFrei(start)) zeigeStation(start); else zeigeKarte();
+})();
+</script>
+</body>
+</html>
