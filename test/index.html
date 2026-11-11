@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machbarkeitsprobe Lernlandschaft</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Probe">
+<meta name="theme-color" content="#1f4e79">
+<style>
+  :root { --blau:#1f4e79; --gruen:#1e7b3c; --rot:#b3261e; --grau:#5f6368; --hell:#f3f6f9; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system, "Segoe UI", Roboto, sans-serif; font-size:19px;
+         line-height:1.45; color:#1a1a1a; background:var(--hell); }
+  header { background:var(--blau); color:#fff; padding:18px 22px; }
+  header h1 { margin:0; font-size:24px; }
+  header p { margin:4px 0 0; opacity:.85; font-size:16px; }
+  main { max-width:760px; margin:0 auto; padding:18px; }
+  section { background:#fff; border-radius:14px; padding:18px 20px; margin-bottom:16px;
+            border-left:8px solid #c4c9cf; }
+  section.ok { border-left-color:var(--gruen); }
+  section.fehler { border-left-color:var(--rot); }
+  h2 { margin:0 0 6px; font-size:21px; }
+  .status { font-weight:600; }
+  .ok .status { color:var(--gruen); }
+  .fehler .status { color:var(--rot); }
+  .hinweis { color:var(--grau); font-size:16px; margin:8px 0 0; }
+  button { font:inherit; font-weight:600; padding:14px 22px; min-height:52px; border:0;
+           border-radius:12px; background:var(--blau); color:#fff; margin:10px 10px 0 0; }
+  button.zweit { background:#e3e8ee; color:#1a1a1a; }
+  button:active { transform:scale(.97); }
+  .zahl { font-size:44px; font-weight:700; color:var(--blau); margin:6px 0 0; }
+  input { font:inherit; padding:12px 14px; border:2px solid #c4c9cf; border-radius:12px;
+          width:100%; max-width:320px; margin-top:8px; }
+  footer { color:var(--grau); font-size:14px; text-align:center; padding:6px 18px 28px;
+           word-break:break-word; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Machbarkeitsprobe Lernlandschaft</h1>
+  <p>Fassung <span id="fassung">1</span> · Keine Eingabe von Namen nötig</p>
+</header>
+<main>
+
+  <section id="p1">
+    <h2>1 · Seite lädt</h2>
+    <div class="status" id="s1">JavaScript läuft nicht.</div>
+    <p class="hinweis">Wenn hier „Bestanden“ steht, funktioniert der Weg über QR-Code und Safari.</p>
+  </section>
+
+  <section id="p2">
+    <h2>2 · Läuft ohne WLAN</h2>
+    <div class="status" id="s2">Wird vorbereitet …</div>
+    <p class="hinweis" id="h2">Erst warten, bis „Offline bereit“ erscheint. Dann Flugmodus einschalten und auf „Neu laden“ tippen.</p>
+    <button id="neuladen">Neu laden</button>
+  </section>
+
+  <section id="p3">
+    <h2>3 · Stand bleibt erhalten</h2>
+    <div class="status" id="s3">Noch kein Stand gespeichert.</div>
+    <div class="zahl" id="zahl">0</div>
+    <button id="plus">Station erledigt (+1)</button>
+    <button id="null" class="zweit">Zurücksetzen</button>
+    <div><input id="code" inputmode="text" autocomplete="off" placeholder="Beliebiger Code, z. B. A7"></div>
+    <p class="hinweis">Ein paar Mal tippen, Code eintragen, Safari ganz schließen, QR-Code erneut scannen. Zahl und Code müssen wieder da sein.</p>
+  </section>
+
+  <section id="p4">
+    <h2>4 · Gerät</h2>
+    <div id="geraet" class="hinweis" style="margin:0"></div>
+  </section>
+
+</main>
+<footer id="fuss"></footer>
+
+<script>
+(function () {
+  var SCHLUESSEL = 'probe-stand-v1';
+  function el(id) { return document.getElementById(id); }
+  function setze(nr, ok, text) {
+    el('p' + nr).className = ok === null ? '' : (ok ? 'ok' : 'fehler');
+    el('s' + nr).textContent = text;
+  }
+
+  // 1 · Seite lädt
+  setze(1, true, 'Bestanden – die Seite läuft.');
+
+  // 2 · Offline
+  function netz() { return navigator.onLine ? 'online' : 'offline'; }
+  function zeigeOffline(bereit) {
+    if (!navigator.onLine && bereit) {
+      setze(2, true, 'Bestanden – die Seite läuft gerade ohne Netz.');
+    } else if (bereit) {
+      setze(2, null, 'Offline bereit. Jetzt Flugmodus einschalten und neu laden.');
+    } else {
+      setze(2, null, 'Wird vorbereitet … (Gerät ist ' + netz() + ')');
+    }
+  }
+  var offlineBereit = false;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function () {
+      return navigator.serviceWorker.ready;
+    }).then(function () {
+      offlineBereit = true; zeigeOffline(true);
+    }).catch(function (e) {
+      setze(2, false, 'Nicht möglich: ' + e.message);
+    });
+  } else {
+    setze(2, false, 'Dieser Browser unterstützt keinen Offline-Betrieb.');
+  }
+  window.addEventListener('online', function () { zeigeOffline(offlineBereit); });
+  window.addEventListener('offline', function () { zeigeOffline(offlineBereit); });
+  el('neuladen').addEventListener('click', function () { location.reload(); });
+
+  // 3 · Stand
+  var stand = { zahl: 0, code: '', zeit: null };
+  var speicherGeht = true;
+  try {
+    var roh = localStorage.getItem(SCHLUESSEL);
+    if (roh) { stand = JSON.parse(roh); }
+  } catch (e) { speicherGeht = false; }
+
+  function zeit(t) {
+    return new Date(t).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  }
+  function zeigeStand(frischGeladen) {
+    el('zahl').textContent = stand.zahl;
+    if (!speicherGeht) { setze(3, false, 'Speichern ist auf diesem Gerät gesperrt (privater Modus?).'); return; }
+    if (!stand.zeit) { setze(3, null, 'Noch kein Stand gespeichert.'); return; }
+    if (frischGeladen) {
+      setze(3, true, 'Bestanden – Stand vom ' + zeit(stand.zeit) + ' Uhr wiedergefunden.');
+    } else {
+      setze(3, null, 'Gespeichert um ' + zeit(stand.zeit) + ' Uhr. Jetzt Safari schließen und neu öffnen.');
+    }
+  }
+  function speichere() {
+    stand.zeit = Date.now();
+    try { localStorage.setItem(SCHLUESSEL, JSON.stringify(stand)); }
+    catch (e) { speicherGeht = false; }
+    zeigeStand(false);
+  }
+  el('code').value = stand.code || '';
+  zeigeStand(true);
+  el('plus').addEventListener('click', function () { stand.zahl += 1; speichere(); });
+  el('null').addEventListener('click', function () {
+    stand = { zahl: 0, code: '', zeit: null }; el('code').value = '';
+    try { localStorage.removeItem(SCHLUESSEL); } catch (e) {}
+    zeigeStand(false);
+  });
+  el('code').addEventListener('input', function () { stand.code = el('code').value; speichere(); });
+
+  // 4 · Gerät
+  var alsApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  el('geraet').innerHTML =
+    'Bildschirm: ' + window.innerWidth + ' × ' + window.innerHeight + ' Punkte<br>' +
+    'Geöffnet: ' + (alsApp ? 'vom Home-Bildschirm' : 'im Browser') + '<br>' +
+    'Netz beim Laden: ' + netz();
+  el('fuss').textContent = navigator.userAgent;
+})();
+</script>
+</body>
+</html>
