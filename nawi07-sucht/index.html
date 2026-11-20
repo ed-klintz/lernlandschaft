@@ -7,23 +7,36 @@
 <script>
 /* ============================================================
    DATENBLOCK – nur dieser Block wird je Einsatz gefüllt.
-   Regeln: 00_Regeln/Spezifikationen/Spez_Lernlandschaft.md (Vorlage Version 14 · Stand 19.11.2026 · V14: Safari-Korrektur – das Raster der Antworten (.optionen) setzt seine Zeilen auf die Höhe des Inhalts (grid-auto-rows:min-content). In WebKit behielt eine Antwortkarte sonst die Höhe einer Zeile, wenn ihr Text beim Wählen der Anordnung umbrach, und der Text lief aus der Karte (Befund des WebKit-Laufs 19.11.2026, Landschaft Sucht, Station 8; Entscheidung der Lehrkraft 1 a). In Chromium ändert die Regel kein Maß. Sonst wie Version 13. · V13: Fester Platz, Lösungsweg, untere Leiste – (1) Fester Platz: Die Anordnung einer Ansicht wird einmal gewählt, am Start und je Bildschirmgröße; danach bleibt jeder Bereich an seinem Platz, und kein Bild wird größer als am Start. Kommt etwas dazu (Rückmeldung, Tipp, Lösungsweg, Hefteintrag), geben Bild und Abstände nach; reicht das nicht, rollt die Seite. Was nachgegeben hat, kommt in dieser Ansicht nicht zurück – ein Bild, das wieder wüchse, schöbe den Prüfbereich darunter nach unten. Am Start wählt die Seite wie bisher die Anordnung mit den größten Bildern, die auf einen Bildschirm passt. Neu gewählt wird nur, wenn eine neue Teilansicht beginnt (nach „Erst schreiben“ die Antworten, der geladene Film, der Code mit der Übersicht der Station) oder das Gerät gedreht wird; gedreht und zurückgedreht steht wieder dieselbe Anordnung. (2) Lösungsweg: Er ersetzt die geöffneten Tipps und die letzte Rückmeldung; die Eingabe zeigt die richtige Antwort – nur sie bleibt. Der Auftrag bleibt stehen; der Schritt darf dann länger sein als ein Bildschirm. (3) Untere Leiste: Der freie Platz unter dem Inhalt folgt ihrer Höhe (--leiste) – auch am Ende des Rollens liegt nichts hinter ihr. Was neu erscheint, rollt ins Bild: bis sein Ende über der Leiste steht; sein Anfang bleibt unter dem Kopf. Jede neue Ansicht beginnt oben. Auf einem schmalen Bildschirm (unter 760 px, Telefon) brechen Kopf, Leiste und lange Begriffe um; die Seite ist nie breiter als der Bildschirm. (4) Kurze Begriffe: Fünf oder mehr Antworten mit höchstens 22 Zeichen stehen in Spalten – zwei ab 440 px Breite des Prüfbereichs, drei ab 700 px. (5) Passt am Start keine Anordnung, gewinnt eine mit lesbarer Schrift im Bild – erst danach der kleinste Überstand. Entscheidungen der Lehrkraft 15.11.2026, 13:14 (P1 b – ersetzt F2 b von 10:15, den offenen Punkt aus Version 12 –, P2 a, P3 a; nichts bleibt hinter der unteren Leiste – Fund am Telefon: Die Leiste verdeckte die Tipps), 13:16 („Übernimm“) und 13:25 (der Prüfbereich wechselt den Platz nicht, die Seite rollt). Gemessen am ersten Fall (NaWi 07 Sucht, Quelle Version 5; je Bildschirmgröße 148 Zustände: Start, zwei Fehlversuche, zwei Tipps, Lösungsweg, richtig gelöst und alles bis zum Code; in Klammern Version 12): Der Prüfbereich wechselt den Platz quer 0-mal (20) und hoch 0-mal (14); Neues liegt hinter der Leiste quer in 0 Zuständen (25) und hoch in 0 (14); die kleinste Schrift im Bild ist 16,1 px (12,4 px, 33 Zustände unter 16 px); länger als ein Bildschirm sind quer 63 Zustände, bis 383 px (42, bis 556 px), und hoch 29, bis 308 px (28, bis 477 px) – mit offenem Lösungsweg quer 14 von 16 (16) und hoch 6 von 16 (15). Am Telefon (390 × 664 px, in Chromium): am Ende des Rollens verdeckt in 0 Zuständen (133 von 148, bis 33 px), Neues hinter der Leiste in 0 (67), die Seite nie breiter als der Bildschirm (Version 12: bis 490 px breit). Folge des festen Platzes: Wo Version 12 nach einer Antwort neu anordnete, rollt die Seite jetzt – nach dem ersten Fehlversuch quer in 6 und hoch in 3 von 16 Schritten (0 und 1), richtig gelöst in 2 und 0 (1 und 0). Am Start jeder Ansicht bleibt alles wie in Version 12 (Testsatz: Sichtung und Formprüfer ohne Abweichung). Akte `Vorschläge/2026-11-15_Alle_Lernlandschaft_Vorlage_13_Uebernahme.md`. V12: Heft und Zurückblättern – (1) Jeder Schritt mit Hefteintrag endet im Heft: Nach der richtigen Antwort nennt der Kasten „Jetzt ins Heft“ den Eintrag, die Hauptaktion heißt „Steht im Heft – weiter ›“; der Eintrag steht nie doppelt (die Zeile im Auftrag weicht, solange ein Kasten ihn zeigt); beim Lösungsweg steht in einem Kasten erst der Satz zum Fehler, dann der Eintrag. (2) Nach dem letzten Schritt kommt vor dem Code „Prüfe dein Heft“ mit den Einträgen aus dem Feld heft der Station (getrennt durch „ · “); das entfällt, wenn der letzte Schritt selbst eine Prüfliste ist. (3) Die Landkarte nennt den Zweck: „Das iPad vergisst jeden Tag alles – dein Heft nicht.“ (4) Schritt mit erstSchreiben (nur bei einer Auswahl): erst der Text im Heft, dann die Antworten, am Ende „Verglichen – weiter ›“. (5) Zurückblättern: „‹ Schritt n“ zeigt einen geschafften Schritt gelöst – nichts lässt sich ändern, der Stand bleibt; nach dem Code steht im Fuß „Schritte ansehen“ statt „Zwischenstand“. (6) Prüfansicht (pruefansicht: true): „Überspringen »“ geht ohne Lösen weiter. Dazu: „Vorlesen“ liest den Hefteintrag mit; die Knöpfe im Fuß brechen auf dem iPad nicht um; ohne offenen Tipp bleibt kein leerer Abstand. Entscheidungen der Lehrkraft 15.11.2026, 06:28 (B1 bis B4 und H1 bis H4, je a) und 10:15 („Übernimm“); Probe am ersten Fall 15.11.2026: 11 592 Einzelprüfungen ohne Fehler. Danach zwei Korrekturen aus dem Lauf des Formprüfers, geprüft wie die Probe (Akte `Vorschläge/2026-11-15_Alle_Lernlandschaft_Vorlage_12_Uebernahme.md`): „Prüfe dein Heft“ hat einen Platz für die Ansage; der Hinweis zum Vergleichen steht als Überschrift („Vergleiche mit deinem Text“), nicht als eigene Zeile – mit ihr passte Station 2, Schritt 4 im Hochformat nur mit unlesbarem Bild. Folge, gemessen am ersten Fall: Die Landkarte ist 38 px länger (Sucht im Hochformat 60 statt 22 px über dem Bildschirm, mit Weiche 150 statt 112 px); Station 4, Schritt 1 ist gelöst im Querformat 6 px zu lang; Station 7, Schritt 1 ist nach dem Fehlversuch im Hochformat 25 statt 35 px zu lang; im Startzustand ändert sich die Bildgröße in 10 von 50 Ansichten (achtmal breiter, bis 16 px je Bild; zweimal schmaler, bis 10 px – kleinste Schrift im Bild dort 16,4 px). Offen: Mit offenem Lösungsweg ist ein Schritt oft länger als ein Bildschirm (am ersten Fall 23 von 30 Messungen, schon in Version 11: 22) – zweite Probe nach der Entscheidung der Lehrkraft 15.11.2026, 10:15 (F2 b). V11: Laufzettel – die Landkarte nennt den Spaltenkopf „Wie gelöst?“ und die Wörter der festen Skala (richtig gelöst · mit Fehlern oder nur mit Tipp · nicht gelöst); „Code eingeben“ und der Dialog „Zwischenstand“ erklären das Wiederherstellen wie der Laufzettel – die Codes von unten nach oben, bis jede fertige Station ein ✓ hat, den Zwischenstand zuletzt (Probe am ersten Fall 14.11.2026: 42 von 42 Ständen; Entscheidungen der Lehrkraft 14.11.2026, 19:43 und 19:55). Nur Wortlaut; Aufbau, Gestaltung und Verhalten unverändert. Folge, gemessen am ersten Fall: Im Hochformat ist die Zeile zum Laufzettel drei statt zwei Zeilen lang (30 px mehr; die Landkarte Sucht scrollt dort 22 px, mit Weiche 112 statt 82 px). V10: Umschalter – ein Knopf ist nie schmaler als sein Wort; reicht die Zeile nicht, bricht der Umschalter um; die Ränder im Knopf sind schmaler (Fund der Probe vom 13.11.2026: „Überschwemmung“ abgeschnitten in Station 5, Schritt 2 der Landschaft Sucht, Hochformat; Entscheidung der Lehrkraft 13.11.2026, 23:05). V9: Bildzeile – Unterschrift, Vermerk, Ebene und Zeichenschlüssel einer Zeichnung stehen in Seitenschrift unter dem Bild; die Zeichnung nennt nur die Texte (Spez_Zeichnungen, Entscheidung der Lehrkraft 13.11.2026); das Schild einer Marke fängt keinen Tipp mehr ab; in „Beschriften“ steht an der Marke nur noch der Haken. V8, im Bestand seit der Übernahme vom 12.11.2026, erprobt im Testlauf und im Neubau NaWi 07: Arbeit am Bild – Stelle antippen, Zustände umschalten, Bildfolge ordnen, Vorhersage im Diagramm, Fläche im Raster, Bildantworten, Regler mit Stufen, Ablauf zum Abspielen, Lösung als Bild, Vorlesen; Zeichnungen mit Angaben wie synapse(droge=3); je Ansicht wählt die Seite die Anordnung mit den größten Bildern, die auf einen Bildschirm passt. V6: Stationen passen sich der Bildschirmgröße an (Standard-iPad hoch und quer) – Bild, Modell und Film wachsen und schrumpfen, Abstände geben nach; Schrift und Tippflächen bleiben. V5: mehrschrittige Stationen, Beschriften, Film – Datenblock schreibt landschaft_bauer.py aus der Landschaftsquelle)
+   Regeln: 00_Regeln/Spezifikationen/Spez_Lernlandschaft.md (Vorlage Version 17 · Stand 20.11.2026 · V17: Paare nach dem Prüfen nebeneinander, Hefteintrag „abschreiben“ oder „erstellen“ – (1) Zuordnen: Nach „Prüfen“ steht jede rechte Kachel in der Zeile der linken, der sie zugeordnet wurde. Was passt, ist fest (links „✓“, rechts „✓ passt“); was nicht passt, steht noch dort, ist aber wieder frei. Sind alle Paare richtig, liest sich das Gitter Zeile für Zeile als Lösung, in der Reihenfolge der linken Spalte – so auch zurückgeblättert und nach dem Lösungsweg. Beim Antippen rückt nichts. Anlass: In Version 16 stand nach „Prüfen“ an jeder Kachel nur „✓ passt“, die rechten blieben gemischt – wer zu wem gehört, war nicht mehr zu sehen. Beschriften, Lückentext und Bildfolge sind nicht betroffen (dort bleibt die Nummer, das Wort, der Platz). (2) Hefteintrag: Was wörtlich ins Heft kommt, steht in der Quelle in Anführungszeichen („…“). Die Seite setzt es ohne die Zeichen als eigenen Block auf einen Heftstreifen (weiß, mit Rand und Linien – nicht Farbe allein). Alles außerhalb ist ein Auftrag und steht als normaler Text. Ein Eintrag ganz ohne Anführungszeichen ist ein Auftrag zum Erstellen (zeichnen, Tabelle anlegen, Aufgabe beantworten): Sein Kopf heißt „Erstelle im Heft:“ statt „Ins Heft:“ oder „Jetzt ins Heft:“ (bei erstSchreiben „Erstelle zuerst im Heft:“, im Lösungsweg „Erstelle:“ vor dem Eintrag); „Vorlesen“ liest diesen Kopf. Im Lösungsweg steht auch der Satz zum Fehler auf einem Streifen. Auch im gelösten Schritt (zurückgeblättert) steht er als Block (Rückfrage vom 20.11.2026, 17:35; Antwort der Lehrkraft 17:40: „b“). Der Block braucht Platz: je wörtlichem Teil etwa eine Zeile mehr als in Version 16 (gemessen an der Landschaft Sucht, Vorschlag vom 20.11.2026). Entscheidungen der Lehrkraft 20.11.2026: 14:07 (Rückmeldung nach dem Ansehen der Landschaft Sucht), 17:31 („1. a 2. b 3. a“: Paare wie im Bild, Hefteintrag als Block, jetzt als Version 17), 17:40 („b“: der Block auch in gelösten Schritten). Vorschlag mit Bildern und Messwerten: `Vorschläge/2026-11-20_Alle_Lernlandschaft_Vorlage_17_Paare_Hefteintrag.md`. Nicht am iPad geprüft. Sonst wie Version 16. · V16: Auswertung per Formular, Wort als Knopf mit Rand, Landkarte, Hefteintrag nach der Antwort, Modellrahmen für Simulationen – (1) Auswertung für die Lehrkraft (auswertung an der Landschaft): Knopf „Auswerten“ in der unteren Leiste der Landkarte. Er zeigt den Code der letzten Station mit Code („Vergleiche mit dem letzten Code auf deinem Laufzettel.“), dazu den Zwischenstand einer angefangenen Station, und sendet eine Zeile an das Formular: Landschaft (Titel und Fassung) · Bearbeitet (Stationen, an denen gearbeitet wurde, als „S2 S3“ – per Code wiederhergestellte zählen nicht) · Stand (letzte Station mit Code, „S4“ oder „–“) · Hürden (je Schritt mit Fehlversuch, Tipp oder Lösungsweg „2.3 F2 T1 L0 A=4|7“: Fehlversuche, Tipps, Lösungsweg und die falschen Antworten in Kurzform, höchstens sechs). Kein Name, keine Klasse, keine Kennung des Geräts, kein freier Text; kein Referrer, keine Cookies – Safari nennt dem Formular auch die Herkunft der Seite nicht, Chromium nennt Schema und Rechnernamen, nie den Pfad. Ein zweiter Tipp sendet nur den Zuwachs („(Nachtrag)“ bei Stand, „+“ am Schritt), ohne Neues nichts. „Gesendet“ heißt: Die Anfrage ging hinaus; scheitert sie oder bleibt sie 10 s ohne Antwort, steht „Nicht gesendet“ mit „Noch einmal senden“. In der Prüfansicht wird nie gesendet – der Dialog zeigt dort die Zeile. Ohne das Feld gibt es keinen Knopf, und die Seite hält nichts fest (der Stand im Gerät hat dieselben Felder wie in Version 15). In der unteren Leiste einer Station steht der Knopf nicht: Im Hochformat reicht der Platz nicht (gemessen an der Landschaft Sucht: mit ihm endeten die Knöpfe der längsten Leiste bei 896 px, das iPad ist hoch 768 bis 820 px breit) – aus der Station führt „‹ Karte“ zu ihm. (2) Wort zum Antippen: ein kleiner Knopf mit Rand in der Zeile statt der gepunkteten Linie – Rand 2 px in der Akzentfarbe wie bei den anderen Knöpfen, dahinter der Winkel, mit Rand so hoch wie die Zeile (30 px bei 20 px Grundschrift); angetippt ist er gefüllt. (3) Landkarte: Die Erklärung zum Laufzettel und die Zeile zu den Wörtern entfallen; dafür steht „Du brauchst den Laufzettel, ein Buch und dein Heft, bevor du beginnst.“ – „ein Buch“ nur, wenn eine Station eine Buchseite nennt. (4) Hefteintrag nach der Antwort: Prüft die Seite die Antwort eines Schritts, erscheint sein Hefteintrag erst mit der richtigen Antwort im Kasten „Jetzt ins Heft“ (beim Lösungsweg nach dem Satz zum Fehler), nicht vorher im Auftrag; „Vorlesen“ liest ihn erst dann mit. Von Anfang an im Auftrag steht er im Schritt ohne Kontrolle, bei erstSchreiben und mit mitschreiben: true (beim Arbeiten wird notiert). Zurückgeblättert und neben dem Code steht er wie bisher im Auftrag. (5) Modellrahmen für Simulationen: Ein Modell ist ein Eintrag im Block MODELLE der Bausteine – nur er ist je Thema neu (Größen, Rechenregel, Bild, Zeile der Messtabelle, Achsen, Erwartung). Die Seite gibt ihm Bedienung und Anzeige: Größen mit Minus und Plus (52 px; bei höchstens drei benannten Werten ein Umschalter), bei einem Ablauf zwei Tasten für einen und für mehrere Schritte, „Auf Start“ (fragt nach, bevor die Tabelle leer wird), der Stand als Zeile mit Werten und Einheit, Messtabelle (rollt in ihrem Feld, der Kopf bleibt stehen, die neueste Zeile ist hervorgehoben), Diagramm aus der Tabelle (Schrift auf dem iPad nie unter 16 px) und die Erwartung ohne Zufall auf Knopfdruck. Bild, Diagramm und Tabelle stehen im Modellfeld; die Seite wählt, ob nebeneinander oder untereinander, und passt es wie ein Bild auf den Bildschirm ein; steht die Tabelle in einer eigenen Zeile, bekommt sie den übrigen Platz (bis zu zehn Zeilen). Unter dem Bild des Modells steht die Bildzeile wie unter jedem Bild: Unterschrift, Vermerk und Ebene nennt die Zeichnung (data-unterschrift, data-vermerk, data-ebene), die Zeichen nennt der Block (legende – sie bleiben in jedem Zustand stehen), sonst die Zeichnung; in derselben Zeile stehen die Zeichen des Diagramms (Messwert: eine Raute – kein Kreis, Kreise gehören den Bildern; Erwartung: gestrichelt). Stehen die Teile untereinander, steht die Zeile im Feld gleich nach dem Bild, sonst unter dem Feld in der Breite des Kastens. Alle Tasten stehen über dem Bild; „Erwartung zeigen“ steht neben dem Stand; Größen und Tasten des Ablaufs teilen sich eine Zeile, wenn beide hineinpassen. Solange ein Ablauf läuft, sind die Größen gesperrt – ein Tipp nennt den Weg über „Auf Start“. Der Lauf gehört zur Station und gilt über ihre Schritte hinweg; wird ein Schritt gelöst, hält die Seite den Lauf fest – ihn zeigt der zurückgeblätterte Schritt, gesperrt. Ein Schritt nennt das Modell (sim), seine Startwerte, was fest bleibt und was er zeigt (modell); „Vorher am Modell“ (vorher) nennt, was erfüllt sein muss, bevor geprüft wird – sonst ein Hinweis und kein Fehlversuch. Zwei Kontrollen am Modell: „Messwert“ (art "messwert") verlangt eine Zahl aus der eigenen Tabelle – richtig ist, was in der Zeile des Kindes steht, so stimmt die Frage bei jedem Lauf; „Einstellen“ (art "stand") prüft Einstellungen und Stand des Modells, mit eigenem Hinweis zu einem vorhergesehenen falschen Stand (fehlstaende). Zufall kommt aus der Seite; mit „?saat=7“ an der Adresse läuft eine feste Folge (für die Werkzeuge). Tafelseite (tafel an der Landschaft, gebaut mit landschaft_bauer.py --tafel): dasselbe Modell allein auf einem Bildschirm, mit größerer Schrift und größeren Tasten (26 px und 64 px; in einem Fenster bis 800 px Höhe 22 px und 56 px), Erwartung und Grenze des Modells auf Knopfdruck; sie speichert nichts. Ein frei geschriebenes Modell (SIMULATIONEN) läuft wie bisher. Entscheidungen der Lehrkraft 19.11.2026: 18:34 (Wort als Knopf mit Rand; Landkarte ohne die beiden Zeilen), 18:36 (Satz der Landkarte), 19:51 (A1 a bis A4 a, A5 b, A6 a), 19:52 und 19:56 (Modellrahmen; erster Fall Zerfall; auch als eigene Seite für die Tafel), 20:05 (M1 a, M2 a, M3 b, M4 b), 20:20 („b“ – Hefteintrag nach der Antwort; der Modellrahmen kommt in diese Fassung), 20:24 („so machen wir es. Übernimm“), 23:27 („1a 2a 3a“: mitschreiben, der Knopf „Auswerten“ nur auf der Landkarte, der Zwischenstand im Dialog; „Du darfst mit dem modellrahmen beginnen“), 20.11.2026, 06:16 („1a 2a 3a“: die Landschaft Sucht bleibt vorerst ohne Modell, die Werte des Testmodells Zerfall bleiben, alle fünf Teile kommen zusammen in den Bestand). Messungen und Proben: Zwischenberichte `Vorschläge/2026-11-19_Alle_Lernlandschaft_Vorlage_16_Zwischenstand.md` (Teile 1 bis 4) und `Vorschläge/2026-11-20_Alle_Lernlandschaft_Vorlage_16_Zwischenstand_2.md` (Teil 5). Nicht am iPad geprüft. Sonst wie Version 15. · V15: Rückmeldung auf vorhergesehene Fehler, Wörter zum Antippen, Lückentext mit Wortspeicher – (1) Zahl: Die Kontrolle kennt vorhergesehene falsche Zahlen (fehlwerte) mit eigenem Hinweis – es gilt die Toleranz des richtigen Werts – und einen Satz für jede andere falsche Zahl (sonst); der Hinweis steht, wo bei einer Auswahl der Hinweis zur falschen Antwort steht. (2) Zuordnen, Beschriften, Bildfolge: Sind die zwei Teile einer vorhergesehenen Vertauschung (vertauscht) miteinander vertauscht, steht ihr Hinweis hinter „n von m …“ – auch wenn daneben noch etwas falsch ist; treffen mehrere Zeilen zu, gilt die erste. (3) Wörter zum Antippen (woerter an der Landschaft): Je Schritt ist das erste Vorkommen eines Wortes in Auftrag, Merke-Kasten, Frage, Rückmeldung und Lösungsweg markiert – gepunktet unterstrichen, mit einem Winkel dahinter; nur ganze Wörter, ein klein geschriebenes auch groß am Satzanfang. Ein Tipp zeigt die Erklärung in einer Zeile direkt unter dem Absatz (eine je Absatz) und rollt sie ins Bild, der zweite schließt sie; kein Fenster über dem Text. Antworten, Begriffe, Tipps, Hefteintrag, Ziel, Knöpfe und Landkarte bleiben unmarkiert. Das Wort ist ein Knopf im Text, so hoch wie die Zeile (30 px bei 20 px Grundschrift) – Ausnahme von der Mindestgröße der Berührflächen, Spez_Lernlandschaft, Abschnitt 4. Hat die Landschaft Wörter, erklärt die Landkarte die Marke in einer Zeile [Annahme 19.11.2026: über den Vorschlag hinaus]; „Vorlesen“ liest eine offene Erklärung mit. (4) Lückentext mit Wortspeicher (art "luecke"): Jedes Wort in [eckigen Klammern] ist eine Lücke; bedient wie das Zuordnen – Lücke und Wort antippen, in beliebiger Reihenfolge, kein Ziehen; noch einmal tippen nimmt ein Wort zurück. Nach „Prüfen“ bleibt stehen, was richtig sitzt (mit „✓“), und sein Wort verlässt den Wortspeicher; die Rückmeldung nennt „n von m Lücken sind richtig gefüllt.“; „Vorlesen“ liest den Text mit „Lücke“ und die Wörter zur Wahl. Ohne die neuen Felder verhält sich die Seite wie Version 14: Testsatz Lernlandschaft vom 19.11.2026 an NaWi 07 Sucht (Quelle Version 8) und am Formatmuster Version 2 – an der Seite weichen nur Kopf, Logik und Bytes ab; Formprüfer, Durchlauf und Sichtung ohne Abweichung, in WebKit 26.6 Eintrag für Eintrag gleich. Gemessen mit den neuen Feldern (Chromium und WebKit 26.6, hoch und quer, je ohne Mangel): Formatmuster Version 3 – Durchlauf je 118 bestanden; Testkopie der Quelle Sucht mit 8 Wörtern, einem Fehlwert, zweimal „Sonst“ und einer Vertauschung (nur im Arbeitsbereich der Meta-Sitzung) – je 586 bestanden, 46 markierte Wörter angetippt: Die Erklärung steht immer über der unteren Leiste; mit offener Erklärung ist die Ansicht am Start eines Schritts hoch in 4 von 19 Fällen länger als ein Bildschirm (bis 57 px), quer in 14 von 19 (bis 126 px). Entscheidungen der Lehrkraft 19.11.2026, 15:21 (V1 b – sofort gebaut, die Landschaft Sucht bleibt bei Version 14 –, V2 a, V3 a, V4 b, V5 a, V6 a, V7 a; „übernimm“); Vorschlag `Vorschläge/2026-11-19_Alle_Lernlandschaft_Vorlage_15_Rueckmeldung_Woerter.md`, Akte `Vorschläge/2026-11-19_Alle_Lernlandschaft_Vorlage_15_Uebernahme.md`. Nicht am iPad geprüft; der Lückentext hat noch keinen echten Fall. Sonst wie Version 14. · V14: Safari-Korrektur – das Raster der Antworten (.optionen) setzt seine Zeilen auf die Höhe des Inhalts (grid-auto-rows:min-content). In WebKit behielt eine Antwortkarte sonst die Höhe einer Zeile, wenn ihr Text beim Wählen der Anordnung umbrach, und der Text lief aus der Karte (Befund des WebKit-Laufs 19.11.2026, Landschaft Sucht, Station 8; Entscheidung der Lehrkraft 1 a). In Chromium ändert die Regel kein Maß. Sonst wie Version 13. · V13: Fester Platz, Lösungsweg, untere Leiste – (1) Fester Platz: Die Anordnung einer Ansicht wird einmal gewählt, am Start und je Bildschirmgröße; danach bleibt jeder Bereich an seinem Platz, und kein Bild wird größer als am Start. Kommt etwas dazu (Rückmeldung, Tipp, Lösungsweg, Hefteintrag), geben Bild und Abstände nach; reicht das nicht, rollt die Seite. Was nachgegeben hat, kommt in dieser Ansicht nicht zurück – ein Bild, das wieder wüchse, schöbe den Prüfbereich darunter nach unten. Am Start wählt die Seite wie bisher die Anordnung mit den größten Bildern, die auf einen Bildschirm passt. Neu gewählt wird nur, wenn eine neue Teilansicht beginnt (nach „Erst schreiben“ die Antworten, der geladene Film, der Code mit der Übersicht der Station) oder das Gerät gedreht wird; gedreht und zurückgedreht steht wieder dieselbe Anordnung. (2) Lösungsweg: Er ersetzt die geöffneten Tipps und die letzte Rückmeldung; die Eingabe zeigt die richtige Antwort – nur sie bleibt. Der Auftrag bleibt stehen; der Schritt darf dann länger sein als ein Bildschirm. (3) Untere Leiste: Der freie Platz unter dem Inhalt folgt ihrer Höhe (--leiste) – auch am Ende des Rollens liegt nichts hinter ihr. Was neu erscheint, rollt ins Bild: bis sein Ende über der Leiste steht; sein Anfang bleibt unter dem Kopf. Jede neue Ansicht beginnt oben. Auf einem schmalen Bildschirm (unter 760 px, Telefon) brechen Kopf, Leiste und lange Begriffe um; die Seite ist nie breiter als der Bildschirm. (4) Kurze Begriffe: Fünf oder mehr Antworten mit höchstens 22 Zeichen stehen in Spalten – zwei ab 440 px Breite des Prüfbereichs, drei ab 700 px. (5) Passt am Start keine Anordnung, gewinnt eine mit lesbarer Schrift im Bild – erst danach der kleinste Überstand. Entscheidungen der Lehrkraft 15.11.2026, 13:14 (P1 b – ersetzt F2 b von 10:15, den offenen Punkt aus Version 12 –, P2 a, P3 a; nichts bleibt hinter der unteren Leiste – Fund am Telefon: Die Leiste verdeckte die Tipps), 13:16 („Übernimm“) und 13:25 (der Prüfbereich wechselt den Platz nicht, die Seite rollt). Gemessen am ersten Fall (NaWi 07 Sucht, Quelle Version 5; je Bildschirmgröße 148 Zustände: Start, zwei Fehlversuche, zwei Tipps, Lösungsweg, richtig gelöst und alles bis zum Code; in Klammern Version 12): Der Prüfbereich wechselt den Platz quer 0-mal (20) und hoch 0-mal (14); Neues liegt hinter der Leiste quer in 0 Zuständen (25) und hoch in 0 (14); die kleinste Schrift im Bild ist 16,1 px (12,4 px, 33 Zustände unter 16 px); länger als ein Bildschirm sind quer 63 Zustände, bis 383 px (42, bis 556 px), und hoch 29, bis 308 px (28, bis 477 px) – mit offenem Lösungsweg quer 14 von 16 (16) und hoch 6 von 16 (15). Am Telefon (390 × 664 px, in Chromium): am Ende des Rollens verdeckt in 0 Zuständen (133 von 148, bis 33 px), Neues hinter der Leiste in 0 (67), die Seite nie breiter als der Bildschirm (Version 12: bis 490 px breit). Folge des festen Platzes: Wo Version 12 nach einer Antwort neu anordnete, rollt die Seite jetzt – nach dem ersten Fehlversuch quer in 6 und hoch in 3 von 16 Schritten (0 und 1), richtig gelöst in 2 und 0 (1 und 0). Am Start jeder Ansicht bleibt alles wie in Version 12 (Testsatz: Sichtung und Formprüfer ohne Abweichung). Akte `Vorschläge/2026-11-15_Alle_Lernlandschaft_Vorlage_13_Uebernahme.md`. V12: Heft und Zurückblättern – (1) Jeder Schritt mit Hefteintrag endet im Heft: Nach der richtigen Antwort nennt der Kasten „Jetzt ins Heft“ den Eintrag, die Hauptaktion heißt „Steht im Heft – weiter ›“; der Eintrag steht nie doppelt (die Zeile im Auftrag weicht, solange ein Kasten ihn zeigt); beim Lösungsweg steht in einem Kasten erst der Satz zum Fehler, dann der Eintrag. (2) Nach dem letzten Schritt kommt vor dem Code „Prüfe dein Heft“ mit den Einträgen aus dem Feld heft der Station (getrennt durch „ · “); das entfällt, wenn der letzte Schritt selbst eine Prüfliste ist. (3) Die Landkarte nennt den Zweck: „Das iPad vergisst jeden Tag alles – dein Heft nicht.“ (4) Schritt mit erstSchreiben (nur bei einer Auswahl): erst der Text im Heft, dann die Antworten, am Ende „Verglichen – weiter ›“. (5) Zurückblättern: „‹ Schritt n“ zeigt einen geschafften Schritt gelöst – nichts lässt sich ändern, der Stand bleibt; nach dem Code steht im Fuß „Schritte ansehen“ statt „Zwischenstand“. (6) Prüfansicht (pruefansicht: true): „Überspringen »“ geht ohne Lösen weiter. Dazu: „Vorlesen“ liest den Hefteintrag mit; die Knöpfe im Fuß brechen auf dem iPad nicht um; ohne offenen Tipp bleibt kein leerer Abstand. Entscheidungen der Lehrkraft 15.11.2026, 06:28 (B1 bis B4 und H1 bis H4, je a) und 10:15 („Übernimm“); Probe am ersten Fall 15.11.2026: 11 592 Einzelprüfungen ohne Fehler. Danach zwei Korrekturen aus dem Lauf des Formprüfers, geprüft wie die Probe (Akte `Vorschläge/2026-11-15_Alle_Lernlandschaft_Vorlage_12_Uebernahme.md`): „Prüfe dein Heft“ hat einen Platz für die Ansage; der Hinweis zum Vergleichen steht als Überschrift („Vergleiche mit deinem Text“), nicht als eigene Zeile – mit ihr passte Station 2, Schritt 4 im Hochformat nur mit unlesbarem Bild. Folge, gemessen am ersten Fall: Die Landkarte ist 38 px länger (Sucht im Hochformat 60 statt 22 px über dem Bildschirm, mit Weiche 150 statt 112 px); Station 4, Schritt 1 ist gelöst im Querformat 6 px zu lang; Station 7, Schritt 1 ist nach dem Fehlversuch im Hochformat 25 statt 35 px zu lang; im Startzustand ändert sich die Bildgröße in 10 von 50 Ansichten (achtmal breiter, bis 16 px je Bild; zweimal schmaler, bis 10 px – kleinste Schrift im Bild dort 16,4 px). Offen: Mit offenem Lösungsweg ist ein Schritt oft länger als ein Bildschirm (am ersten Fall 23 von 30 Messungen, schon in Version 11: 22) – zweite Probe nach der Entscheidung der Lehrkraft 15.11.2026, 10:15 (F2 b). V11: Laufzettel – die Landkarte nennt den Spaltenkopf „Wie gelöst?“ und die Wörter der festen Skala (richtig gelöst · mit Fehlern oder nur mit Tipp · nicht gelöst); „Code eingeben“ und der Dialog „Zwischenstand“ erklären das Wiederherstellen wie der Laufzettel – die Codes von unten nach oben, bis jede fertige Station ein ✓ hat, den Zwischenstand zuletzt (Probe am ersten Fall 14.11.2026: 42 von 42 Ständen; Entscheidungen der Lehrkraft 14.11.2026, 19:43 und 19:55). Nur Wortlaut; Aufbau, Gestaltung und Verhalten unverändert. Folge, gemessen am ersten Fall: Im Hochformat ist die Zeile zum Laufzettel drei statt zwei Zeilen lang (30 px mehr; die Landkarte Sucht scrollt dort 22 px, mit Weiche 112 statt 82 px). V10: Umschalter – ein Knopf ist nie schmaler als sein Wort; reicht die Zeile nicht, bricht der Umschalter um; die Ränder im Knopf sind schmaler (Fund der Probe vom 13.11.2026: „Überschwemmung“ abgeschnitten in Station 5, Schritt 2 der Landschaft Sucht, Hochformat; Entscheidung der Lehrkraft 13.11.2026, 23:05). V9: Bildzeile – Unterschrift, Vermerk, Ebene und Zeichenschlüssel einer Zeichnung stehen in Seitenschrift unter dem Bild; die Zeichnung nennt nur die Texte (Spez_Zeichnungen, Entscheidung der Lehrkraft 13.11.2026); das Schild einer Marke fängt keinen Tipp mehr ab; in „Beschriften“ steht an der Marke nur noch der Haken. V8, im Bestand seit der Übernahme vom 12.11.2026, erprobt im Testlauf und im Neubau NaWi 07: Arbeit am Bild – Stelle antippen, Zustände umschalten, Bildfolge ordnen, Vorhersage im Diagramm, Fläche im Raster, Bildantworten, Regler mit Stufen, Ablauf zum Abspielen, Lösung als Bild, Vorlesen; Zeichnungen mit Angaben wie synapse(droge=3); je Ansicht wählt die Seite die Anordnung mit den größten Bildern, die auf einen Bildschirm passt. V6: Stationen passen sich der Bildschirmgröße an (Standard-iPad hoch und quer) – Bild, Modell und Film wachsen und schrumpfen, Abstände geben nach; Schrift und Tippflächen bleiben. V5: mehrschrittige Stationen, Beschriften, Film – Datenblock schreibt landschaft_bauer.py aus der Landschaftsquelle)
    Alles unterhalb von "ENDE DATENBLOCK" bleibt unverändert.
 
    Felder je Station (* = Pflichtfeld):
    nr*, typ* ("nachlesen" | "simulation" | "buchaufgabe" | "stimmt" | "selbstkontrolle" | "konstruktion" | "produkt" | "abgabe"),
    pflicht*, titel*, auftrag* (Operatoren **fett**, bis zur ersten Handlung kurz), ziel (Ziel-Halbsatz nach Spez_Zieltypen, du-Form),
-   heft (was ins Heft kommt; bei einer Station mit Schritten die Einträge der Schritte, getrennt durch „ · “ – daraus entsteht vor dem Code „Prüfe dein Heft“), buch, merke, sim + vermutung { frage, optionen } + modellgrenze, bild, schritte,
-   kontrolle { art: "auswahl" (optionen: Text oder { text, hinweis }, richtig) | "zahl" (wert, toleranz, einheit) | "zuordnen" (paare) },
+   heft (was ins Heft kommt – Wörtliches in Anführungszeichen „…“, es erscheint auf einem Heftstreifen; ein Eintrag ohne „…“ ist ein Auftrag zum Erstellen; bei einer Station mit Schritten die Einträge der Schritte, getrennt durch „ · “ – daraus entsteht vor dem Code „Prüfe dein Heft“), buch, merke, sim + vermutung { frage, optionen } + modellgrenze, bild, schritte,
+   sim (Name eines Modells – steht es im Block MODELLE, bekommt es den Modellrahmen der Seite) + modell { start { id: Wert }, fest (true oder Liste von ids), zeigt ["bild", "tabelle", "diagramm"], erwartung, weiter (derselbe Lauf wie davor) }
+   + vorher { bedingungen [{ name, op, wert }], hinweis } (was am Modell erfüllt sein muss, bevor geprüft wird; name = Größe, Spalte der Messtabelle oder „Messwerte“; op = „=“, „≠“, „<“, „>“, „≤“, „≥“),
+   kontrolle { art: "auswahl" (optionen: Text oder { text, hinweis }, richtig) | "zahl" (wert, toleranz, einheit; fehlwerte [{ wert, hinweis }] und sonst – der Hinweis zu einer vorhergesehenen falschen Zahl und der Satz für jede andere)
+   | "zuordnen" (paare – nach „Prüfen“ stehen sie nebeneinander; vertauscht [{ a, b, hinweis }] – a und b sind zwei linke Begriffe) | "folge" (bilder in der richtigen Reihenfolge; vertauscht [{ a, b, hinweis }] – a und b sind zwei Plätze, gezählt ab 1)
+   | "luecke" (text – jedes Wort in [eckigen Klammern] ist eine Lücke; wortspeicher – die falschen Wörter)
+   | "messwert" (frage, messwert { spalte, wo [Bedingungen für die Zeile] }, toleranz, einheit, sonst – die Zahl aus der eigenen Messtabelle des Modells)
+   | "stand" (frage, bedingungen, fehlstaende [{ bedingungen, hinweis }], sonst – Einstellen: geprüft wird der Stand des Modells) },
    bestaetigung (Satz „…, weil …“ für die richtige Antwort; die Seite setzt „✓ Richtig.“ davor), tipps [Tipp 1, Tipp 2], loesungsweg, sokommst, weiterueben,
    heftsatz (Satzanfang für „Wo lag mein Fehler?“), vergleich (was beim Checkpoint verglichen wird), code* (Fachbegriff, keine Ziffer),
    checkliste (Produktstation), oeffnetMit (Code, der die Station auch ohne Vorgänger öffnet), partnerCode (Wort für zwei),
+   mitschreiben (true: der Hefteintrag steht von Anfang an im Auftrag, weil beim Arbeiten notiert wird – sonst zeigt ein Schritt mit Kontrolle seinen Hefteintrag erst nach der richtigen Antwort),
    Vorbau: phasen [{ auftrag, … }] – mehrschrittige Station: jeder Schritt erscheint erst, wenn der davor geschafft ist; Schritt mit vermuten { frage, optionen } zeigt nur die Vermutung; Schritt mit erstSchreiben: true (nur mit heft und einer Auswahl) zeigt die Antworten erst, wenn der Text im Heft steht; etappen [{ nach, code, phase }] startet beim Schritt mit dem Index phase;
-   typ "beschriften" mit kontrolle { art: "beschriften", bild (Name in BILDER), punkte [{ x, y (Prozent im Bild), begriff }] } – Tippen-Tippen, kein Ziehen;
+   typ "beschriften" mit kontrolle { art: "beschriften", bild (Name in BILDER), punkte [{ x, y (Prozent im Bild), begriff }], vertauscht [{ a, b, hinweis }] – a und b sind zwei Begriffe } – Tippen-Tippen, kein Ziehen;
    typ "video" mit video { id (YouTube), titel, start, ende } – lädt erst nach einem Tipp (Zwei-Klick), mit Link als Ersatz.
    etappen [{ nach (was dann im Heft steht), code (Fachbegriff, keine Ziffer) }] – Zwischenstand; nur in langen Stationen, höchstens zwei (Spez D6),
    minuten (Zeitansatz; erscheint auf Wahlkacheln), stufe 1–3 und wofuer (nur Wahlstationen: ★ Festigen · ★★ Anwenden · ★★★ Weiterdenken).
-   Feld der Landschaft: pruefansicht (true nur in der Prüfansicht – schreibt landschaft_bauer.py --pruefansicht; zeigt „Überspringen »“).
+   Felder der Landschaft: pruefansicht (true nur in der Prüfansicht – schreibt landschaft_bauer.py --pruefansicht; zeigt „Überspringen »“);
+   woerter [{ wort, formen [Schreibweisen im Text], text (Erklärung) }] – Wörter zum Antippen: je Schritt ist das erste Vorkommen in Auftrag, Merke-Kasten, Frage,
+   Rückmeldung und Lösungsweg markiert; ein Tipp zeigt die Erklärung unter dem Absatz;
+   auswertung { adresse (Formular, endet auf /formResponse), felder { landschaft, bearbeitet, stand, huerden } (Nummern der vier Fragen) } – Knopf „Auswerten“ auf der Landkarte:
+   zeigt den letzten Code und sendet eine Zeile ohne Namen (Stationen, Fehlversuche, Tipps, Lösungsweg, falsche Antworten); ohne das Feld gibt es keinen Knopf, und die Seite hält nichts davon fest.
+   tafel { modell } – statt der Landkarte die Tafelseite dieses Modells (schreibt landschaft_bauer.py --tafel).
+   Bausteine (stehen hinter dem Datenblock): BILDER, SIMULATIONEN (frei geschriebene Modelle), ZEICHNUNGEN (eigene Zeichnungen mit Angaben) und MODELLE (Modelle für den Modellrahmen – Aufbau im Abschnitt „Modellrahmen“ unten).
    ============================================================ */
 const LANDSCHAFT = {
  "stationen": [
@@ -47,7 +60,7 @@ const LANDSCHAFT = {
    "code": "K3EYC",
    "phasen": [
     {
-     "auftrag": "Ein Like fühlt sich gut an. Das Gefühl entsteht im Belohnungssystem. Das Bild ist ein Längsschnitt: der Länge nach durchgeschnitten. **Schalte um.** **Lies ab**, wo etwas anspringt.",
+     "auftrag": "Ein Like fühlt sich gut an. Das Gefühl entsteht im Belohnungssystem. Das Bild zeigt das Gehirn aufgeschnitten. **Schalte um.** **Lies ab**, wo etwas anspringt.",
      "heft": "„Stoff: keiner – ein Verhalten. Wirkung: Ein Like fühlt sich gut an. Ort: Belohnungssystem, …“",
      "zustaende": [
       {
@@ -95,7 +108,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Erinnerst du dich an die Kette „Erklärungsmodell“ in deinem Heft? Sie passt auch zu Social Media. **Ordne** jedem Schritt einen Satz **zu**.",
-     "heft": "Kette: vier Kästchen mit Pfeilen, in jedem Schritt und Satz",
+     "heft": "Zeichne die Kette: vier Kästchen mit Pfeilen. In jedes Kästchen kommen Schritt und Satz.",
      "kontrolle": {
       "art": "zuordnen",
       "paare": [
@@ -128,7 +141,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Bei Social Media nimmt man keinen Stoff. **Erkläre** trotzdem: Wie kann daraus Sucht werden? **Schreibe** zuerst ins Heft.",
-     "heft": "Gefahr: „Aus Likes kann Sucht werden, weil …“ – darunter der Schlusssatz: „Sucht beginnt im Belohnungssystem.“",
+     "heft": "„Gefahr: Aus Likes kann Sucht werden, weil …“ – darunter der Schlusssatz: „Sucht beginnt im Belohnungssystem.“",
      "erstSchreiben": true,
      "kontrolle": {
       "art": "auswahl",
@@ -268,7 +281,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Erkläre**: Warum wirkt Heroin, obwohl es von außen kommt? **Schreibe** zuerst ins Heft.",
-     "heft": "Erklärung: „Heroin wirkt, weil …“ – darunter der Schlusssatz: „Heroin ist ein Beispiel für Drogen, die wie ein Nachschlüssel wirken.“",
+     "heft": "„Erklärung: Heroin wirkt, weil …“ – darunter der Schlusssatz: „Heroin ist ein Beispiel für Drogen, die wie ein Nachschlüssel wirken.“",
      "erstSchreiben": true,
      "kontrolle": {
       "art": "auswahl",
@@ -422,7 +435,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Erkläre**: Warum fühlt sich der Rausch so gut an? **Schreibe** zuerst ins Heft.",
-     "heft": "Erklärung: „Der Rausch fühlt sich gut an, weil …“ – darunter der Schlusssatz: „Kokain ist ein Beispiel für Drogen, die den Spalt mit Dopamin überschwemmen.“",
+     "heft": "„Erklärung: Der Rausch fühlt sich gut an, weil …“ – darunter der Schlusssatz: „Kokain ist ein Beispiel für Drogen, die den Spalt mit Dopamin überschwemmen.“",
      "erstSchreiben": true,
      "kontrolle": {
       "art": "auswahl",
@@ -477,7 +490,7 @@ const LANDSCHAFT = {
    "phasen": [
     {
      "auftrag": "Das ist die Synapse aus Station 3. Jemand nimmt wochenlang oft Kokain. Dann merkt er: Dieselbe Menge wirkt schwächer. **Schalte um.** **Zähle** die Signalpfeile nach Wochen.",
-     "heft": "Gefahr – Toleranz: „Nach Wochen hat die Nachbarzelle weniger …“",
+     "heft": "„Gefahr – Toleranz: Nach Wochen hat die Nachbarzelle weniger …“",
      "zustaende": [
       {
        "titel": "am Anfang",
@@ -504,7 +517,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Auch Essen, Freunde und Likes wirken im Belohnungssystem – ganz ohne Kokain. **Schalte um.** **Zähle**: Wie viele Signalpfeile kommen nach Wochen ohne Kokain an?",
-     "heft": "Gefahr – anderes freut weniger: „Ohne Kokain kommen nach Wochen nur … Signale an.“",
+     "heft": "„Gefahr – anderes freut weniger: Ohne Kokain kommen nach Wochen nur … Signale an.“",
      "zustaende": [
       {
        "titel": "am Anfang",
@@ -531,7 +544,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Jetzt nimmt er kein Kokain mehr. **Schalte** auf „nach Wochen“. **Erkläre**: Wie fühlt er sich? **Schreibe** zuerst ins Heft.",
-     "heft": "Gefahr – Entzug: „Ohne Kokain fühlt man sich …, weil …“",
+     "heft": "„Gefahr – Entzug: Ohne Kokain fühlt man sich …, weil …“",
      "zustaende": [
       {
        "titel": "am Anfang",
@@ -559,7 +572,7 @@ const LANDSCHAFT = {
       ],
       "richtig": 2
      },
-     "bestaetigung": "Das stimmt, weil zu wenig Signal ankommt: Man ist müde und niedergeschlagen und will den Stoff. Das ist Entzug. Die Nachbarzelle hat sich an Kokain gewöhnt – anders als bei den Likes in Station 1.",
+     "bestaetigung": "Das stimmt, weil zu wenig Signal ankommt. Das ist Entzug. Die Nachbarzelle hat sich an Kokain gewöhnt – anders als bei Likes in Station 1.",
      "tipps": [
       "Zähle die Pfeile im Bild.",
       "Wenig Signal im Belohnungssystem – wie fühlt sich das an?"
@@ -683,6 +696,7 @@ const LANDSCHAFT = {
     {
      "auftrag": "Das Modell zeigt Fentanyl an zwei Orten mit Opioid-Rezeptoren. **Erhöhe** die Menge Stufe für Stufe. **Notiere** jedes Mal: besetzte Rezeptoren und Atmung.",
      "heft": "Tabelle: Menge | besetzt | Atmung – darunter: „Je mehr …, desto …“",
+     "mitschreiben": true,
      "zeigtVermutung": true,
      "regler": {
       "titel": "Menge",
@@ -743,6 +757,7 @@ const LANDSCHAFT = {
     {
      "auftrag": "Jedes Modell vereinfacht. **Vergleiche** bei jeder Stufe die beiden Bilder. **Notiere**, was in echt anders ist.",
      "heft": "„Im Modell …, in echt …“",
+     "mitschreiben": true,
      "regler": {
       "titel": "Menge",
       "start": 0,
@@ -801,7 +816,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Wer süchtig ist, braucht immer mehr. Bei Fentanyl können schon 2 mg tödlich sein. Das ganze Raster ist eine Kopfschmerztablette: 500 mg. **Tippe** auf die Fläche, die 2 mg zeigt.",
-     "heft": "Gefahr: „Fentanyl ist so gefährlich, weil …“ – darunter der Schlusssatz: „Fentanyl ist ein Beispiel für Opioide: Es wirkt wie Heroin, nur viel stärker – schon winzige Mengen treffen das Atemzentrum.“",
+     "heft": "„Gefahr: Fentanyl ist so gefährlich, weil …“ – darunter der Schlusssatz: „Fentanyl ist ein Beispiel für Opioide: Es wirkt wie Heroin, nur viel stärker – schon winzige Mengen treffen das Atemzentrum.“",
      "kontrolle": {
       "art": "auswahl",
       "frage": "Welche Fläche zeigt 2 mg?",
@@ -867,7 +882,7 @@ const LANDSCHAFT = {
    "phasen": [
     {
      "auftrag": "**Hole** dir eine Infokarte. **Suche** die Sätze zu Punkt 1 bis 3 und **schreibe** sie ins Heft. **Zeichne** zu Punkt 3 Gehirn und Rückenmark und **markiere** den Ort.",
-     "heft": "Steckbrief: Name, Punkt 1 Stoff, Punkt 2 Wirkung, Punkt 3 Ort mit Skizze",
+     "heft": "Leg den Steckbrief an: Name, Punkt 1 Stoff, Punkt 2 Wirkung, Punkt 3 Ort mit Skizze.",
      "zeichnung": "gehirn(schrift=teile)",
      "checkliste": [
       "1 Stoff: Name, was für ein Stoff, wie er in den Körper kommt.",
@@ -877,7 +892,7 @@ const LANDSCHAFT = {
      "loesungsweg": "Vergleiche mit deinem Muster Heroin: Stoff – ein Opioid. Wirkung – Glück, kein Schmerz. Ort – Belohnungssystem und Schmerzbahn im Rückenmark. Auf der Infokarte gehört jeder Satz zu einem Punkt: Wie fühlt es sich an? – Wirkung. Steht „im Gehirn“ oder „im Körper“ im Satz? – Ort."
     },
     {
-     "auftrag": "**Suche** die Sätze zu Punkt 4. **Entscheide**: Nachschlüssel oder Überschwemmung? **Prüfe** dann mit dem Vermerk unten auf der Karte. **Zeichne** die Synapse und **schreibe** den Satz darunter.",
+     "auftrag": "**Suche** die Sätze zu Punkt 4. **Entscheide**: Nachschlüssel oder Überschwemmung? **Prüfe** mit dem Vermerk unten auf der Karte. **Zeichne** die Synapse.",
      "heft": "Punkt 4 Wirkweise: Skizze und Satz „… wirkt wie … aus Station …“",
      "zustaende": [
       {
@@ -898,7 +913,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Suche** die Sätze zu Punkt 5 und **schreibe** Punkt 5: Gefahr. **Vergleiche** danach deinen Steckbrief mit deinen drei Mustern. **Ergänze**, was fehlt.",
-     "heft": "Punkt 5 Gefahr: Toleranz und Sucht, Menge und Überdosis",
+     "heft": "Schreib Punkt 5 Gefahr: Toleranz und Sucht, Menge und Überdosis.",
      "checkliste": [
       "Punkt 5 nennt Toleranz oder Sucht.",
       "Punkt 5 nennt eine Gefahr bei großer Menge.",
@@ -932,7 +947,7 @@ const LANDSCHAFT = {
    "phasen": [
     {
      "auftrag": "**Bearbeite** Buch S. 153 Nr. 3 im Heft. **Vergleiche** danach mit der Lösung im Buch S. 425/426.",
-     "heft": "Antwort zu S. 153 Nr. 3",
+     "heft": "Beantworte S. 153 Nr. 3.",
      "buch": "S. 153 Nr. 3, Hilfe S. 147",
      "checkliste": [
       "Du nennst Nachschlüssel oder Überschwemmung.",
@@ -942,7 +957,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Bearbeite** Buch S. 149 Nr. 2 im Heft: Nenne zu jedem Abschnitt eine Aufgabe.",
-     "heft": "Tabelle: Abschnitt | Aufgabe",
+     "heft": "Leg eine Tabelle an: Abschnitt | Aufgabe.",
      "buch": "S. 148/149",
      "checkliste": [
       "Vier Abschnitte stehen in der Tabelle.",
@@ -952,7 +967,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Bearbeite** Buch S. 147 Nr. 1 im Heft: Beschreibe, wie Dopamin im Körper wirkt.",
-     "heft": "Antwort zu S. 147 Nr. 1",
+     "heft": "Beantworte S. 147 Nr. 1.",
      "buch": "S. 147",
      "checkliste": [
       "Du nennst das Belohnungssystem.",
@@ -991,7 +1006,7 @@ const LANDSCHAFT = {
    "phasen": [
     {
      "auftrag": "**Vermute**, bevor du den Film siehst. **Schreibe** deine Vermutung mit einem Grund ins Heft.",
-     "heft": "Ich vermute: Vapes …, weil …",
+     "heft": "„Ich vermute: Vapes …, weil …“",
      "vermuten": {
       "frage": "Viele sagen: „Wer nur dampft und nicht raucht, wird nicht süchtig.“ Was vermutest du?",
       "optionen": [
@@ -1003,7 +1018,8 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Setze** Kopfhörer **auf**. **Sieh** dir den Ausschnitt **an**. **Notiere**: Warum machen Vapes besonders schnell süchtig?",
-     "heft": "Vapes machen schnell süchtig, weil …",
+     "heft": "„Vapes machen schnell süchtig, weil …“",
+     "mitschreiben": true,
      "zeigtVermutung": true,
      "video": {
       "id": "gaF1Yjdwq0w",
@@ -1038,7 +1054,8 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Sieh** dir den zweiten Ausschnitt **an**. **Notiere** zwei Zeichen für Entzug bei Nikotin.",
-     "heft": "Entzug bei Nikotin: …, …",
+     "heft": "„Entzug bei Nikotin: …, …“",
+     "mitschreiben": true,
      "video": {
       "id": "gaF1Yjdwq0w",
       "titel": "Warum Vaping so fantastisch ist",
@@ -1161,7 +1178,7 @@ const LANDSCHAFT = {
      "heftsatz": "Ich habe … gewählt, weil …"
     },
     {
-     "auftrag": "Der Rettungsdienst hat ein Gegenmittel: Naloxon. Es passt in dieselben Schlösser wie das Opioid – aber es öffnet sie nicht. **Schalte um.** **Zähle**, wie viele Schlösser das Gegenmittel besetzt.",
+     "auftrag": "Der Rettungsdienst hat ein Gegenmittel: Naloxon. Es passt in dieselben Schlösser wie das Opioid – aber es öffnet sie nicht. **Schalte um.** **Zähle** die Schlösser mit Gegenmittel.",
      "heft": "„Gegenmittel: Naloxon besetzt … Schlösser und öffnet sie nicht. Das Opioid ist draußen.“",
      "zustaende": [
       {
@@ -1178,7 +1195,7 @@ const LANDSCHAFT = {
       "frage": "Wie viele Schlösser besetzt das Gegenmittel?",
       "wert": 4
      },
-     "bestaetigung": "Das Gegenmittel sitzt in allen 4 Schlössern. Es öffnet sie nicht: kein Signal. Das Opioid liegt draußen im Spalt. Im Atemzentrum bremst es nicht mehr – die Atmung kommt zurück.",
+     "bestaetigung": "Das Gegenmittel sitzt in allen 4 Schlössern: kein Signal. Im Atemzentrum bremst das Opioid nicht mehr – die Atmung kommt zurück.",
      "tipps": [
       "Das Gegenmittel ist der Schlüssel mit dem breiten, flachen Kopf.",
       "Schalte auf „mit Gegenmittel“ und zähle von links nach rechts."
@@ -1270,7 +1287,7 @@ const LANDSCHAFT = {
    "phasen": [
     {
      "auftrag": "**Vermute**, bevor du das Diagramm siehst. **Schreibe** deine Vermutung ins Heft.",
-     "heft": "Ich vermute: Nach der Pause verträgt er …",
+     "heft": "„Ich vermute: Nach der Pause verträgt er …“",
      "vermuten": {
       "frage": "Jemand braucht nach Monaten dreimal so viel wie am Anfang. Dann macht er vier Wochen Pause. Wie viel verträgt er danach?",
       "optionen": [
@@ -1282,7 +1299,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "**Setze** das Diagramm **fort**: Wie viel braucht er nach der Pause für dieselbe Wirkung?",
-     "heft": "Wert nach der Pause: …",
+     "heft": "„Wert nach der Pause: …“",
      "zeigtVermutung": true,
      "kontrolle": {
       "art": "auswahl",
@@ -1332,7 +1349,7 @@ const LANDSCHAFT = {
     },
     {
      "auftrag": "Nach der Pause nimmt er seine alte Menge: dreimal so viel wie am Anfang. **Begründe**, warum das lebensgefährlich sein kann. **Schreibe** zuerst ins Heft.",
-     "heft": "Das ist gefährlich, weil …",
+     "heft": "„Das ist gefährlich, weil …“",
      "erstSchreiben": true,
      "kontrolle": {
       "art": "auswahl",
@@ -1367,13 +1384,81 @@ const LANDSCHAFT = {
  "jahrgang": 7,
  "thema": "Sucht – Was macht ein Stoff im Körper?",
  "frage": "Was macht ein Stoff im Körper – und wie gefährlich ist er?",
- "version": "8 · 16.11.2026",
+ "version": "10 · 20.11.2026",
  "freischaltung": "nacheinander",
  "rahmen": "",
  "hinweisProdukt": "Der Steckbrief steht in deinem Heft. Am letzten Termin nennt deine Lehrkraft den Code.",
  "checkpoint": false,
  "partnerCode": false,
- "weiche": true
+ "weiche": true,
+ "auswertung": {
+  "adresse": "https://docs.google.com/forms/d/e/1FAIpQLSfR7H9P5xupTUDwmWpmPc5MlKqOD46_Od8sPNKGrGth5oMWlA/formResponse",
+  "felder": {
+   "landschaft": "1598608699",
+   "bearbeitet": "803821609",
+   "stand": "2022135629",
+   "huerden": "1377767238"
+  }
+ },
+ "woerter": [
+  {
+   "wort": "Nachschlüssel",
+   "formen": [
+    "Nachschlüssel",
+    "Nachschlüssels"
+   ],
+   "text": "nicht der echte Schlüssel – er öffnet das Schloss trotzdem"
+  },
+  {
+   "wort": "Rezeptor",
+   "formen": [
+    "Rezeptor",
+    "Rezeptoren",
+    "Rezeptors"
+   ],
+   "text": "das Schloss an der Nachbarzelle, in das ein Schlüssel passt"
+  },
+  {
+   "wort": "Belohnungssystem",
+   "formen": [
+    "Belohnungssystem",
+    "Belohnungssystems"
+   ],
+   "text": "der Teil, der das gute Gefühl macht, wenn etwas Schönes passiert"
+  },
+  {
+   "wort": "besetzt",
+   "formen": [
+    "besetzt",
+    "besetzen"
+   ],
+   "text": "etwas steckt im Schloss – der Platz ist nicht mehr frei"
+  },
+  {
+   "wort": "Entzug",
+   "formen": [
+    "Entzug",
+    "Entzugs"
+   ],
+   "text": "wie man sich fühlt, wenn der Stoff plötzlich fehlt"
+  },
+  {
+   "wort": "Gegenmittel",
+   "formen": [
+    "Gegenmittel",
+    "Gegenmittels"
+   ],
+   "text": "ein Medikament, das gegen die Wirkung eines anderen Stoffes wirkt"
+  },
+  {
+   "wort": "Signalpfeile",
+   "formen": [
+    "Signalpfeile",
+    "Signalpfeil"
+   ],
+   "text": "die Pfeile im Bild – jeder steht für ein Signal, das ankommt"
+  }
+ ]
 };
 
 /* Bausteine der Lernlandschaft Sucht (NaWi 07, Block 19) – Version 6 · 15.11.2026 (Anweisung der Lehrkraft 15.11.2026, 22:41, zu Station 1, Schritt 1:
@@ -1665,7 +1750,7 @@ html { scroll-padding-bottom:calc(max(var(--fussh), var(--leiste, 0px)) + 8px); 
 /* Landkarte */
 .frage-kasten { border-left:8px solid var(--akzent); background:var(--akzentbg); border-radius:10px; padding:10px 16px; margin:0 0 10px; font-weight:600; }
 .rahmen { margin:0 0 6px; }
-.laufzettel { color:var(--grau); margin:0 0 14px; }
+.brauchst { margin:0 0 14px; }   /* V16: Landkarte – was vor dem Start auf dem Tisch liegt (ersetzt die graue Erklärung zum Laufzettel) */
 .hinweiszeile { color:var(--grau); margin:calc(8px * var(--s, 1)) 0 0; }
 h2.abschnitt { font-size:22px; line-height:1.3; margin:18px 0 10px; }
 .karte { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px; }
@@ -1792,6 +1877,11 @@ input.zahl:focus, .dialog input:focus { outline:3px solid var(--akzent); outline
 .loesung { border:2px solid var(--akzent); border-radius:12px; padding:10px 14px; margin-top:10px; display:grid; gap:8px; }
 .loesung .teil b { color:var(--akzent-dunkel); }
 .heftauftrag { border-left:8px solid var(--orange); background:var(--orangebg); border-radius:8px; padding:8px 12px; font-weight:600; }
+/* V17: Heftstreifen – was wörtlich ins Heft kommt (in der Quelle in „…“), steht als eigener Block auf weißem Papier mit Linien (nicht Farbe allein: Rand und Linien).
+   Was nicht auf einem Streifen steht, ist ein Auftrag. Die Linien liegen im Abstand der Zeilen (1.5), jede Zeile steht auf ihrer Linie. */
+.heftwort { display:block; margin:3px 0 2px; padding:0 8px; background-color:#fff; border:1px solid #9aaab4; border-radius:4px; font-weight:400; color:var(--text); line-height:1.5;
+  background-image:repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.5em - 2px), #b7c6cf calc(1.5em - 2px), #b7c6cf calc(1.5em - 1px), transparent calc(1.5em - 1px), transparent 1.5em); }
+.zuordnen .opt.fest.links .mark { font-weight:700; }   /* V17: das Paar steht in einer Zeile – links genügt der Haken */
 .codebox { margin-top:12px; border:3px solid var(--ok); background:var(--okbg); border-radius:14px; padding:10px 16px; text-align:center; }
 .codebox .code { font-size:34px; font-weight:800; letter-spacing:.06em; color:var(--ok); word-break:break-all; line-height:1.3; }
 .codebox .hint { font-size:18px; color:var(--text); }
@@ -1825,6 +1915,11 @@ footer .meta { font-size:16px; color:var(--grau); }
 .dialog h2 { margin:0; font-size:26px; line-height:1.25; }
 .dialog input { font-size:26px; min-height:56px; width:100%; padding:6px 12px; border:2px solid var(--rand); border-radius:10px; letter-spacing:.04em; }
 .dialog .knoepfe { display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap; }
+/* V16: Dialog „Auswerten“ – der letzte Code groß, darunter ein Zwischenstand (wenn es einen gibt) und die Meldung zum Senden */
+.dialog .codebox { margin-top:0; }
+.dialog .awzw { margin:0; }
+.dialog .awzw b { letter-spacing:.04em; }
+.dialog .awzeile { font-size:16px; color:var(--grau); overflow-wrap:anywhere; }
 .unsichtbar { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
 /* Vorlage V7: Arbeit am Bild – Stelle antippen, Zustände umschalten, Bildfolge, Bildantworten, Regler, Ablauf */
 .umschalter { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
@@ -1900,6 +1995,130 @@ footer .meta { font-size:16px; color:var(--grau); }
 @media (min-width:700px) { .beschriften.mit-bildtext { row-gap:0; }
   .beschriften.mit-bildtext > .bildtext { grid-column:1 / -1; grid-row:2; justify-self:start; margin-left:0; margin-right:0; }
   .station.b-stapel .beschriften.mit-bildtext > .bildtext { margin-left:auto; margin-right:auto; } }
+/* V15: Wörter zum Antippen. V16: ein kleiner Knopf mit Rand in der Zeile – Rand in der Akzentfarbe wie bei den anderen Knöpfen, dahinter ein kleiner Winkel (nicht Farbe allein).
+   Der Knopf ist mit Rand so hoch wie die Zeile (26 px Zeilenhöhe + 2 × 2 px Rand = 30 px): Die Zeilen des Absatzes rücken nicht auseinander. Er ist 14 px breiter als das Wort –
+   ein Absatz kann dadurch eine Zeile länger werden. Ein Ziel im Fließtext (WCAG 2.5.8, Ausnahme „Inline“);
+   ein verfehlter Tipp löst nichts aus. Die Erklärung steht in einer Zeile direkt unter dem Absatz – kein Fenster über dem Text. */
+.wort { -webkit-appearance:none; appearance:none; display:inline-block; padding:0 4px 0 6px; margin:0; border:2px solid var(--akzent); border-radius:8px; background:#fff; text-align:inherit; vertical-align:baseline;
+  line-height:26px; -webkit-text-decoration:none; text-decoration:none; }
+.wort::after { content:""; display:inline-block; width:.4em; height:.4em; margin:0 .15em .2em .3em; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(45deg); }
+.wort[aria-expanded="true"] { background:var(--akzentbg); }
+.wort[aria-expanded="true"]::after { transform:rotate(-135deg); }
+.wort:focus-visible { outline:3px solid var(--akzent); outline-offset:2px; }
+.worterkl { margin:6px 0 0; padding:6px 12px; border:2px dotted var(--rand); border-radius:10px; background:#fff; color:var(--text); font-weight:400; }
+.frage + .worterkl { margin:0 0 calc(10px * var(--s, 1)); }
+.loesung > .worterkl { margin:0; }
+/* V15: Lückentext mit Wortspeicher – die Lücke ist eine Tippfläche in der Zeile (52 px hoch); die Zeilen stehen so weit auseinander, dass zwischen zwei Lücken mehr als 8 px frei bleiben */
+.lueckentext { line-height:62px; margin:0 0 calc(10px * var(--s, 1)); }
+.opt.luecke { display:inline-block; width:auto; max-width:100%; margin:0 4px; padding:6px 12px; vertical-align:middle; text-align:center; border-style:dashed; overflow-wrap:anywhere; }
+.opt.luecke .mark { float:none; margin-left:6px; }
+.opt.luecke .mark:empty { display:none; }
+.opt.luecke.fest { border-style:solid; }
+.lueckentext .opt.paar, .wortspeicher .opt.paar { border-style:solid; border-color:var(--akzent); background:var(--akzentbg); }
+.lueckentext .opt.aktiv, .wortspeicher .opt.aktiv { border-style:solid; border-color:var(--orange); box-shadow:inset 0 0 0 1px var(--orange); }
+.wortspeicher { display:flex; flex-wrap:wrap; gap:10px; padding:10px; border:2px dashed var(--rand); border-radius:12px; background:var(--flaeche); }
+.wortspeicher .opt { width:auto; min-width:52px; text-align:center; }
+/* V16: Modellrahmen – ein Modell aus den Bausteinen (MODELLE) bekommt von der Seite Bedienung, Stand, Bild, Diagramm und Messtabelle.
+   Größen stellt man mit Minus und Plus ein (52 px, kein Ziehen), bei höchstens drei benannten Werten mit einem Umschalter. Bild, Diagramm und Tabelle
+   stehen im Modellfeld: Die Seite wählt, ob sie nebeneinander oder untereinander stehen (data-form), und passt das Feld wie ein Bild auf den Bildschirm ein.
+   Die Bildzeile (Unterschrift, Vermerk, Ebene, Zeichen) steht im Feld direkt unter dem Bild: bei einer Spalte unter dem Bild, sonst unter der Reihe mit dem Bild.
+   Es gibt sie zweimal, zu sehen ist eine: untereinander im Feld gleich nach dem Bild, nebeneinander unter dem Feld – so breit wie der Kasten (schrumpft das Feld, braucht sie nicht mehr Zeilen).
+   Die Tabelle rollt in ihrem Feld, ihr Kopf bleibt stehen; die neueste Zeile ist hervorgehoben (fett und mit Fläche – nicht durch Farbe allein). */
+.modell h2 { margin-bottom:6px; }
+.mkopf { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px 16px; }   /* Größen und Tasten des Ablaufs teilen sich eine Zeile, wenn beide hineinpassen (feste Größe, „Auf Start“ allein) – sonst stehen sie untereinander */
+.mkopf > .mgroessen, .mkopf > .mlauf { flex:1 1 auto; min-width:0; }
+.mkopf > .mlauf { margin-top:0; }
+.mgroessen { display:grid; gap:8px; }
+.mgroesse { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.mgroesse .mname { flex:1 1 auto; font-weight:600; }   /* so breit wie das Wort – eine feste Mindestbreite ließe die Zeile umbrechen, wenn sie sich die Reihe mit „Auf Start“ teilt */
+.mgroesse .mwert { min-width:4.6em; text-align:center; font-weight:700; }
+.mgroesse.fest { gap:0 8px; }
+.mgroesse.fest .mname { flex:0 1 auto; }
+.mgroesse.fest .mwert { min-width:0; text-align:left; }
+.mgroesse .btn[aria-disabled="true"] { background:#fff; color:var(--grau); border-color:var(--linie); border-style:dashed; }
+.mgroesse .mwahl { display:flex; flex-wrap:wrap; gap:8px; }
+.mgroesse .mwahl .btn { padding:8px 12px; }
+.mgroesse .mwahl .btn.gewaehlt { background:var(--akzent); color:#fff; }
+.mlauf { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px; }
+.mlauf .btn { padding:8px 12px; }
+.mlauf .mrechts { margin-left:auto; }
+.mende { font-weight:600; min-height:52px; display:flex; align-items:center; }
+.mstandzeile { display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; margin-top:8px; }   /* der Stand, daneben „Erwartung zeigen“ – passt beides nicht in eine Zeile, steht die Taste darunter */
+.mstand { flex:1 1 auto; margin:0; font-weight:700; }   /* so breit wie ihr Text: Passt die Taste nicht daneben, rückt die Taste in die nächste Zeile – nicht der Text */
+.mstand:empty { display:none; }
+.mstandzeile .mzusatz { margin:0 0 0 auto; }
+.mhinweis { margin:4px 0 0; color:var(--text); border-left:8px solid var(--akzent); padding-left:10px; }
+.mhinweis:empty { display:none; }
+.modellfeld { display:grid; gap:10px; grid-template-columns:minmax(0, 1fr); align-items:start; margin:8px auto 0; }
+.modellfeld[data-form="2"] { grid-template-columns:minmax(0, 1fr) minmax(0, 1.1fr); }
+.modellfeld[data-form="2"][data-teile="bt"] { grid-template-columns:minmax(0, 1.25fr) minmax(0, 1fr); }
+.modellfeld[data-form="2"][data-teile="bdt"] .mtab { grid-column:1 / -1; }
+.modellfeld[data-form="3"] { grid-template-columns:minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, .85fr); }
+.mteil { border:2px solid var(--linie); border-radius:12px; background:#fff; overflow:hidden; min-width:0; }
+.mteil svg { display:block; width:100%; height:auto; }
+.mtab { position:relative; align-self:stretch; min-height:calc(var(--mz, 4) * var(--mzh, 31px) + var(--mzk, 34px)); }
+.mrollen { position:absolute; inset:0; overflow:auto; -webkit-overflow-scrolling:touch; }
+.mtabelle { border-collapse:separate; border-spacing:0; width:100%; line-height:1.3; }
+.mtabelle th, .mtabelle td { padding:2px 10px; text-align:right; border-bottom:1px solid var(--linie); }
+.mtabelle td { white-space:nowrap; }
+.mtabelle th { position:sticky; top:0; z-index:1; background:var(--flaeche); font-weight:700; border-bottom:2px solid var(--rand); }
+.mtabelle tbody tr:last-child td { font-weight:700; background:var(--akzentbg); }
+.mtabelle .mleer td { text-align:left; white-space:normal; font-weight:400 !important; background:#fff !important; color:var(--grau); }
+.modellfeld > .mzeile { grid-column:1 / -1; margin-top:-4px; }
+.mzeile.mleg { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:2px 18px; }
+.mzeile.mleg .bu { justify-content:center; }
+.modellfeld[data-form="2"] > .mbild, .modellfeld[data-form="3"] > .mbild { order:1; }
+.modellfeld[data-form="2"] > .mdia, .modellfeld[data-form="3"] > .mdia, .modellfeld[data-form="2"] > .mtab, .modellfeld[data-form="3"] > .mtab { order:2; }
+.modellfeld[data-form="2"] > .mzeile { order:3; }
+.modellfeld[data-form="2"][data-teile="bdt"] > .mtab { order:4; }
+.modellfeld[data-form="2"]:not([data-teile="bdt"]) > .mzeile, .modellfeld[data-form="3"] > .mzeile, .modellfeld[data-teile="b"] > .mzeile { display:none; }   /* Teile nebeneinander oder nur das Bild: Die Zeile steht unter dem Feld */
+.modellfeld[data-form="1"]:not([data-teile="b"]) + .mzeile, .modellfeld[data-form="2"][data-teile="bdt"] + .mzeile { display:none; }   /* untereinander oder Tabelle in eigener Reihe: Die Zeile steht im Feld, gleich nach dem Bild */
+.mzeile[hidden] { display:none !important; }
+.mzusatz { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+.mzusatz:empty { display:none; }
+.mzusatz .btn { padding:8px 12px; }
+.mzusatz .btn[aria-pressed="true"] { background:var(--akzent); color:#fff; }
+.modellfehler { border:2px solid var(--nein); background:var(--neinbg); color:var(--nein); border-radius:12px; padding:8px 14px; font-weight:600; }
+.standziel { margin:0 0 calc(10px * var(--s, 1)); padding:8px 14px; border:2px solid var(--ok); border-radius:12px; background:var(--okbg); color:var(--ok); }
+.standziel:empty { display:none; }
+/* V16: Tafelseite – dasselbe Modell als eigene Seite für die digitale Tafel: größere Schrift und Tasten, Bild, Diagramm und Tabelle nebeneinander, alles auf einem Bildschirm */
+body.tafel { --grund:26px; --mzh:38px; --mzk:42px; }
+body.tafel header.kopf { position:static; }
+body.tafel header.kopf h1 { font-size:34px; }
+body.tafel main { padding:12px 20px 16px; }
+body.tafel .btn { min-height:64px; min-width:64px; }
+body.tafel .btn.klein { width:64px; font-size:34px; }
+body.tafel .tafelkopf { display:flex; flex-wrap:wrap; align-items:center; gap:10px 28px; }
+body.tafel .tafelkopf .mgroessen { flex:0 1 auto; display:flex; flex-wrap:wrap; gap:10px 28px; }
+body.tafel .tafelkopf .mlauf, body.tafel .tafelkopf .mzusatz { margin-top:0; }
+body.tafel .tafelkopf .mlauf .mrechts { margin-left:0; }
+body.tafel .mstandzeile { margin-top:10px; }
+body.tafel .mstand { font-size:30px; }
+body.tafel .mhinweis { font-size:24px; }
+body.tafel .modellfeld { gap:16px; margin-top:12px; }
+body.tafel .modellfeld[data-form="3"] { grid-template-columns:minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, .6fr); }
+body.tafel .mteil svg * { vector-effect:none; }   /* an der Tafel wächst der Strich mit dem Bild (wie im Profil Standbild) – auf dem iPad bleibt er in Bildschirm-Pixeln fest */
+body.tafel .mzeile .bs svg { width:42px; height:30px; }
+body.tafel .mtabelle { line-height:1.25; }
+body.tafel .mzeile { font-size:22px; }
+body.tafel .modellfeld > .mzeile { margin-top:-6px; }
+body.tafel .modellfeld + .mzeile { margin-top:10px; }
+body.tafel .modellgrenze { font-size:24px; margin-top:8px; color:var(--text); }
+/* niedriges Fenster (Surface mit den Leisten des Browsers, Beamer mit 720 Zeilen): alles eine Stufe kleiner – an der Tafel bleibt die Schrift im Verhältnis zum Bild etwa gleich groß */
+@media (max-height:800px) {
+  body.tafel { --grund:22px; --mzh:33px; --mzk:37px; }
+  body.tafel header.kopf h1 { font-size:28px; }
+  body.tafel main { padding:8px 16px 10px; }
+  body.tafel .btn { min-height:56px; min-width:56px; }
+  body.tafel .btn.klein { width:56px; font-size:30px; }
+  body.tafel .mstandzeile { margin-top:6px; }
+  body.tafel .mstand { font-size:25px; }
+  body.tafel .mhinweis, body.tafel .modellgrenze { font-size:20px; }
+  body.tafel .modellfeld { gap:12px; margin-top:8px; }
+  body.tafel .mzeile { font-size:19px; }
+  body.tafel .modellfeld > .mzeile { margin-top:-4px; }
+  body.tafel .modellfeld + .mzeile { margin-top:8px; }
+}
 </style>
 </head>
 <body>
@@ -1921,18 +2140,22 @@ footer .meta { font-size:16px; color:var(--grau); }
   };
   const HEFTSATZ = "Das iPad vergisst jeden Tag alles – dein Heft nicht.";   // V12 (H3): wozu das Heft
   L.stationen.forEach(s => [s].concat(s.phasen || []).forEach(x => { const k = x.kontrolle; if (k && k.art === 'beschriften') k.paare = k.punkte.map((p, i) => [String(i + 1), p.begriff]); }));
-  const ZU = k => k.art === 'zuordnen' || k.art === 'beschriften';
+  const LUECKE = /\[[^\[\]]+\]/g;   // V15: Lückentext – jedes Wort in eckigen Klammern ist eine Lücke
+  L.stationen.forEach(s => [s].concat(s.phasen || []).forEach(x => { const k = x.kontrolle; if (k && k.art === 'luecke') k.paare = (String(k.text || '').match(LUECKE) || []).map((w, i) => [String(i + 1), w.slice(1, -1).trim()]); }));
+  const ZU = k => k.art === 'zuordnen' || k.art === 'beschriften' || k.art === 'luecke';   // V15: der Lückentext wird wie eine Zuordnung bedient – Lücke und Wort antippen
   const AMBILD = k => k.art === 'auswahl' && !!(k.bild || k.zustaende || k.diagramm || k.raster);          // Auswahl an Stellen im Bild
   const BILDANTWORT = k => k.art === 'auswahl' && !AMBILD(k) && k.optionen.some(o => o && o.bild);        // Antworten sind Bilder
   const BREIT = k => ZU(k) || k.art === 'folge' || AMBILD(k) || BILDANTWORT(k);                            // braucht die breite Prüfspalte
   const pflicht = L.stationen.filter(s => s.pflicht && s.typ !== 'abgabe');
   const wahl = L.stationen.filter(s => !s.pflicht);
   const KEY = 'll4_' + L.titel;
-  const LEER = () => ({ erledigt: {}, versuche: {}, offen: {}, partner: {}, etappe: {}, phase: {}, vm: {}, aktuell: null });
+  const AW = L.auswertung && L.auswertung.adresse && L.auswertung.felder ? L.auswertung : null;   // V16: Auswertung für die Lehrkraft – nur mit diesem Feld gibt es den Knopf, und nur dann hält die Seite Hürden fest
+  const LEER = () => Object.assign({ erledigt: {}, versuche: {}, offen: {}, partner: {}, etappe: {}, phase: {}, vm: {}, aktuell: null }, AW ? { aw: { h: {}, b: {}, g: null }, letzte: null } : {});
   let filmOk = false;   // Film von YouTube: einmal zugestimmt, gilt bis zum Schließen der Seite
-  const hatEtappen = L.stationen.some(s => s.etappen && s.etappen.length);
+  const hatBuch = L.stationen.some(s => [s].concat(s.phasen || []).some(x => x.buch || x.typ === 'buchaufgabe'));   // V16: Die Landkarte nennt das Buch nur, wenn eine Station eine Buchseite nennt
   let zustand = LEER();
   try { const g = localStorage.getItem(KEY); if (g) zustand = Object.assign(LEER(), JSON.parse(g)); } catch (e) {}
+  if (AW && !(zustand.aw && zustand.aw.h && zustand.aw.b)) zustand.aw = LEER().aw;
   function speichern() { try { localStorage.setItem(KEY, JSON.stringify(zustand)); } catch (e) {} }
   function zeit(sek) { return Math.floor(sek / 60) + ':' + String(sek % 60).padStart(2, '0'); }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
@@ -1940,6 +2163,99 @@ footer .meta { font-size:16px; color:var(--grau); }
   function md(t) {
     return esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
       .replace(/([A-Za-zÄÖÜäöüαβγ0-9,]+(?:\s?(?:=|≈|·)\s?| : )[A-Za-zÄÖÜäöüαβγ0-9,°]+(?:(?:\s?(?:=|≈|·)\s?| : )[A-Za-zÄÖÜäöüαβγ0-9,°]+)*)/g, '<span class="formel">$1</span>');
+  }
+  /* ---------- Wörter zum Antippen (V15) ----------
+     Die Landschaft nennt in `woerter` Wörter mit einer kurzen Erklärung. Je Schritt markiert die Seite das erste Vorkommen eines Wortes in Auftrag, Merke-Kasten,
+     Frage, Rückmeldung und Lösungsweg – in dieser Reihenfolge. Ein Tipp zeigt die Erklärung in einer Zeile direkt unter dem Absatz, ein zweiter schließt sie.
+     Antworten, Begriffe, Tipps und Knöpfe bleiben unmarkiert: Ein Tipp dort wählt aus. Ein klein geschriebenes Wort der Liste gilt auch groß am Satzanfang.
+     Wird ein Bereich neu geschrieben (eine neue Rückmeldung), gelten seine Marken nicht mehr: Das Wort wird beim nächsten Vorkommen wieder markiert. */
+  const WOERTER = (L.woerter || []).filter(w => w && w.wort && w.text);
+  const WZ = 'A-Za-zÄÖÜäöüß0-9', wortForm = {};   // wortForm: Schreibweise im Text -> Nummer des Eintrags
+  WOERTER.forEach((w, i) => (w.formen && w.formen.length ? w.formen : [w.wort]).forEach(f => { f = esc(String(f).trim()); if (!f) return;
+    [f, f.charAt(0).toUpperCase() + f.slice(1)].forEach(x => { if (!(x in wortForm)) wortForm[x] = i; }); }));
+  const WORT_RE = Object.keys(wortForm).length ? new RegExp('(^|[^' + WZ + '])(' + Object.keys(wortForm).sort((a, b) => b.length - a.length).map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![' + WZ + '])', 'g') : null;
+  let wortOrte = new Map(), wortNr = 0;   // wortOrte: Eintrag -> Bereich, in dem er in dieser Ansicht markiert ist
+  function wortFrei(ort) { [...wortOrte].forEach(([i, o]) => { if (o === ort) wortOrte.delete(i); }); }   // ein Bereich wird neu geschrieben oder geleert: seine Marken gelten nicht mehr
+  function mw(html, ort, weiter) {   // fertiges HTML eines Bereichs: erstes Vorkommen je Wort markieren; weiter = derselbe Bereich geht weiter (zweiter Absatz des Lösungswegs)
+    if (!WORT_RE || !html) return html;
+    if (!weiter) wortFrei(ort);
+    return String(html).split(/(<[^>]*>)/).map((teil, n) => n % 2 ? teil : teil.replace(WORT_RE, (alles, vor, wort) => {
+      const i = wortForm[wort]; if (i == null || wortOrte.has(i)) return alles;
+      wortOrte.set(i, ort);
+      return `${vor}<button class="wort" data-w="${i}" aria-expanded="false">${wort}</button>`; })).join('');
+  }
+  const frageH = t => mw(md(t), 'frage');
+  app.addEventListener('click', e => {   // ein Wort antippen: Die Erklärung erscheint unter dem Absatz – der zweite Tipp schließt sie
+    const b = e.target && e.target.closest ? e.target.closest('.wort') : null; if (!b) return;
+    const w = WOERTER[+b.dataset.w], absatz = b.closest('p, li, .teil, .merke > div') || b.parentElement; if (!w || !absatz) return;
+    const offen = b.getAttribute('aria-expanded') === 'true', alt = absatz.nextElementSibling;
+    if (alt && alt.classList.contains('worterkl')) alt.remove();   // je Absatz steht höchstens eine Erklärung
+    absatz.querySelectorAll('.wort').forEach(x => x.setAttribute('aria-expanded', 'false'));
+    if (offen) return;
+    const p = document.createElement('p'); p.className = 'worterkl'; p.id = 'we' + (++wortNr); p.innerHTML = `<b>${esc(w.wort)}:</b> ${md(w.text)}`;
+    absatz.insertAdjacentElement('afterend', p); b.setAttribute('aria-expanded', 'true'); b.setAttribute('aria-controls', p.id); zeige(p);
+  });
+  /* ---------- Auswertung für die Lehrkraft (V16) ----------
+     Nur mit dem Feld `auswertung` der Landschaft. Die Seite hält je Schritt fest, wo es schwer war: Fehlversuche (f), geöffnete Tipps (t), Lösungsweg (l) und
+     die falschen Antworten (a, höchstens sechs) – bei einer Auswahl der Buchstabe der Antwort in der Reihenfolge der Quelle (a, b, c …), bei einer Zahl die
+     eingegebene Zahl, bei Zuordnen, Beschriften und Lückentext „Platz>Platz“ (auf Platz 2 liegt, was auf Platz 3 gehört; „w1“ = erstes Wort des Wortspeichers),
+     bei einer Bildfolge „Bild>Platz“. Dazu: an welchen Stationen gearbeitet wurde (b – per Code wiederhergestellte zählen nicht) und die letzte Station mit Code.
+     Ein Schritt ohne Fehlversuch, Tipp und Lösungsweg wird nicht festgehalten. Der Knopf „Auswerten“ auf der Landkarte zeigt den letzten Code und sendet
+     eine Zeile an das Formular – kein Name, keine Klasse, keine Kennung des Geräts, kein freier Text. Die Anfrage trägt keinen Referrer und keine Cookies; als Herkunft
+     nennt Safari „null“, Chromium Schema und Rechnernamen der Seite – nie den Pfad.
+     Ein zweiter Tipp sendet nur, was seitdem dazugekommen ist: Die Zeile trägt dann bei „Stand“ den Zusatz „(Nachtrag)“, ein schon gemeldeter Schritt steht mit „+“
+     und nur mit dem Zuwachs. „Gesendet“ heißt: Die Anfrage ging hinaus – ob sie ankam, zeigt nur die Tabelle des Formulars. In der Prüfansicht wird nie gesendet;
+     dort zeigt der Dialog die Zeile. */
+  const awKey = s => s._basis ? s.nr + '.' + (s._i + 1) : String(s.nr);
+  const awH = s => { const k = awKey(s), a = zustand.aw; return a.h[k] || (a.h[k] = { f: 0, t: 0, l: 0, a: [] }); };
+  function awVersuch(s, richtig, antwort) { if (!AW) return; zustand.aw.b[s.nr] = 1; if (richtig) return; const h = awH(s); h.f++; if (antwort && h.a.length < 6) h.a.push(String(antwort).slice(0, 60)); }
+  function awHilfe(s, tipp) { if (!AW) return; const h = awH(s); if (tipp) h.t = Math.max(h.t, tipp); else h.l = 1; zustand.aw.b[s.nr] = 1; speichern(); }
+  function awArbeit(s) { if (AW) zustand.aw.b[s.nr] = 1; }   // gespeichert wird mit dem nächsten Stand
+  const awRang = s => { const i = pflicht.indexOf(s); return i >= 0 ? i : pflicht.length + L.stationen.indexOf(s); };
+  function awStand(s, geloest) {   // letzte Station mit Code: gelöst gilt immer; ein eingegebener Code nur, wenn er weiter führt als der bisherige Stand
+    if (!AW) return; const alt = L.stationen.find(x => x.nr == zustand.letzte);
+    if (geloest || !alt || awRang(s) > awRang(alt)) zustand.letzte = s.nr; }
+  const awSort = (x, y) => { const a = x.split('.').map(Number), b = y.split('.').map(Number); return a[0] - b[0] || (a[1] || 0) - (b[1] || 0); };
+  function awZeile() {   // die Zeile für das Formular: beim ersten Mal alles, danach nur der Zuwachs
+    const a = zustand.aw, g = a.g || { n: 0, b: {}, h: {}, letzte: null };
+    const neuB = L.stationen.map(s => s.nr).filter(n => a.b[n] && !g.b[n]);
+    const hu = Object.keys(a.h).sort(awSort).map(k => { const h = a.h[k], v = g.h[k];
+      if (!v) return `${k} F${h.f} T${h.t} L${h.l}` + (h.a.length ? ' A=' + h.a.join('|') : '');
+      const df = h.f - v.f, dt = h.t - v.t, dl = h.l - v.l, da = h.a.slice(v.a);
+      return df || dt || dl || da.length ? `${k}+ F${df} T${dt} L${dl}` + (da.length ? ' A=' + da.join('|') : '') : ''; }).filter(Boolean);
+    const snap = { n: g.n + 1, b: Object.assign({}, a.b), h: {}, letzte: zustand.letzte };
+    Object.keys(a.h).forEach(k => { const h = a.h[k]; snap.h[k] = { f: h.f, t: h.t, l: h.l, a: h.a.length }; });
+    return { neu: !g.n || neuB.length > 0 || hu.length > 0 || g.letzte !== zustand.letzte, snap,
+      felder: { landschaft: L.titel + (L.version ? ' · ' + L.version : ''), bearbeitet: neuB.map(n => 'S' + n).join(' '),
+                stand: (zustand.letzte != null ? 'S' + zustand.letzte : '–') + (g.n ? ' (Nachtrag)' : ''), huerden: hu.join('; ') } };
+  }
+  function awSende(f) {
+    const body = new URLSearchParams(), ac = window.AbortController ? new AbortController() : null, uhr = ac ? setTimeout(() => ac.abort(), 10000) : 0;
+    ['landschaft', 'bearbeitet', 'stand', 'huerden'].forEach(k => { if (f[k]) body.append('entry.' + AW.felder[k], f[k]); });
+    return fetch(AW.adresse, { method: 'POST', mode: 'no-cors', credentials: 'omit', referrerPolicy: 'no-referrer', body, signal: ac ? ac.signal : undefined })
+      .then(r => { clearTimeout(uhr); return r; }, e => { clearTimeout(uhr); throw e; });
+  }
+  function dialogAuswerten() {
+    const d = document.createElement('div'); d.className = 'dialog'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'dlgTitel');
+    const ls = L.stationen.find(x => x.nr == zustand.letzte);
+    const zw = L.stationen.map(s => { if (istErledigt(s) || !s.etappen || !s.etappen.length) return null;   // Zwischenstand einer angefangenen Station – er ist dann der letzte Eintrag auf dem Laufzettel
+      const e = s.phasen ? s.etappen.filter(x => x.phase <= (zustand.phase[s.nr] || 0)).pop() : s.etappen[(zustand.etappe[s.nr] || 0) - 1]; return e ? { s, e } : null; }).filter(Boolean);
+    d.innerHTML = `<div class="box"><h2 id="dlgTitel">Auswerten</h2>
+      ${ls ? `<div class="codebox"><div>Dein letzter Code – Station ${ls.nr}:</div><div class="code">${esc(ls.code)}</div><div class="hint">Vergleiche mit dem letzten Code auf deinem Laufzettel.</div></div>`
+           : '<p>Du hast noch keinen Code. Er kommt, wenn du deine erste Station geschafft hast.</p>'}
+      ${zw.map(x => `<p class="awzw">Zwischenstand für Station ${x.s.nr}: <b>${esc(x.e.code)}</b> – steht er mit Bleistift auf deinem Laufzettel?</p>`).join('')}
+      <p id="awMsg" role="status" aria-live="polite"></p>
+      <div class="knoepfe"><button class="btn sekundaer" id="awNoch" hidden>Noch einmal senden</button><button class="btn" id="dlgZu">Schließen</button></div></div>`;
+    document.body.appendChild(d);
+    const msg = d.querySelector('#awMsg'), noch = d.querySelector('#awNoch');
+    d.querySelector('#dlgZu').addEventListener('click', () => d.remove());
+    const sende = () => { const z = awZeile(); noch.hidden = true;
+      if (L.pruefansicht) { msg.innerHTML = `<b>Prüfansicht: Hier wird nichts gesendet.</b> <span class="awzeile">Die Zeile wäre – Landschaft: ${esc(z.felder.landschaft)} · Bearbeitet: ${esc(z.felder.bearbeitet || 'leer')} · Stand: ${esc(z.felder.stand)} · Hürden: ${esc(z.felder.huerden || 'leer')}</span>`; return; }
+      if (!z.neu) { msg.textContent = 'Schon gesendet. Seitdem ist nichts dazugekommen.'; return; }
+      msg.textContent = 'Sende …';
+      awSende(z.felder).then(() => { zustand.aw.g = z.snap; speichern(); msg.textContent = '✓ Gesendet – ohne deinen Namen: Stationen, Fehler und Tipps.'; },
+        () => { msg.textContent = '✗ Nicht gesendet. Prüfe das WLAN und tippe auf „Noch einmal senden“.'; noch.hidden = false; }); };
+    noch.addEventListener('click', sende); sende();
   }
   function istErledigt(s) { return !!zustand.erledigt[s.nr]; }
   function pflichtFertig() { return pflicht.every(istErledigt); }
@@ -1971,13 +2287,13 @@ footer .meta { font-size:16px; color:var(--grau); }
         ${L.frage ? `<p class="frage-kasten">Darum geht es: ${md(L.frage)}</p>` : ''}
         <p class="rahmen">${RAHMENTEXT[rahmen]}</p>
         <p class="heftlinie zweck">✎ ${HEFTSATZ}</p>
-        <p class="laufzettel">Laufzettel im Heft – je Station eine Zeile: Station · Code · Wie gelöst? (☺ richtig gelöst · 😐 mit Fehlern oder nur mit Tipp · ? nicht gelöst) · Datum${hatEtappen ? '. Darunter ein Feld „Zwischenstand“ (Bleistift).' : ''}</p>
+        <p class="brauchst">Du brauchst ${hatBuch ? 'den Laufzettel, ein Buch und dein Heft' : 'den Laufzettel und dein Heft'}, bevor du beginnst.</p>
         <h2 class="abschnitt">Pflichtstationen – der Reihe nach</h2>
         <div class="karte">${pf.concat(produkt).map(kachel).join('')}</div>
         ${wahl.length ? wahlBereich() : ''}
         <div class="unten"><button class="btn sekundaer" id="reset">Neu starten</button><span class="meta" id="resetText"></span></div>
       </main>
-      <footer class="fuss"><button class="btn sekundaer" id="codeEingabe">Code eingeben</button><span class="meta">${esc(L.version)}</span>
+      <footer class="fuss"><button class="btn sekundaer" id="codeEingabe">Code eingeben</button>${AW ? '<button class="btn sekundaer" id="auswerten">Auswerten</button>' : ''}<span class="meta">${esc(L.version)}</span>
         ${n ? `<button class="btn haupt" id="weiter">Station ${n.nr} ›</button>` : ''}</footer>`;
     window.scrollTo(0, 0);   // V13: auch die Landkarte beginnt oben
     app.querySelectorAll('.kachel').forEach(k => k.addEventListener('click', () => {
@@ -1990,6 +2306,7 @@ footer .meta { font-size:16px; color:var(--grau); }
       b.classList.add('gewaehlt'); b.setAttribute('aria-pressed', 'true'); b.querySelector('.kaestchen').textContent = '☒';
     }));
     const w = app.querySelector('#weiter'); if (w) w.addEventListener('click', () => zeigeStation(n));
+    const aw = app.querySelector('#auswerten'); if (aw) aw.addEventListener('click', dialogAuswerten);
     app.querySelector('#codeEingabe').addEventListener('click', () => dialogCode(null, 'Du hast schon früher gearbeitet? Gib die Codes aus deinem Laufzettel ein – von unten nach oben, bis jede fertige Station ein ✓ hat. Den Zwischenstand zuletzt.'));
     let scharf = null;
     app.querySelector('#reset').addEventListener('click', e => {
@@ -2079,7 +2396,7 @@ footer .meta { font-size:16px; color:var(--grau); }
       const s = L.stationen.find(x => x.code && x.code.toUpperCase() === c);
       if (!s) { d.querySelector('#dlgMsg').textContent = 'Diesen Code gibt es nicht. Schau noch einmal in deinen Laufzettel.'; return; }
       davorErledigt(s);
-      zustand.erledigt[s.nr] = true; speichern(); d.remove(); zeigeKarte();
+      zustand.erledigt[s.nr] = true; awStand(s); speichern(); d.remove(); zeigeKarte();
     };
     d.querySelector('#dlgOk').addEventListener('click', pruefe);
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') pruefe(); });
@@ -2097,7 +2414,7 @@ footer .meta { font-size:16px; color:var(--grau); }
     else setHaupt('weiter', 'Zur Karte ›', zeigeKarte);
   }
   const SCHRITTFELDER = ['auftrag', 'heft', 'buch', 'kontrolle', 'checkliste', 'sim', 'simOpt', 'video', 'merke', 'bild', 'zeichnung', 'schritte', 'vermuten', 'vermutung', 'zeigtVermutung',
-    'modellgrenze', 'loesungsweg', 'sokommst', 'weiterueben', 'heftsatz', 'tipps', 'bestaetigung', 'zustaende', 'regler', 'ablauf', 'loesungsbild', 'erstSchreiben'];
+    'modellgrenze', 'loesungsweg', 'sokommst', 'weiterueben', 'heftsatz', 'tipps', 'bestaetigung', 'zustaende', 'regler', 'ablauf', 'loesungsbild', 'erstSchreiben', 'mitschreiben', 'modell', 'vorher'];
   function sicht(s, blick) {   // ein Schritt als eigene Ansicht: nur seine Felder, alles andere bleibt verborgen
     const i = blick != null ? blick : Math.min(zustand.phase[s.nr] || 0, s.phasen.length - 1), p = Object.create(s);
     SCHRITTFELDER.forEach(f => { p[f] = undefined; }); Object.assign(p, s.phasen[i]);
@@ -2108,12 +2425,30 @@ footer .meta { font-size:16px; color:var(--grau); }
      wenn der davor geschafft ist (Spez_Lernlandschaft D6). Eine erledigte Station zeigt ihre Schritte über „Schritte ansehen“.
      V12 – Heft (H1, H2, H4): Jeder Schritt endet im Heft („Steht im Heft – weiter ›“). Nach dem letzten Schritt kommt vor dem Code die Prüfliste
      zum Heft: die Einträge aus der Zeile „Heft:“ der Station, getrennt durch „ · “. Sie entfällt, wenn der letzte Schritt selbst eine Prüfliste ist.
-     In dieser Zeit steht der Stand auf der Zahl der Schritte, die Station ist noch nicht erledigt. */
+     In dieser Zeit steht der Stand auf der Zahl der Schritte, die Station ist noch nicht erledigt.
+     V16 – Hefteintrag nach der Antwort: Prüft die Seite die Antwort eines Schritts, erscheint sein Hefteintrag erst mit der richtigen Antwort im Kasten
+     „Jetzt ins Heft“ (beim Lösungsweg im Kasten nach dem Satz zum Fehler) – nicht vorher im Auftrag. So steht am Start weniger Text auf dem Bildschirm,
+     und der Eintrag verrät die Antwort nicht. Von Anfang an im Auftrag steht er, wo er der Auftrag ist: im Schritt ohne Kontrolle (Vermuten, Prüfliste,
+     Vergleichen), bei „erst schreiben“ und im Schritt mit mitschreiben: true (beim Arbeiten wird notiert). Im gelösten Schritt (Zurückblättern) und neben
+     dem Code steht er wie bisher im Auftrag.
+     V17 – abschreiben oder erstellen: In der Quelle steht in Anführungszeichen („…“), was wörtlich ins Heft kommt. Die Seite setzt es ohne die Zeichen als Block
+     auf einen Heftstreifen (.heftwort). Alles außerhalb ist ein Auftrag und steht als normaler Text; ein Eintrag ganz ohne Anführungszeichen ist ein Auftrag zum
+     Erstellen und trägt den Kopf „Erstelle im Heft:“ (heftKopf). Anlass: Rückmeldung der Lehrkraft 20.11.2026, 14:07 – „Kette: vier Kästchen mit Pfeilen“ sah aus
+     wie ein Satz zum Abschreiben. */
   const heftListe = s => s.heft ? String(s.heft).split(' · ').map(x => x.trim()).filter(x => x) : [];
   const heftCheck = s => !!(s.phasen && !s.phasen[s.phasen.length - 1].checkliste && heftListe(s).length);
   const geschafft = s => !s.phasen ? 0 : istErledigt(s) ? s.phasen.length : Math.min(zustand.phase[s.nr] || 0, s.phasen.length - (heftCheck(s) ? 0 : 1));
   const heftKasten = (kopf, text) => `<p class="heftauftrag ende"><b>✎ ${kopf}</b> ${text}</p>`;
+  function heftTeile(t) { const aus = [], re = /„([^“]*)“/g; let i = 0, m; t = String(t || '');   // V17: zerlegt den Eintrag in Wörtliches (w) und Auftrag; Trennzeichen am Rand eines Auftragsteils fallen weg
+    while ((m = re.exec(t))) { aus.push({ w: false, text: t.slice(i, m.index) }); aus.push({ w: true, text: m[1] }); i = re.lastIndex; }
+    aus.push({ w: false, text: t.slice(i) });
+    return aus.map(x => ({ w: x.w, text: x.w ? x.text.trim() : x.text.replace(/^[\s–\-·,;.]+/, '').replace(/[\s–\-·,;]+$/, '') })).filter(x => x.text); }
+  const heftSelbst = t => { const p = heftTeile(t); return p.length > 0 && !p.some(x => x.w); };   // V17: kein wörtlicher Teil – ein Auftrag zum Erstellen
+  const HEFTKOPF = { 'Ins Heft:': 'Erstelle im Heft:', 'Jetzt ins Heft:': 'Erstelle im Heft:', 'Schreib zuerst ins Heft:': 'Erstelle zuerst im Heft:' };
+  const heftKopf = (t, kopf) => heftSelbst(t) ? (HEFTKOPF[kopf] || kopf) : kopf;
+  const heftH = t => heftTeile(t).map(x => x.w ? `<span class="heftwort">${md(x.text)}</span>` : md(x.text)).join(' ');
   const erstSchreiben = s => !!(s.erstSchreiben && s.heft && s.kontrolle && s.kontrolle.art === 'auswahl');   // H4: erst schreiben, dann vergleichen – nur bei einer Auswahl
+  const heftSpaeter = s => !!(s.heft && s.kontrolle && !s.erstSchreiben && !s.mitschreiben);   // V16: der Eintrag erscheint erst mit der richtigen Antwort
   const heftZeile = an => { const hl = app.querySelector('#fa .heftlinie'); if (hl) hl.hidden = !an; };   // der Eintrag steht nie zweimal auf dem Bildschirm: im Auftrag nur, solange kein Kasten ihn zeigt
   const heftKnopf = s => nichtLetzter(s) || heftCheck(s._basis || s) || L.checkpoint ? 'Steht im Heft – weiter ›' : 'Steht im Heft – Code zeigen ›';
   const nichtLetzter = s => !!s._basis && s._i < s._n - 1;
@@ -2125,6 +2460,8 @@ footer .meta { font-size:16px; color:var(--grau); }
     const heftOffen = !!s.phasen && !istErledigt(s) && fertig >= alle && blick == null;   // alle Schritte geschafft, das Heft noch nicht geprüft – und es wird nicht zurückgeblättert
     if (s.phasen && (blick != null || fertig < alle)) s = sicht(s, blick);
     try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
+    wortOrte = new Map();   // V15: jede Ansicht markiert ihre Wörter neu
+    modellJetzt = null;   // V16: das Modell gehört zur Ansicht
     zustand.aktuell = s.nr; speichern();
     const f = fortschritt();
     app.innerHTML = `
@@ -2144,9 +2481,18 @@ footer .meta { font-size:16px; color:var(--grau); }
     const etappe = !istErledigt(s) && !s._blaettern && s.etappen ? s.etappen[(zustand.etappe[s.nr] || 0) - 1] : null;
     const fa = app.querySelector('#fa'), fm = app.querySelector('#fm'), rechts = app.querySelector('#rechts');
     // links: Auftrag (mit Ziel und Heftzeile) und Material
+    const auftragH = mw(md(s.auftrag), 'auftrag');   // V15: zuerst der Auftrag – er steht vor Merke-Kasten und Frage
     let mat = '';
-    if (s.merke) mat = `<section class="merke"><h2>Merke</h2><div>${md(s.merke)}</div></section>`;
-    if (s.sim) mat = `<section class="kasten" aria-label="Simulation">${s.vermutung && !s._blaettern ? vermutungHtml(s) : ''}<div class="simbox${s.vermutung && !zustand.erledigt[s.nr] && !etappe && !s._blaettern ? ' gesperrt' : ''}" id="simbox"></div>
+    if (s.merke) mat = `<section class="merke"><h2>Merke</h2><div>${mw(md(s.merke), 'merke')}</div></section>`;
+    // V16: Ein Modell aus dem Block MODELLE bekommt den Rahmen der Seite; ein frei geschriebenes (SIMULATIONEN) läuft wie bisher.
+    const mRahmen = !!(s.sim && (MODELLE_[s.sim] || !SIMULATIONEN[s.sim])), mGesperrt = !!s._blaettern || istErledigt(basis);
+    const mOpt = mRahmen ? Object.assign({ start: null, fest: null, zeigt: null, erwartung: false }, s.modell || {}, { gesperrt: mGesperrt }) : null;
+    const mIdx = String(s._i != null ? s._i : 0), mLauf = mRahmen && !modellFehler(s.sim) ? modellSatz(basis.nr + ':' + s.sim, MODELLE_[s.sim], mOpt, mGesperrt ? null : mIdx) : null;
+    const mSatz = mLauf && mGesperrt && mLauf.s[mIdx] ? Object.assign({ a: mLauf.a }, JSON.parse(JSON.stringify(mLauf.s[mIdx]))) : mLauf;   // zurückgeblättert: der Lauf, wie er beim Lösen war
+    if (mRahmen) { const mf = modellSchrittFehler(s);
+      mat = modellHtml(s.sim, mOpt, (mf.length ? `<p class="modellfehler">${mf.map(esc).join(' ')}</p>` : '') + (s.modellgrenze ? `<p class="modellgrenze">Grenze des Modells: ${md(s.modellgrenze)}</p>` : '')); }
+    else if (s.sim) mat = `<section class="kasten" aria-label="Simulation">${s.vermutung && !s._blaettern ? vermutungHtml(s) : ''}<div class="simbox${s.vermutung && !zustand.erledigt[s.nr] && !etappe && !s._blaettern ? ' gesperrt' : ''}" id="simbox"></div>
+      ${s.modell || s.vorher || (s.kontrolle && (s.kontrolle.art === 'messwert' || s.kontrolle.art === 'stand')) ? `<p class="modellfehler">Das Modell „${esc(s.sim)}“ ist frei geschrieben – Angaben und Kontrollen am Modell brauchen ein Modell aus dem Block MODELLE.</p>` : ''}
       ${s.modellgrenze ? `<p class="modellgrenze">Grenze des Modells: ${md(s.modellgrenze)}</p>` : ''}</section>`;
     if (s.video) mat = `<section class="kasten" aria-label="Video"><h2>Film</h2><div class="videobox" id="videobox">
         <p class="videotitel">„${esc(s.video.titel)}“ – auf YouTube${s.video.start != null ? ` · Ausschnitt ${zeit(s.video.start)}${s.video.ende ? '–' + zeit(s.video.ende) : ''}` : ''}</p>
@@ -2163,10 +2509,10 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (s.bild) mat = `<section class="kasten"><h2>Abbildung</h2><img src="${s.bild}" alt="" style="width:100%"></section>`;
     if (s.schritte) mat = `<section class="kasten"><h2>So geht es</h2><ol class="schritte">${s.schritte.map(x => '<li>' + md(x) + '</li>').join('')}</ol></section>`;
     const mitVorlesen = s.vorlesen && 'speechSynthesis' in window;
-    fa.innerHTML = `${etappe ? `<div class="rueck"><p class="meldung info"><span class="sym">Zwischenstand:</span> ${md(etappe.nach)} Mach an dieser Stelle weiter.</p></div>` : ''}<section class="kasten">${mitVorlesen ? '<div class="kopfzeile">' : ''}<h2>${s._n ? `Schritt ${s._i + 1} von ${s._n}` : 'Auftrag'}</h2>${mitVorlesen ? '<button class="btn sekundaer" id="vorlesen" aria-pressed="false">Vorlesen</button></div>' : ''}${s._n ? `<div class="schrittleiste" aria-hidden="true">${s.phasen.map((x, i) => `<span class="${i < fertig ? 'fertig' : i === fertig ? 'jetzt' : ''}${s._blaettern && i === s._i ? ' blick' : ''}"></span>`).join('')}</div>` : ''}<p class="auftrag">${md(s.auftrag)}</p>
+    fa.innerHTML = `${etappe ? `<div class="rueck"><p class="meldung info"><span class="sym">Zwischenstand:</span> ${md(etappe.nach)} Mach an dieser Stelle weiter.</p></div>` : ''}<section class="kasten">${mitVorlesen ? '<div class="kopfzeile">' : ''}<h2>${s._n ? `Schritt ${s._i + 1} von ${s._n}` : 'Auftrag'}</h2>${mitVorlesen ? '<button class="btn sekundaer" id="vorlesen" aria-pressed="false">Vorlesen</button></div>' : ''}${s._n ? `<div class="schrittleiste" aria-hidden="true">${s.phasen.map((x, i) => `<span class="${i < fertig ? 'fertig' : i === fertig ? 'jetzt' : ''}${s._blaettern && i === s._i ? ' blick' : ''}"></span>`).join('')}</div>` : ''}<p class="auftrag">${auftragH}</p>
         ${s.zeigtVermutung && zustand.vm[s.nr] ? `<p class="heftzeile">Deine Vermutung: „${md(zustand.vm[s.nr])}“</p>` : ''}
         ${s.ziel && !(s._i > 0) ? `<p class="ziel"><span class="pfeil">→</span> ${md(s.ziel)}</p>` : ''}
-        ${s.heft ? `<p class="heftlinie"${heftOffen ? ' hidden' : ''}><b>✎ Ins Heft:</b> ${md(s.heft)}</p>` : ''}
+        ${s.heft ? `<p class="heftlinie"${heftOffen || (heftSpaeter(s) && !s._blaettern && !istErledigt(basis)) ? ' hidden' : ''}><b>✎ ${heftKopf(s.heft, 'Ins Heft:')}</b> ${heftH(s.heft)}</p>` : ''}
         ${s.buch ? `<span class="buch">Buch ${esc(s.buch)}</span>` : ''}</section>`;
     fm.innerHTML = mat;
     if (!mat) app.querySelector('.station').classList.add('ohne-mat');
@@ -2175,7 +2521,12 @@ footer .meta { font-size:16px; color:var(--grau); }
     const vo = fa.querySelector('#vorlesen');   // Sprachausgabe des Geräts: Auftrag und Merke hören statt lesen
     if (vo) vo.addEventListener('click', () => { const sp = window.speechSynthesis, aus = () => { vo.textContent = 'Vorlesen'; vo.setAttribute('aria-pressed', 'false'); };
       if (sp.speaking) { sp.cancel(); aus(); return; }
-      const u = new SpeechSynthesisUtterance([s.auftrag, s.heft && !heftOffen && 'Ins Heft: ' + String(s.heft).replace(/\s*[|·]\s*/g, ', ').replace(/\s*…/g, ''), s.merke, s.vermuten && s.vermuten.frage, s.kontrolle && s.kontrolle.frage].filter(Boolean).join(' ').replace(/\*\*/g, ''));
+      const lt = s.kontrolle && s.kontrolle.art === 'luecke' ? app.querySelector('#rechts .lueckentext') : null;   // V15: Lückentext – eine gefüllte Lücke mit ihrem Wort, eine leere als „Lücke“; dazu die Wörter, die noch zur Wahl stehen
+      const wahl = lt ? [...app.querySelectorAll('#rechts .wortspeicher .opt')].filter(b => !b.hidden && !b.classList.contains('paar')).map(b => b.dataset.t) : [];
+      const luecke = lt ? 'Lückentext: ' + [...lt.childNodes].map(n => n.classList && n.classList.contains('luecke') ? ' ' + (n.querySelector('.lw').textContent || 'Lücke') + ' ' : n.textContent).join('') + (wahl.length ? ' Wörter zur Wahl: ' + wahl.join(', ') + '.' : '') : '';
+      const erkl = [...app.querySelectorAll('#fa .worterkl, #fm .worterkl, #rechts .frage + .worterkl')].map(x => x.textContent).join(' ');   // V15: eine offene Erklärung zu einem Wort wird mitgelesen
+      const hl = fa.querySelector('.heftlinie'), heftDa = !!(hl && !hl.hidden) || !!app.querySelector('#rechts .heftauftrag.ende');   // V16: der Hefteintrag wird nur mitgelesen, wenn er auf dem Bildschirm steht
+      const u = new SpeechSynthesisUtterance([s.auftrag, s.heft && heftDa && (heftSelbst(s.heft) ? 'Erstelle im Heft: ' : 'Ins Heft: ') + String(s.heft).replace(/\s*[|·]\s*/g, ', ').replace(/\s*…/g, ''), s.merke, s.vermuten && s.vermuten.frage, s.kontrolle && s.kontrolle.frage, luecke, erkl].filter(Boolean).join(' ').replace(/\*\*/g, ''));
       u.lang = 'de-DE'; u.rate = 0.9; u.onend = aus; u.onerror = aus;
       vo.textContent = 'Anhalten'; vo.setAttribute('aria-pressed', 'true'); sp.cancel(); sp.speak(u); });
     const vl = fm.querySelector('#videoLaden');
@@ -2189,7 +2540,8 @@ footer .meta { font-size:16px; color:var(--grau); }
       fm.querySelector('#videobox').replaceChildren(kopf, f); neuWaehlen();
     });
     if (vl && filmOk) vl.click();
-    if (s.sim && SIMULATIONEN[s.sim]) { SIMULATIONEN[s.sim](fm.querySelector('#simbox'), s.simOpt); if (s.vermutung && !zustand.erledigt[s.nr] && !etappe && !s._blaettern) simSperren(fm, true); bindeVermutung(s, fm); }
+    if (mSatz) modellJetzt = modellBinde(fm.querySelector('.modell'), s.sim, mSatz, mOpt, speichern);
+    else if (s.sim && SIMULATIONEN[s.sim]) { SIMULATIONEN[s.sim](fm.querySelector('#simbox'), s.simOpt); if (s.vermutung && !zustand.erledigt[s.nr] && !etappe && !s._blaettern) simSperren(fm, true); bindeVermutung(s, fm); }
     if (s.typ === 'abgabe') {
       rechts.innerHTML = `<section class="kasten"><h2>Abgabe</h2><p>${md(L.hinweisProdukt)}</p></section>`;
       setHaupt('weiter', 'Zur Karte ›', zeigeKarte); return; }
@@ -2206,13 +2558,13 @@ footer .meta { font-size:16px; color:var(--grau); }
   function zeigeGeloest(s, box) {   // V12 Zurückblättern: geschaffter Schritt, gelöst gezeigt – nichts lässt sich ändern
     const k = s.kontrolle;
     if (s.vermuten) { const vm = zustand.vm[s.nr];
-      box.innerHTML = `<section class="kasten"><h2>Deine Vermutung</h2><p class="frage">${md(s.vermuten.frage)}</p>
+      box.innerHTML = `<section class="kasten"><h2>Deine Vermutung</h2><p class="frage">${frageH(s.vermuten.frage)}</p>
         <div class="rueck"><p class="meldung info">${vm ? `<span class="sym">Du hast vermutet:</span> „${md(vm)}“` : '<span class="sym">Deine Vermutung</span> steht in deinem Heft.'}</p></div></section>`; return; }
     if (s.checkliste) {
       box.innerHTML = `<section class="kasten"><h2>Prüfe dein Heft</h2><div class="checkliste">${s.checkliste.map(c => `<button class="check an" disabled aria-pressed="true"><span class="kaestchen">☑</span>${md(c)}</button>`).join('')}</div>
         <div class="rueck"><p class="meldung ok"><span class="sym">✓ Geschafft.</span></p></div></section>`; return; }
     if (!k) {
-      box.innerHTML = `<section class="kasten"><h2>Vergleichen</h2><div class="loesung${s.loesungsbild ? ' mitbild' : ''}">${s.loesungsbild ? `<div class="bildspalte"><div class="bildbox">${bildSvg(s.loesungsbild)}</div></div>` : ''}<div class="teil"><b>Lösung:</b> ${md(s.loesungsweg)}</div></div>
+      box.innerHTML = `<section class="kasten"><h2>Vergleichen</h2><div class="loesung${s.loesungsbild ? ' mitbild' : ''}">${s.loesungsbild ? `<div class="bildspalte"><div class="bildbox">${bildSvg(s.loesungsbild)}</div></div>` : ''}<div class="teil"><b>Lösung:</b> ${mw(md(s.loesungsweg), 'loesung')}</div></div>
         <div class="rueck"><p class="meldung ok"><span class="sym">✓ Geschafft.</span></p></div></section>`; return; }
     box.innerHTML = `<section class="kasten"><h2>Prüfe dich</h2>${eingabe(k)}<div class="rueck" id="rueck"></div></section>`;
     const z = { wahl: null, paare: {}, aktiv: null, aktivR: null, fest: {}, platz: {} };
@@ -2223,6 +2575,9 @@ footer .meta { font-size:16px; color:var(--grau); }
   function zeigeAntwort(s, box, z) {   // V13: die Eingabe zeigt die richtige Antwort – im gelösten Schritt (Zurückblättern) und beim offenen Lösungsweg
     const k = s.kontrolle;
     if (k.art === 'zahl') { const e = box.querySelector('#eZahl'); e.value = String(k.wert).replace('.', ','); e.disabled = true; }
+    if (k.art === 'messwert') { const e = box.querySelector('#eZahl'), mj = modellJetzt, soll = mj ? modellMesswert(mj.M, mj.R, k) : { ok: false }, alt = mj ? mj.R.a[awKey(s)] : null;   // V16: die Zahl, die angenommen wurde – sonst die aus der Tabelle
+      const v = s._blaettern && alt != null ? alt : soll.ok ? soll.wert : alt; if (v != null) e.value = zf(v); e.disabled = true; }
+    if (k.art === 'stand') { const zi = box.querySelector('#standziel'), mj = modellJetzt; if (zi && mj) zi.innerHTML = `<b>✓ So ist es richtig:</b> ${esc(k.bedingungen.map(b => bedText(mj.M, b)).join(', '))}`; }
     if (k.art === 'auswahl') { const b = box.querySelector(`.opt[data-i="${k.richtig}"]`); b.classList.remove('gewaehlt'); b.classList.add('richtig'); b.querySelector('.mark').textContent = '✓ richtig'; z.wahl = null;
       if (!AMBILD(k) && !BILDANTWORT(k)) box.querySelectorAll('.opt:not(.richtig)').forEach(x => { x.hidden = true; });
       box.querySelectorAll('.opt.gewaehlt').forEach(x => { x.classList.remove('gewaehlt'); x.setAttribute('aria-pressed', 'false'); });
@@ -2246,7 +2601,7 @@ footer .meta { font-size:16px; color:var(--grau); }
   }
   function vermutenStation(s, box) {
     box.dataset.direkt = '1';
-    box.innerHTML = `<section class="kasten"><h2>Deine Vermutung</h2><p class="frage">${md(s.vermuten.frage)}</p>
+    box.innerHTML = `<section class="kasten"><h2>Deine Vermutung</h2><p class="frage">${frageH(s.vermuten.frage)}</p>
       <div class="optionen">${s.vermuten.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(o)}<span class="mark"></span></button>`).join('')}</div>
       <div class="rueck" id="rueck" role="status" aria-live="polite"></div><div id="codeziel"></div></section>`;
     const fb = setHaupt('fertig', 'Steht im Heft – weiter ›', () => bestanden(s, box), true);
@@ -2254,11 +2609,11 @@ footer .meta { font-size:16px; color:var(--grau); }
       box.querySelectorAll('.opt').forEach(x => { x.classList.remove('gewaehlt'); x.setAttribute('aria-pressed', 'false'); });
       b.classList.add('gewaehlt'); b.setAttribute('aria-pressed', 'true');
       zustand.vm[s.nr] = s.vermuten.optionen[+b.dataset.i]; speichern(); fb.disabled = false;
-      box.querySelector('#rueck').innerHTML = heftKasten('Jetzt ins Heft:', (s.heft ? md(s.heft) : 'Schreib deine Vermutung mit einem Grund auf.') + ' Ob deine Vermutung stimmt, prüfst du gleich selbst.'); heftZeile(false); zeige(box.querySelector('#rueck'));
+      box.querySelector('#rueck').innerHTML = heftKasten(heftKopf(s.heft, 'Jetzt ins Heft:'), (s.heft ? heftH(s.heft) : 'Schreib deine Vermutung mit einem Grund auf.') + ' Ob deine Vermutung stimmt, prüfst du gleich selbst.'); heftZeile(false); zeige(box.querySelector('#rueck'));
     }));
   }
   function vermutungHtml(s) {
-    return `<div class="vermutung" id="vermutung"><p class="frage">Erst vermuten: ${md(s.vermutung.frage)}</p>
+    return `<div class="vermutung" id="vermutung"><p class="frage">Erst vermuten: ${mw(md(s.vermutung.frage), 'vermutung')}</p>
       <div class="optionen">${s.vermutung.optionen.map((o, i) => `<button class="opt vm" data-i="${i}" aria-pressed="false">${md(o)}</button>`).join('')}</div></div>`;
   }
   function simSperren(box, an) {
@@ -2308,7 +2663,7 @@ footer .meta { font-size:16px; color:var(--grau); }
   function schrittEnde(s, box, schon) {   // V12 (H1): Der Schritt endet im Heft. schon = der Eintrag steht schon im Heft („erst schreiben“) – dann wird verglichen.
     const hz = box.querySelector('#heftziel');
     if (s.heft && !schon && hz) {
-      hz.innerHTML = heftKasten('Jetzt ins Heft:', md(s.heft)); heftZeile(false);
+      hz.innerHTML = heftKasten(heftKopf(s.heft, 'Jetzt ins Heft:'), heftH(s.heft)); heftZeile(false);
       setHaupt('imheft', heftKnopf(s), () => { hz.innerHTML = ''; box.dataset.direkt = '1'; zumCode(s, box); });
       zeige(box.querySelector('#rueck'), hz); return; }
     if (schon && hz) {   // „erst schreiben“: der Schritt endet mit dem Vergleich im Heft
@@ -2324,6 +2679,8 @@ footer .meta { font-size:16px; color:var(--grau); }
     zeige(z);
   }
   function bestanden(s, box) {
+    awArbeit(s);   // V16: an dieser Station wurde gearbeitet
+    if (modellJetzt && modellJetzt.R.s && !modellJetzt.R.s[String(s._i != null ? s._i : 0)]) modellFoto(s);   // V16: Schritt am Modell ohne Kontrolle – der Lauf beim Weitergehen
     if (nichtLetzter(s) || heftCheck(s._basis || s)) {   // Schritt geschafft: erst jetzt erscheint der nächste – nach dem letzten die Prüfliste zum Heft (V12)
       const weiter = () => { zustand.phase[s.nr] = s._i + 1; zustand.versuche[s.nr] = 0; speichern(); zeigeStation(s._basis); window.scrollTo(0, 0); };
       if (box.dataset.direkt) { weiter(); return; }
@@ -2332,7 +2689,7 @@ footer .meta { font-size:16px; color:var(--grau); }
     stationFertig(s, box.querySelector('#codeziel'));
   }
   function stationFertig(s, z) {   // Station erledigt: der Code erscheint
-    zustand.erledigt[s.nr] = true; speichern();
+    zustand.erledigt[s.nr] = true; awArbeit(s); awStand(s, true); speichern();
     ['#ueberspringen', '#zwischen'].forEach(q => { const e = app.querySelector(q); if (e) e.remove(); });   // nach dem Code: kein Zwischenstand mehr, zurück geht es über „Schritte ansehen“
     const sz = app.querySelector('#schrittZur'); if (sz) { sz.dataset.i = 0; sz.textContent = 'Schritte ansehen'; }
     heftZeile(true);   // neben dem Code steht wieder, was im Heft sein soll
@@ -2363,14 +2720,14 @@ footer .meta { font-size:16px; color:var(--grau); }
     const fb = setHaupt('fertig', 'Verglichen', () => { fb.disabled = true; bestanden(s, box); }, true);
     box.querySelector('#aufdecken').addEventListener('click', e => {
       e.currentTarget.disabled = true; e.currentTarget.closest('.hilfe').hidden = true; const ein = box.querySelector('.kasten > p'); if (ein) ein.hidden = true;
-      box.querySelector('#loesung').innerHTML = `<div class="loesung${s.loesungsbild ? ' mitbild' : ''}">${s.loesungsbild ? `<div class="bildspalte"><div class="bildbox">${bildSvg(s.loesungsbild)}</div></div>` : ''}<div class="teil"><b>Lösung:</b> ${md(s.loesungsweg)}</div></div>`;
+      box.querySelector('#loesung').innerHTML = `<div class="loesung${s.loesungsbild ? ' mitbild' : ''}">${s.loesungsbild ? `<div class="bildspalte"><div class="bildbox">${bildSvg(s.loesungsbild)}</div></div>` : ''}<div class="teil"><b>Lösung:</b> ${mw(md(s.loesungsweg), 'loesung')}</div></div>`;
       fb.disabled = false; zeige(box.querySelector('#loesung'));
     });
   }
   function pruefStation(s, box) {
     const k = s.kontrolle, nT = (s.tipps || []).length;
     if (erstSchreiben(s) && !box.dataset.geschrieben) {   // V12 (H4): erst schreiben, dann vergleichen – die Antworten erscheinen erst, wenn der Text im Heft steht
-      box.innerHTML = `<section class="kasten"><h2>Erst ins Heft</h2>${k.frage ? `<p class="frage">${md(k.frage)}</p>` : ''}${heftKasten('Schreib zuerst ins Heft:', md(s.heft))}<p class="hinweiszeile">Danach siehst du Antworten und vergleichst.</p>
+      box.innerHTML = `<section class="kasten"><h2>Erst ins Heft</h2>${k.frage ? `<p class="frage">${frageH(k.frage)}</p>` : ''}${heftKasten(heftKopf(s.heft, 'Schreib zuerst ins Heft:'), heftH(s.heft))}<p class="hinweiszeile">Danach siehst du Antworten und vergleichst.</p>
         <div class="rueck" id="rueck" role="status" aria-live="polite"></div></section>`; heftZeile(false);
       setHaupt('geschrieben', 'Steht im Heft – weiter ›', () => { box.dataset.geschrieben = '1'; heftZeile(true); pruefStation(s, box); neuWaehlen(); }); return; }
     box.innerHTML = `<section class="kasten"><h2>${erstSchreiben(s) ? 'Vergleiche mit deinem Text' : 'Prüfe dich'}</h2>${eingabe(k)}
@@ -2383,17 +2740,17 @@ footer .meta { font-size:16px; color:var(--grau); }
     const zust = { wahl: null, paare: {}, aktiv: null, aktivR: null, fest: {}, platz: {} };
     bindeEingabe(s, box, zust);
     const t1 = box.querySelector('#tipp1'), t2 = box.querySelector('#tipp2'), lw = box.querySelector('#loesweg'), ht = box.querySelector('#hilfetext');
-    if (t1) t1.addEventListener('click', () => { t1.disabled = true; ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 1:</b> ${md(s.tipps[0])}</div>`); if (t2) t2.disabled = false; zeige(ht.lastElementChild); });
-    if (t2) t2.addEventListener('click', () => { t2.disabled = true; ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 2:</b> ${md(s.tipps[1])}</div>`); zeige(ht.lastElementChild); });
+    if (t1) t1.addEventListener('click', () => { t1.disabled = true; awHilfe(s, 1); ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 1:</b> ${md(s.tipps[0])}</div>`); if (t2) t2.disabled = false; zeige(ht.lastElementChild); });
+    if (t2) t2.addEventListener('click', () => { t2.disabled = true; awHilfe(s, 2); ht.insertAdjacentHTML('beforeend', `<div class="stufe-box"><b>Tipp 2:</b> ${md(s.tipps[1])}</div>`); zeige(ht.lastElementChild); });
     lw.addEventListener('click', () => {
-      lw.disabled = true; box.querySelector('.hilfe').hidden = true;   // Tipps braucht es nach dem Lösungsweg nicht mehr
-      ht.innerHTML = ''; box.querySelector('#rueck').innerHTML = '';   // V13: Der Lösungsweg ersetzt die Tipps und die letzte Rückmeldung …
+      lw.disabled = true; awHilfe(s, 0); box.querySelector('.hilfe').hidden = true;   // Tipps braucht es nach dem Lösungsweg nicht mehr
+      ht.innerHTML = ''; box.querySelector('#rueck').innerHTML = ''; wortFrei('rueck');   // V13: Der Lösungsweg ersetzt die Tipps und die letzte Rückmeldung … (V15: ihre Wörter zum Antippen sind damit wieder frei)
       zeigeAntwort(s, box, zust);   // … und die Eingabe zeigt die richtige Antwort – nur sie bleibt (P2 a). Der Auftrag bleibt stehen (P1 b).
       box.querySelector('#loesung').innerHTML = `<div class="loesung${s.loesungsbild ? ' mitbild' : ''}">${s.loesungsbild ? `<div class="bildspalte"><div class="bildbox">${bildSvg(s.loesungsbild)}</div></div>` : ''}
-        <div class="teil"><b>Lösungsweg:</b> ${md(s.loesungsweg)}</div>
-        ${s.sokommst ? `<div class="teil"><b>So kommst du darauf:</b> ${md(s.sokommst)}</div>` : ''}
-        ${s.weiterueben ? `<div class="teil"><b>Weiterüben:</b> ${md(s.weiterueben)}</div>` : ''}
-        <p class="heftauftrag ende"><b>✎ Jetzt ins Heft:</b>${s.heft ? '<br>1. ' : ' '}Wo lag dein Fehler? ${L.jahrgang <= 8 ? `Ein Satz: „${esc(s.heftsatz || 'Mein Fehler war, dass …')}“` : 'Schreib einen Satz.'}${s.heft ? `<br>2. ${erstSchreiben(s) ? 'Verbessere deinen Text: ' : ''}${md(s.heft)}` : ''}</p></div>`;
+        <div class="teil"><b>Lösungsweg:</b> ${mw(md(s.loesungsweg), 'loesung')}</div>
+        ${s.sokommst ? `<div class="teil"><b>So kommst du darauf:</b> ${mw(md(s.sokommst), 'loesung', true)}</div>` : ''}
+        ${s.weiterueben ? `<div class="teil"><b>Weiterüben:</b> ${mw(md(s.weiterueben), 'loesung', true)}</div>` : ''}
+        <p class="heftauftrag ende"><b>✎ Jetzt ins Heft:</b>${s.heft ? '<br>1. ' : ' '}Wo lag dein Fehler? ${L.jahrgang <= 8 ? `Ein Satz: <span class="heftwort">${esc(s.heftsatz || 'Mein Fehler war, dass …')}</span>` : 'Schreib einen Satz.'}${s.heft ? `${L.jahrgang <= 8 ? '' : '<br>'}2. ${erstSchreiben(s) ? 'Verbessere deinen Text: ' : heftSelbst(s.heft) ? 'Erstelle: ' : ''}${heftH(s.heft)}` : ''}</p></div>`;   // V17: der Satz zum Fehler steht auf einem Heftstreifen (ein Block – darum kein Umbruch davor)
       heftZeile(false);
       setHaupt('imheft', heftKnopf(s), () => { box.dataset.direkt = '1'; zumCode(s, box); });
       zeige(box.querySelector('#loesung'));
@@ -2515,12 +2872,12 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (k.diagramm) { const d = diagrammWahl(k); bild = d.svg; punkte = d.punkte; }
     else if (k.raster) { const d = rasterWahl(k); bild = d.svg; punkte = d.punkte; }
     else bild = bildSvg(k.zustaende ? k.zustaende[0].bild : k.bild);
-    return `${k.frage ? `<p class="frage">${md(k.frage)}</p>` : ''}
+    return `${k.frage ? `<p class="frage">${frageH(k.frage)}</p>` : ''}
       ${k.zustaende ? `<div class="umschalter" role="group" aria-label="Bild wählen">${k.zustaende.map((z, i) => `<button class="btn sekundaer zustand${i ? '' : ' gewaehlt'}" data-z="${i}" aria-pressed="${!i}">${md(z.titel)}</button>`).join('')}</div>` : ''}
       <div class="bildwahl"><div class="bildbox"><div class="bildflaeche">${bild}</div>${markenHtml(punkte, i => ABC[i], 'wahlmarke')}</div></div>`;
   }
   function bildantwortHtml(k) {
-    return `${k.frage ? `<p class="frage">${md(k.frage)}</p>` : ''}<div class="optionen bilder kartenfeld" data-wahl="${[...new Set([k.optionen.length, Math.ceil(k.optionen.length / 2)])].filter(x => x > 1).join(',') || k.optionen.length}" style="--n:${k.optionen.length}">${k.optionen.map((o, i) =>
+    return `${k.frage ? `<p class="frage">${frageH(k.frage)}</p>` : ''}<div class="optionen bilder kartenfeld" data-wahl="${[...new Set([k.optionen.length, Math.ceil(k.optionen.length / 2)])].filter(x => x > 1).join(',') || k.optionen.length}" style="--n:${k.optionen.length}">${k.optionen.map((o, i) =>
       `<button class="opt bildopt" data-i="${i}" aria-pressed="false" aria-label="Bild ${ABC[i]}"><span class="bildkarte">${bildSvg(o.bild)}</span><span class="kartenmarke" aria-hidden="true">${ABC[i]}</span><span class="mark"></span></button>`).join('')}</div>`;
   }
   function folgeHtml(k) {
@@ -2531,7 +2888,8 @@ footer .meta { font-size:16px; color:var(--grau); }
   // Bedienhinweis zur Eingabe – steht neben den Tipps, damit das Bild die Höhe bekommt
   function eingabeHinweis(k) {
     return AMBILD(k) ? 'Tippe auf einen Buchstaben im Bild.' : k.art === 'folge' ? 'Tippe die Bilder der Reihe nach an. Nochmal tippen nimmt die Zahl weg.'
-      : k.art === 'beschriften' ? 'Zahl und Begriff antippen – in beliebiger Reihenfolge.' : k.art === 'zuordnen' ? 'Links und rechts antippen – in beliebiger Reihenfolge.' : '';
+      : k.art === 'beschriften' ? 'Zahl und Begriff antippen – in beliebiger Reihenfolge.' : k.art === 'zuordnen' ? 'Links und rechts antippen – in beliebiger Reihenfolge.'
+      : k.art === 'luecke' ? 'Lücke und Wort antippen – in beliebiger Reihenfolge.' : k.art === 'stand' ? 'Stelle es am Modell ein. Dann tippe auf „Prüfen“.' : k.art === 'messwert' ? 'Lies die Zahl in deiner Tabelle ab.' : '';
   }
   const umschalterHtml = zs => `<div class="umschalter" role="group" aria-label="Bild wählen">${zs.map((z, i) => `<button class="btn sekundaer zustand${i ? '' : ' gewaehlt'}" data-z="${i}" aria-pressed="${!i}">${md(z.titel)}</button>`).join('')}</div>`;
   function bindeUmschalter(box, zs) {
@@ -2563,14 +2921,20 @@ footer .meta { font-size:16px; color:var(--grau); }
     if (AMBILD(k)) return bildwahlHtml(k);
     if (BILDANTWORT(k)) return bildantwortHtml(k);
     if (k.art === 'folge') return folgeHtml(k);
-    if (k.art === 'zahl') return `<p class="frage">${md(k.frage)}</p><div class="zahlfeld"><input type="text" inputmode="decimal" class="zahl" id="eZahl" autocomplete="off" aria-label="Deine Zahl">
+    if (k.art === 'stand') return `<p class="frage">${frageH(k.frage)}</p><p class="standziel" id="standziel"></p>`;   // V16: Einstellen am Modell – geprüft wird der Stand des Modells
+    if (k.art === 'zahl' || k.art === 'messwert') return `<p class="frage">${frageH(k.frage)}</p><div class="zahlfeld"><input type="text" inputmode="decimal" class="zahl" id="eZahl" autocomplete="off" aria-label="Deine Zahl">
       <span class="einheit">${esc(k.einheit || '')}</span></div>`;
-    if (k.art === 'auswahl') return `<p class="frage">${md(k.frage)}</p><div class="optionen${SPALTEN(k) ? ' spalten' : ''}">${k.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(optText(o))}<span class="mark"></span></button>`).join('')}</div>`;
+    if (k.art === 'auswahl') return `<p class="frage">${frageH(k.frage)}</p><div class="optionen${SPALTEN(k) ? ' spalten' : ''}">${k.optionen.map((o, i) => `<button class="opt" data-i="${i}" aria-pressed="false">${md(optText(o))}<span class="mark"></span></button>`).join('')}</div>`;
     if (k.art === 'beschriften') return `<div class="beschriften"><div class="bildbox">${bildSvg(k.bild)}<svg class="linien" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${k.punkte.map(p => p.zx == null ? '' : `<line x1="${p.x}" y1="${p.y}" x2="${p.zx}" y2="${p.zy}"/>`).join('')}</svg>${k.punkte.map((p, i) => `<button class="opt links marke${p.y > 70 ? ' oben' : ''}" data-i="${i}" style="left:${p.x}%;top:${p.y}%" aria-label="Stelle ${i + 1} im Bild">${i + 1}<span class="mark"></span></button>`).join('')}</div>
         <div class="begriffe">${mische(k.punkte.map(p => p.begriff)).map(t => `<button class="opt rechts" data-t="${esc(t)}">${md(t)}<span class="mark"></span></button>`).join('')}</div></div>`;
     if (k.art === 'zuordnen') {
       const li = k.paare.map(p => p[0]), re = mische(k.paare.map(p => p[1]));
       return `<div class="zuordnen">${li.map((t, i) => `<button class="opt links" data-i="${i}">${md(t)}<span class="mark"></span></button><button class="opt rechts" data-t="${esc(re[i])}">${md(re[i])}<span class="mark"></span></button>`).join('')}</div>`;
+    }
+    if (k.art === 'luecke') {   // V15: Lückentext mit Wortspeicher – Lücke und Wort antippen, kein Ziehen; jede Lücke ist so breit wie das längste Wort (höchstens 18 Zeichen)
+      const woerter = k.paare.map(p => p[1]).concat(k.wortspeicher || []), breit = Math.min(18, Math.max(6, ...woerter.map(w => String(w).length)) + 2); let n = 0;
+      return `<p class="lueckentext">${md(k.text).replace(LUECKE, () => `<button class="opt links luecke" data-i="${n}" style="min-width:${breit}ch" aria-label="Lücke ${++n}: leer"><span class="lw"></span><span class="mark"></span></button>`)}</p>
+        <div class="wortspeicher" role="group" aria-label="Wortspeicher">${mische(woerter).map(t => `<button class="opt rechts" data-t="${esc(t)}">${md(t)}<span class="mark"></span></button>`).join('')}</div>`;
     }
     return '';
   }
@@ -2608,34 +2972,74 @@ footer .meta { font-size:16px; color:var(--grau); }
           b.classList.toggle('paar', !!e && !fest); b.classList.toggle('aktiv', z.aktivR === b.dataset.t); b.classList.toggle('fest', !!fest); b.disabled = !!fest;
           b.querySelector('.mark').textContent = fest ? '✓ passt' : e ? 'Paar ' + (+e[0] + 1) : ''; });
       };
+      if (k.art === 'zuordnen') { const alt = z.male, gitter = box.querySelector('.zuordnen'); z.male = function () { alt();   // V17: Jede Zeile zeigt ein Paar. Was passt, steht neben seinem Partner; nach einer Prüfung steht auch, was nicht passt, noch dort, wo es zugeordnet war (z.reihe) – wieder frei. Beim Antippen rückt nichts.
+        const R = [...R_], weg = new Set(), rechts = [...L_].map(() => null), neu = [];
+        L_.forEach((b, j) => { const i = b.dataset.i; if (z.fest[i]) { rechts[j] = R.find(x => x.dataset.t === z.paare[i]); weg.add(rechts[j]); } });
+        L_.forEach((b, j) => { const i = b.dataset.i; if (!rechts[j] && z.reihe) { const r = R.find(x => x.dataset.t === z.reihe[i]); if (r && !weg.has(r)) { rechts[j] = r; weg.add(r); } } });
+        const frei = [...gitter.querySelectorAll('.opt.rechts')].filter(b => !weg.has(b)); let n = 0;
+        L_.forEach((b, j) => { neu.push(b, rechts[j] || frei[n++]); });
+        const jetzt = [...gitter.children]; if (neu.every(e => e) && neu.some((e, j) => e !== jetzt[j])) neu.forEach(e => gitter.appendChild(e));
+        L_.forEach(b => { if (z.fest[b.dataset.i]) b.querySelector('.mark').textContent = '✓'; }); }; }
       if (k.art === 'beschriften') { const alt = z.male; z.male = function () { alt();
         L_.forEach(b => { const i = b.dataset.i; b.querySelector('.mark').textContent = z.fest[i] ? '✓' : ''; });   // V9: an der Marke nur der Haken – der Begriff steht in der Liste daneben („Nr. 2“), das Schild überdeckt keine Nachbarmarke mehr
         R_.forEach(b => { const e = Object.entries(z.paare).find(([, t]) => t === b.dataset.t); b.querySelector('.mark').textContent = e ? (z.fest[e[0]] ? '✓ ' : '') + 'Nr. ' + (+e[0] + 1) : ''; }); }; }
+      if (k.art === 'luecke') { const alt = z.male, sp = box.querySelector('.wortspeicher'); z.male = function () { alt();   // V15: die Lücke zeigt ihr Wort; was richtig sitzt, verlässt den Wortspeicher – sind alle Lücken richtig, verschwindet er
+        L_.forEach(b => { const i = b.dataset.i, t = z.paare[i] || ''; b.querySelector('.lw').textContent = t; b.querySelector('.mark').textContent = z.fest[i] ? '✓' : '';
+          b.setAttribute('aria-label', `Lücke ${+i + 1}: ${t ? t + (z.fest[i] ? ' – richtig' : '') : 'leer'}`); });
+        R_.forEach(b => { const e = Object.entries(z.paare).find(([, t]) => t === b.dataset.t), fest = !!(e && z.fest[e[0]]); b.hidden = fest; b.querySelector('.mark').textContent = e && !fest ? 'Lücke ' + (+e[0] + 1) : ''; });
+        if (sp) sp.hidden = k.paare.every((p, i) => z.fest[i]); }; }
       L_.forEach(b => b.addEventListener('click', () => { const i = b.dataset.i; if (z.fest[i]) return; if (i in z.paare) { delete z.paare[i]; z.aktiv = null; } else if (z.aktivR != null) { z.paare[i] = z.aktivR; z.aktivR = null; z.aktiv = null; } else z.aktiv = z.aktiv === i ? null : i; z.male(); }));
       R_.forEach(b => b.addEventListener('click', () => { const t = b.dataset.t; const e = Object.entries(z.paare).find(([, x]) => x === t);
         if (e) { if (z.fest[e[0]]) return; delete z.paare[e[0]]; z.aktiv = null; } else if (z.aktiv !== null) { z.paare[z.aktiv] = t; z.aktiv = null; z.aktivR = null; } else z.aktivR = z.aktivR === t ? null : t; z.male(); }));
     }
   }
   function meldung(box, art, sym, text) {
-    box.querySelector('#rueck').innerHTML = `<p class="meldung ${art}"><span class="sym">${sym}</span> ${text}</p>`;
+    box.querySelector('#rueck').innerHTML = `<p class="meldung ${art}"><span class="sym">${sym}</span> ${mw(text, 'rueck')}</p>`;   // V15: Wörter zum Antippen auch in der Rückmeldung
+  }
+  // V15: der Hinweis der ersten Zeile „vertauscht“, deren zwei Teile miteinander vertauscht sind – auch wenn daneben anderes falsch sitzt. platz(i) = auf wessen Platz Teil i geraten ist.
+  function vertauschtHinweis(k, platz) {
+    const nr = x => k.art === 'folge' ? +x - 1 : k.art === 'beschriften' ? k.punkte.findIndex(p => p.begriff === x) : k.paare.findIndex(p => p[0] === x);
+    const v = (k.vertauscht || []).find(v => { const a = nr(v.a), b = nr(v.b); return a >= 0 && b >= 0 && a !== b && platz(a) === b && platz(b) === a; });
+    return v ? (v.hinweis || '') : '';
   }
   function pruefe(s, box, z) {
-    const k = s.kontrolle; let richtig = false, fehlt = false, teil = '';
+    const k = s.kontrolle; let richtig = false, fehlt = false, teil = '', hinweis = '', antwort = '';   // antwort (V16): die falsche Antwort in Kurzform – für die Auswertung der Lehrkraft · V15: einen Hinweis gibt es auch zu einem vorhergesehenen Fehlwert und zu einer vorhergesehenen Vertauschung
+    const mj = modellJetzt;   // V16: Kontrolle am Modell. „Vorher am Modell“: was erfüllt sein muss, bevor geprüft wird – sonst ein Hinweis und kein Fehlversuch
+    if (mj && s.vorher && !modellAlle(mj.M, mj.R, s.vorher.bedingungen)) { meldung(box, 'info', 'Erst am Modell:', md(s.vorher.hinweis || 'Bediene zuerst das Modell.')); zeige(box.querySelector('#rueck')); return; }
+    if (k.art === 'messwert') {   // richtig ist die Zahl, die in der Tabelle des Kindes steht
+      const roh = (box.querySelector('#eZahl').value || '').replace(/[^0-9,.\-]/g, '').replace(',', '.'), v = parseFloat(roh), soll = mj ? modellMesswert(mj.M, mj.R, k) : { ok: false };
+      fehlt = roh === '' || isNaN(v);
+      if (!mj) { meldung(box, 'info', 'Hinweis:', 'Das Modell fehlt in diesem Schritt.'); zeige(box.querySelector('#rueck')); return; }
+      if (!fehlt && !soll.ok) { meldung(box, 'info', 'Erst am Modell:', `Diese Zeile steht noch nicht in deiner Tabelle: ${esc((k.messwert.wo || []).map(b => bedText(mj ? mj.M : { groessen: [] }, b)).join(', '))}.`); zeige(box.querySelector('#rueck')); return; }
+      if (!fehlt) { richtig = Math.abs(v - soll.wert) <= (k.toleranz || 0) + 1e-9; antwort = roh.slice(0, 12); if (richtig) mj.R.a[awKey(s)] = soll.wert; else hinweis = k.sonst || ''; }
+    }
+    if (k.art === 'stand') {   // richtig ist, wenn Einstellungen und Stand des Modells alle Bedingungen erfüllen
+      fehlt = !mj;
+      if (mj) { richtig = modellAlle(mj.M, mj.R, k.bedingungen); antwort = mj.M.groessen.map(q => q.id + '=' + zf(mj.R.g[q.id])).join(',').slice(0, 40);
+        if (!richtig) { const f = (k.fehlstaende || []).find(x => modellAlle(mj.M, mj.R, x.bedingungen)); hinweis = f ? (f.hinweis || '') : (k.sonst || ''); } }
+    }
     if (k.art === 'zahl') {
       const roh = (box.querySelector('#eZahl').value || '').replace(/[^0-9,.\-]/g, '').replace(',', '.');
-      const v = parseFloat(roh); fehlt = roh === '' || isNaN(v); richtig = !fehlt && Math.abs(v - k.wert) <= (k.toleranz || 0);
+      const v = parseFloat(roh); fehlt = roh === '' || isNaN(v); richtig = !fehlt && Math.abs(v - k.wert) <= (k.toleranz || 0); antwort = roh.slice(0, 12);
+      if (!fehlt && !richtig) { const f = (k.fehlwerte || []).find(x => Math.abs(v - x.wert) <= (k.toleranz || 0)); hinweis = f ? (f.hinweis || '') : (k.sonst || ''); }   // V15: vorhergesehener Fehlwert (mit der Toleranz des richtigen Werts) – sonst der Satz für jede andere falsche Zahl
     }
-    if (k.art === 'auswahl') { fehlt = z.wahl === null; richtig = z.wahl === k.richtig; }
+    if (k.art === 'auswahl') { fehlt = z.wahl === null; richtig = z.wahl === k.richtig; if (!fehlt) antwort = 'abcdefghijklmnopqrstuvwxyz'.charAt(z.wahl); }
     if (ZU(k)) {
       fehlt = Object.keys(z.paare).length < k.paare.length;
-      if (!fehlt) { let n = 0; k.paare.forEach((p, i) => { if (z.paare[i] === p[1]) { z.fest[i] = true; n++; } else delete z.paare[i]; });
-        richtig = n === k.paare.length; if (!richtig) teil = k.art === 'beschriften' ? `${n} von ${k.paare.length} Begriffen sitzen richtig. ` : `${n} von ${k.paare.length} Paaren passen. `; z.male(); }
+      if (!fehlt) { hinweis = vertauschtHinweis(k, i => k.paare.findIndex(p => p[1] === z.paare[i]));   // V15: gelesen, bevor die falschen Paare frei werden
+        antwort = k.paare.map((p, i) => { if (z.paare[i] === p[1]) return ''; const j = k.paare.findIndex(q => q[1] === z.paare[i]); return (i + 1) + '>' + (j >= 0 ? j + 1 : 'w' + ((k.wortspeicher || []).indexOf(z.paare[i]) + 1)); }).filter(Boolean).join(',');   // V16
+        if (k.art === 'zuordnen') z.reihe = k.paare.map((p, i) => z.paare[i]);   // V17: so wurde zugeordnet – in dieser Reihenfolge stehen die rechten Kacheln nach der Prüfung
+        let n = 0; k.paare.forEach((p, i) => { if (z.paare[i] === p[1]) { z.fest[i] = true; n++; } else delete z.paare[i]; });
+        richtig = n === k.paare.length; if (!richtig) teil = k.art === 'beschriften' ? `${n} von ${k.paare.length} Begriffen sitzen richtig. ` : k.art === 'luecke' ? (k.paare.length > 1 ? `${n} von ${k.paare.length} Lücken sind richtig gefüllt. ` : '') : `${n} von ${k.paare.length} Paaren passen. `; z.male(); }
     }
     if (k.art === 'folge') { const anz = k.bilder.length; fehlt = Object.keys(z.platz).length < anz;
-      if (!fehlt) { let t = 0; k.bilder.forEach((b, i) => { if (z.platz[i] === i) { z.fest[i] = true; t++; } else delete z.platz[i]; });
+      if (!fehlt) { hinweis = vertauschtHinweis(k, i => z.platz[i]);   // V15
+        antwort = k.bilder.map((b, i) => z.platz[i] === i ? '' : (i + 1) + '>' + (z.platz[i] + 1)).filter(Boolean).join(',');   // V16
+        let t = 0; k.bilder.forEach((b, i) => { if (z.platz[i] === i) { z.fest[i] = true; t++; } else delete z.platz[i]; });
         richtig = t === anz; if (!richtig) teil = `${t} von ${anz} Bildern stehen am richtigen Platz. `; z.male(); } }
-    if (fehlt) { meldung(box, 'info', 'Hinweis:', k.art === 'zahl' ? 'Gib eine Zahl ein, zum Beispiel 7,9.' : k.art === 'folge' ? 'Tippe zuerst alle Bilder an.' : AMBILD(k) ? 'Tippe zuerst auf einen Buchstaben im Bild.' : BILDANTWORT(k) ? 'Tippe zuerst auf ein Bild.' : ZU(k) ? (k.art === 'beschriften' ? 'Ordne zuerst jeder Zahl einen Begriff zu.' : 'Ordne zuerst alle Paare zu.') : 'Wähle zuerst eine Antwort.'); zeige(box.querySelector('#rueck')); return; }
-    zustand.versuche[s.nr] = (zustand.versuche[s.nr] || 0) + 1; speichern();
+    if (fehlt) { meldung(box, 'info', 'Hinweis:', k.art === 'zahl' || k.art === 'messwert' ? 'Gib eine Zahl ein, zum Beispiel 7,9.' : k.art === 'stand' ? 'Das Modell fehlt in diesem Schritt.' : k.art === 'folge' ? 'Tippe zuerst alle Bilder an.' : AMBILD(k) ? 'Tippe zuerst auf einen Buchstaben im Bild.' : BILDANTWORT(k) ? 'Tippe zuerst auf ein Bild.' : ZU(k) ? (k.art === 'beschriften' ? 'Ordne zuerst jeder Zahl einen Begriff zu.' : k.art === 'luecke' ? 'Fülle zuerst alle Lücken.' : 'Ordne zuerst alle Paare zu.') : 'Wähle zuerst eine Antwort.'); zeige(box.querySelector('#rueck')); return; }
+    if (richtig) modellFoto(s);   // V16: der Lauf des Modells, wie er jetzt ist
+    zustand.versuche[s.nr] = (zustand.versuche[s.nr] || 0) + 1; awVersuch(s, richtig, antwort); speichern();
     const n = zustand.versuche[s.nr];
     if (richtig) {
       if (k.art === 'auswahl') { const b = box.querySelector(`.opt[data-i="${z.wahl}"]`); b.classList.add('richtig'); b.querySelector('.mark').textContent = '✓ richtig'; }
@@ -2648,12 +3052,263 @@ footer .meta { font-size:16px; color:var(--grau); }
       box.querySelector('#loesweg').disabled = true;
       schrittEnde(s, box, erstSchreiben(s)); return;
     }
-    let hinweis = '';
     if (k.art === 'auswahl') { const b = box.querySelector(`.opt[data-i="${z.wahl}"]`); hinweis = optHinweis(k.optionen[z.wahl]);
       b.classList.remove('gewaehlt'); b.classList.add('falsch'); b.disabled = true; b.querySelector('.mark').textContent = '✗ falsch'; z.wahl = null; }
     if (n < 2) { meldung(box, 'nein', '✗ Noch nicht.', `${teil}${hinweis ? md(hinweis) + ' ' : ''}Versuch es noch einmal – ein Tipp hilft.`); zeige(box.querySelector('#rueck'), box.querySelector('.hilfe')); return; }
     meldung(box, 'nein', '✗ Noch nicht richtig.', `${teil}${hinweis ? md(hinweis) + ' ' : ''}Sieh dir den Lösungsweg an – oder versuch es noch einmal.`);
     box.querySelector('#loesweg').disabled = false; zeige(box.querySelector('#rueck'), box.querySelector('.hilfe'));
+  }
+
+  /* ---------- Modellrahmen (V16) ----------
+     Ein Modell ist ein Eintrag im Block MODELLE der Bausteine – nur er ist je Thema neu. Er nennt: groessen (was man einstellt: id, name, einheit, werte, start;
+     anzeige = Wörter statt Zahlen), zeichne(z, g) (das Bild als SVG aus Zustand z und Einstellungen g), stand(z, g) (eine Zeile mit Werten und Einheit),
+     spalten und mess(z, g) (eine Zeile der Messtabelle), achsen (x, y = Nummern der Spalten, xmax, ymax, xteil, yteil – daraus zeichnet die Seite das Diagramm),
+     legende (Zeichen des Bilds mit ihrem Wort – sie bleiben in jedem Zustand stehen). Unterschrift, Vermerk und Ebene nennt die Zeichnung selbst, wie jede Zeichnung
+     (data-unterschrift, data-vermerk, data-ebene am SVG); die Seite setzt sie mit den Zeichen als Bildzeile unter das Bild des Modells. Ein Modell mit Ablauf nennt dazu start(g), schritt(z, g, zufall), ende(z, g) und ablauf { schritt, viele, n }
+     (Aufschrift der beiden Tasten, Zahl der Schritte der zweiten); mit erwartung(x, g) gibt es die Kurve ohne Zufall – nur auf Knopfdruck.
+     Alles andere ist der Rahmen und für jedes Thema gleich: Tasten mit 52 px, Größen mit Minus und Plus (bei höchstens drei benannten Werten ein Umschalter),
+     alle Tasten über dem Bild (die Hand verdeckt es nicht; „Erwartung zeigen“ steht neben dem Stand),
+     „Auf Start“, Messtabelle, Diagramm aus der Tabelle, Einpassen auf den Bildschirm, der gespeicherte Lauf.
+     Der Lauf gehört zur Station und gilt über ihre Schritte hinweg: Tabelle und Diagramm im nächsten Schritt zeigen denselben Lauf (Quelle: „wie Schritt n“). Wird ein Schritt
+     gelöst, hält die Seite den Lauf dieses Augenblicks fest – ihn zeigt der zurückgeblätterte Schritt, gesperrt. Solange ein Ablauf läuft,
+     sind die Größen gesperrt – eine Messreihe gehört zu einer Einstellung; „Auf Start“ gibt sie frei. Ein Schritt kann Startwerte setzen, Größen festhalten
+     (fest) und wählen, was er zeigt (Bild, Diagramm, Tabelle, Erwartung): nur, was seine Frage braucht.
+     Kontrolle am Modell: „Messwert“ verlangt eine Zahl aus der eigenen Tabelle (richtig ist, was in der Zeile des Kindes steht – so stimmt die Frage bei
+     jedem Lauf, auch mit Zufall); „Einstellen“ prüft Einstellungen und Stand des Modells; „Vorher am Modell“ nennt, was erfüllt sein muss, bevor geprüft wird –
+     fehlt es, gibt es einen Hinweis und keinen Fehlversuch.
+     Zufall: Math.random; mit „?saat=7“ an der Adresse (oder window.MODELL_SAAT) läuft eine feste Folge – für die Prüfung der Werkzeuge. */
+  const MODELLE_ = typeof MODELLE !== 'undefined' && MODELLE ? MODELLE : {};
+  const SAAT = (() => { try { const q = new URLSearchParams(location.search).get('saat'); if (q != null && q !== '' && !isNaN(+q)) return +q; } catch (e) {}
+    return window.MODELL_SAAT != null && !isNaN(+window.MODELL_SAAT) ? +window.MODELL_SAAT : null; })();
+  let saat = SAAT == null ? 0 : Math.floor(Math.abs(SAAT)) % 4294967296;
+  const zufall = SAAT == null ? Math.random : () => { saat = (saat * 1664525 + 1013904223) % 4294967296; return saat / 4294967296; };
+  const zf = v => typeof v === 'number' ? String(Math.round(v * 1000) / 1000).replace('.', ',') : String(v == null ? '' : v);
+  const gText = (q, v) => q.anzeige ? String(q.anzeige[q.werte.indexOf(v)]) : zf(v) + (q.einheit ? ' ' + q.einheit : '');
+  const gWert = (q, v) => { if (q.werte.indexOf(v) >= 0) return v; const i = q.anzeige ? q.anzeige.indexOf(String(v)) : -1; return i >= 0 ? q.werte[i] : undefined; };   // ein Wert der Größe – als Zahl oder als ihr Wort
+  const gStart = (q, o) => { const v = o && o.start && o.start[q.id] != null ? gWert(q, o.start[q.id]) : undefined; return v !== undefined ? v : q.start != null ? q.start : q.werte[0]; };
+  let modellJetzt = null;   // das Modell der Ansicht, die gerade zu sehen ist: { name, M, R, o, beruehrt, male }
+  function modellFehler(name) {   // fehlt dem Block etwas, das der Rahmen braucht? '' = in Ordnung
+    const M = MODELLE_[name];
+    if (!M) return `Das Modell „${name}“ fehlt in den Bausteinen.`;
+    if (!Array.isArray(M.groessen) || M.groessen.some(q => !q || !q.id || !q.name || !Array.isArray(q.werte) || !q.werte.length || (q.anzeige && q.anzeige.length !== q.werte.length) || (q.start != null && q.werte.indexOf(q.start) < 0)))
+      return `Modell „${name}“: Jede Größe braucht id, name, werte und einen Startwert aus ihren Werten.`;
+    if (typeof M.zeichne !== 'function') return `Modell „${name}“: zeichne fehlt.`;
+    if (M.spalten && (!Array.isArray(M.spalten) || typeof M.mess !== 'function')) return `Modell „${name}“: Zu spalten gehört mess.`;
+    if (M.schritt && (typeof M.schritt !== 'function' || typeof M.start !== 'function' || typeof M.ende !== 'function' || !M.spalten)) return `Modell „${name}“: Ein Ablauf braucht start, schritt, ende, mess und spalten.`;
+    if (M.achsen && (!M.spalten || !(M.achsen.xmax > 0) || !(M.achsen.ymax > 0) || M.spalten[M.achsen.x] == null || M.spalten[M.achsen.y] == null)) return `Modell „${name}“: achsen braucht x und y (Nummern der Spalten), xmax und ymax.`;
+    return '';
+  }
+  function modellTeile(M, o) {   // was die Ansicht vom Modell zeigt: b = Bild (immer), d = Diagramm, t = Tabelle
+    const will = o && o.zeigt && o.zeigt.length ? o.zeigt : ['bild', 'diagramm', 'tabelle'];
+    return 'b' + (M.achsen && will.indexOf('diagramm') >= 0 ? 'd' : '') + (M.spalten && will.indexOf('tabelle') >= 0 ? 't' : '');
+  }
+  function modellNeu(M, R) { R.z = M.start ? M.start(R.g) : {}; R.mess = M.schritt ? [M.mess(R.z, R.g)] : (R.mess && !M.schritt ? R.mess : []); }
+  function modellSatz(key, M, o, schritt) {   // der gespeicherte Lauf: je Station und Modell einer; schritt = Schritt, der seine Startwerte setzt (null: nichts setzen)
+    const alle = zustand.modell || (zustand.modell = {});
+    let R = alle[key], neu = false; const frisch = !R || !R.g || !Array.isArray(R.mess);
+    if (frisch) { R = alle[key] = { g: {}, z: null, mess: [], fuer: null, erw: false, a: {}, s: {} }; neu = true; }
+    if (!R.a) R.a = {}; if (!R.s) R.s = {};
+    M.groessen.forEach(q => { if (q.werte.indexOf(R.g[q.id]) < 0) { R.g[q.id] = gStart(q, frisch ? o : null); R.z = null; neu = true; } });   // ein neuer Lauf beginnt mit den Startwerten des Schritts
+    if (schritt != null && R.fuer !== schritt) {   // ein Schritt setzt seine Startwerte einmal: beim ersten Betreten. Weicht nichts ab, läuft der Lauf weiter –
+      if (o && o.start && !o.weiter) M.groessen.forEach(q => { const v = gStart(q, o); if (o.start[q.id] != null && R.g[q.id] !== v) { R.g[q.id] = v; R.z = null; } });   // und mit „wie Schritt n“ (weiter) immer
+      R.fuer = schritt; neu = true; }
+    if (!R.z) { R.mess = []; modellNeu(M, R); neu = true; }
+    if (neu) speichern();
+    return R;
+  }
+  function modellFoto(s) {   // der Lauf, wie er beim Lösen des Schritts war – ihn zeigt der zurückgeblätterte Schritt
+    const mj = modellJetzt; if (!mj || mj.o.gesperrt || mj.o.tafel || !mj.R.s) return;
+    mj.R.s[String(s._i != null ? s._i : 0)] = JSON.parse(JSON.stringify({ g: mj.R.g, z: mj.R.z, mess: mj.R.mess, erw: !!mj.R.erw }));
+  }
+  // Bedingungen am Modell: Name einer Größe (oder ihre id), einer Spalte der Messtabelle (ohne Zeile: die letzte) oder „Messwerte“ (Zahl der Zeilen)
+  const mZahl = v => { if (typeof v === 'number') return v; const t = String(v == null ? '' : v).trim().replace(',', '.'); return /^-?\d+(\.\d+)?$/.test(t) ? +t : null; };
+  function modellBed(M, R, b, zeile) {   // true oder false; null = den Namen gibt es am Modell nicht
+    const sp = (M.spalten || []).indexOf(b.name), q = M.groessen.find(x => x.name === b.name || x.id === b.name);
+    let ist, soll = b.wert;
+    if (zeile && sp >= 0) ist = zeile[sp];
+    else if (q) { ist = R.g[q.id]; if (q.anzeige) { const i = q.anzeige.indexOf(String(b.wert)); if (i >= 0) soll = q.werte[i]; } }
+    else if (sp >= 0) { const r = R.mess[R.mess.length - 1]; if (!r) return false; ist = r[sp]; }
+    else if (b.name === 'Messwerte') ist = R.mess.length;
+    else return null;
+    const a = mZahl(ist), s = mZahl(soll), E = 1e-9;
+    if (a != null && s != null) { const d = a - s; return b.op === '=' ? Math.abs(d) < E : b.op === '≠' ? Math.abs(d) >= E : b.op === '<' ? d < -E : b.op === '>' ? d > E : b.op === '≤' ? d < E : b.op === '≥' ? d > -E : false; }
+    return b.op === '=' ? String(ist) === String(soll) : b.op === '≠' ? String(ist) !== String(soll) : false;
+  }
+  const modellAlle = (M, R, liste, zeile) => (liste || []).every(b => modellBed(M, R, b, zeile) === true);
+  function modellMesswert(M, R, k) {   // die Zahl aus der eigenen Tabelle: { ok, wert } – ok false: Die Zeile gibt es noch nicht
+    const c = (M.spalten || []).indexOf(k.messwert.spalte); if (c < 0) return { ok: false };
+    const r = R.mess.find(z => modellAlle(M, R, k.messwert.wo, z)); const v = r ? mZahl(r[c]) : null;
+    return v == null ? { ok: false } : { ok: true, wert: v };
+  }
+  function bedText(M, b) { const q = M.groessen.find(x => x.name === b.name || x.id === b.name);
+    return q ? `${q.name} ${b.op} ${q.anzeige ? b.wert : zf(mZahl(b.wert) != null ? mZahl(b.wert) : b.wert) + (q.einheit ? ' ' + q.einheit : '')}` : `${b.name} ${b.op} ${zf(mZahl(b.wert) != null ? mZahl(b.wert) : b.wert)}`; }
+  function modellSchrittFehler(s) {   // nennt der Schritt etwas, das es am Modell nicht gibt? Liste der Sätze – leer = in Ordnung
+    const M = MODELLE_[s.sim], aus = []; if (!M || modellFehler(s.sim)) return aus;
+    const m = s.modell || {}, k = s.kontrolle || {}, R0 = { g: {}, mess: [] }; M.groessen.forEach(q => { R0.g[q.id] = gStart(q, null); });
+    const kennt = (b, zeile) => { if (modellBed(M, R0, b, zeile ? (M.spalten || []).map(() => 0) : null) === null) aus.push(`„${b.name}“ ist keine Größe und keine Spalte des Modells.`); };
+    Object.keys(m.start || {}).forEach(id => { const q = M.groessen.find(x => x.id === id); if (!q) aus.push(`Die Größe „${id}“ gibt es am Modell nicht.`); else if (gWert(q, m.start[id]) === undefined) aus.push(`${q.name}: Der Startwert ${zf(m.start[id])} ist keiner der Werte.`); });
+    (Array.isArray(m.fest) ? m.fest : []).forEach(id => { if (!M.groessen.some(x => x.id === id)) aus.push(`Die Größe „${id}“ (fest) gibt es am Modell nicht.`); });
+    (m.zeigt || []).forEach(x => { if ((x === 'diagramm' && !M.achsen) || (x === 'tabelle' && !M.spalten)) aus.push(`Das Modell hat ${x === 'diagramm' ? 'kein Diagramm' : 'keine Tabelle'}.`); });
+    if (m.erwartung && !(M.erwartung && M.achsen)) aus.push('Das Modell hat keine Erwartung.');
+    ((s.vorher || {}).bedingungen || []).forEach(b => kennt(b));
+    (k.bedingungen || []).forEach(b => kennt(b)); (k.fehlstaende || []).forEach(f => (f.bedingungen || []).forEach(b => kennt(b)));
+    if (k.messwert) { if ((M.spalten || []).indexOf(k.messwert.spalte) < 0) aus.push(`„${k.messwert.spalte}“ ist keine Spalte des Modells.`); (k.messwert.wo || []).forEach(b => kennt(b, true));
+      if (modellTeile(M, m).indexOf('t') < 0) aus.push('„Messwert“ braucht die Tabelle – der Schritt zeigt sie nicht.'); }
+    return aus;
+  }
+  // Diagramm aus der Messtabelle: 300 × 250 Einheiten, Schrift 22 – bei 220 px Breite noch 16 px groß. Striche in Bildschirm-Pixeln (sie wachsen nicht mit dem Bild).
+  function modellDiagramm(M, R, erw) {
+    const a = M.achsen, W = 300, H = 250, F = 22, T = 'font-family="sans-serif" fill="#1d2a3a"', NS = 'vector-effect="non-scaling-stroke"';
+    const reihe = (max, teil) => { const z = []; for (let v = 0; v <= max + 1e-9; v += (teil > 0 ? teil : max)) z.push(Math.round(v * 1000) / 1000); return z; };
+    const xz = reihe(a.xmax, a.xteil), yz = reihe(a.ymax, a.yteil), breit = t => zf(t).length * F * 0.58;
+    const l = Math.ceil(Math.max(...yz.map(breit)) + 12), r = Math.ceil(breit(xz[xz.length - 1]) / 2 + 4), o = F + 16, u = 2 * F + 16;
+    const X = x => l + Math.max(0, Math.min(1, x / a.xmax)) * (W - l - r), Y = y => H - u - Math.max(0, Math.min(1, y / a.ymax)) * (H - o - u);
+    let s = `<rect width="${W}" height="${H}" fill="#fff"/>`;
+    xz.forEach(x => { s += `<line x1="${X(x).toFixed(1)}" y1="${Y(0)}" x2="${X(x).toFixed(1)}" y2="${Y(a.ymax)}" stroke="#dfe5ec" stroke-width="1.2" ${NS}/>`; });
+    yz.forEach(y => { s += `<line x1="${l}" y1="${Y(y).toFixed(1)}" x2="${X(a.xmax)}" y2="${Y(y).toFixed(1)}" stroke="#dfe5ec" stroke-width="1.2" ${NS}/>`; });
+    let nx = 1; while (nx < xz.length - 1 && X(xz[nx]) - X(xz[0]) < Math.max(...xz.map(breit)) + 8) nx++;   // Zahlen an den Achsen: nur so viele, wie nebeneinander passen
+    let ny = 1; while (ny < yz.length - 1 && Y(yz[0]) - Y(yz[ny]) < F + 2) ny++;
+    xz.forEach((x, i) => { if (i % nx === 0) s += `<text x="${X(x).toFixed(1)}" y="${H - u + F + 2}" text-anchor="middle" font-size="${F}" ${T}>${zf(x)}</text>`; });
+    yz.forEach((y, i) => { if (i % ny === 0) s += `<text x="${l - 7}" y="${(Y(y) + F * 0.35).toFixed(1)}" text-anchor="end" font-size="${F}" ${T}>${zf(y)}</text>`; });
+    s += `<path d="M${l} ${Y(a.ymax) - 6} V${Y(0)} H${X(a.xmax) + 4}" fill="none" stroke="#1d2a3a" stroke-width="2.6" ${NS}/>`;
+    s += `<text x="8" y="${F - 2}" font-size="${F}" ${T}>${esc(M.spalten[a.y])}</text><text x="${((l + W - r) / 2).toFixed(1)}" y="${H - 7}" text-anchor="middle" font-size="${F}" ${T}>${esc(M.spalten[a.x])}</text>`;
+    if (erw && M.erwartung) { let d = ''; for (let i = 0; i <= 60; i++) { const x = a.xmax * i / 60; d += (i ? 'L' : 'M') + X(x).toFixed(1) + ' ' + Y(M.erwartung(x, R.g)).toFixed(1); }
+      s += `<path class="merw" d="${d}" fill="none" stroke="#a84f00" stroke-width="2.6" stroke-dasharray="8 6" ${NS}/>`; }
+    R.mess.forEach(m => { const x = mZahl(m[a.x]), y = mZahl(m[a.y]); if (x == null || y == null) return; const px = X(x), py = Y(y); s += `<path class="mp" d="M${px.toFixed(1)} ${(py - 7).toFixed(1)} l7 7 l-7 7 l-7 -7 Z" fill="#1d2a3a"/>`; });   // Messwert: eine Raute in der Farbe der Schrift – kein Kreis, Kreise gehören den Bildern
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagramm: ${esc(M.spalten[a.y])} über ${esc(M.spalten[a.x])}, ${R.mess.length} Messwerte" data-kleinste="${F}">${s}</svg>`;
+  }
+  const mZeichen = z => `<svg viewBox="0 0 28 20" width="28" height="20" aria-hidden="true">${z}</svg>`;
+  const mEintrag = x => `<div class="bs">${mZeichen(x.zeichen)}<span>${esc(x.text)}</span></div>`;
+  // Bildzeile des Modells (Abbildungen und Modelle, Punkt 14): Unterschrift, Vermerk und Ebene nennt die Zeichnung; die Zeichen nennt der Block (legende) – sonst die Zeichnung.
+  // Sie steht mit den Zeichen des Diagramms direkt unter dem Bild. Es gibt sie zweimal, zu sehen ist immer eine: Stehen die Teile untereinander (oder die Tabelle in einer
+  // eigenen Reihe), steht sie im Feld gleich nach dem Bild; stehen sie nebeneinander, steht sie unter dem Feld – so breit wie der Kasten, damit sie nicht mehr Zeilen braucht,
+  // wenn das Feld schrumpft.
+  function modellZeile(M, svg) {
+    if (!svg) return '';
+    if (!M.legende) return bildzeileHtml(svg);
+    const d = svg.dataset;
+    return (d.unterschrift || d.vermerk || d.ebene ? bildzeileHtml(svg.cloneNode(false)) : '') + M.legende.map(mEintrag).join('');
+  }
+  function modellHtml(name, o, zusatz) {   // der Rahmen als HTML: Größen, Lauf, Stand, Modellfeld (Bild, Diagramm, Tabelle), Zeichenschlüssel; zusatz = was die Ansicht darunter setzt
+    const f = modellFehler(name);
+    if (f) return `<section class="kasten modell" aria-label="Modell"><p class="modellfehler">${esc(f)}</p></section>`;
+    const M = MODELLE_[name], A = M.ablauf || {}, teile = modellTeile(M, o), formen = { b: '1', bd: '2,1', bt: '2,1', bdt: '3,2,1' }[teile], aus = o.gesperrt ? ' disabled' : '';
+    const fest = q => o.fest === true || (Array.isArray(o.fest) && o.fest.indexOf(q.id) >= 0);
+    const groesse = q => { const w = `<output class="mwert" id="mw_${q.id}"></output>`;
+      if (fest(q) || q.werte.length < 2) return `<div class="mgroesse fest" data-g="${q.id}"><span class="mname">${esc(q.name)}:</span>${w}</div>`;
+      if (q.anzeige && q.werte.length <= 3) return `<div class="mgroesse" data-g="${q.id}"><span class="mname">${esc(q.name)}</span><div class="mwahl" role="group" aria-label="${esc(q.name)}">${q.werte.map((v, i) => `<button class="btn sekundaer" data-q="${q.id}" data-i="${i}" aria-pressed="false"${aus}>${esc(q.anzeige[i])}</button>`).join('')}</div></div>`;
+      return `<div class="mgroesse" data-g="${q.id}"><span class="mname">${esc(q.name)}</span><button class="btn klein" data-q="${q.id}" data-d="-1" aria-label="${esc(q.name)} kleiner"${aus}>−</button>${w}<button class="btn klein" data-q="${q.id}" data-d="1" aria-label="${esc(q.name)} größer"${aus}>+</button></div>`; };
+    const lauf = M.schritt
+      ? `<button class="btn" id="mSchritt"${aus}>${esc(A.schritt || '1 Schritt weiter')}</button>${A.viele ? `<button class="btn sekundaer" id="mViele"${aus}>${esc(A.viele)}</button>` : ''}<span class="mende" id="mEnde" hidden>Der Lauf ist zu Ende.</span>`
+      : (M.spalten && teile.length > 1 ? `<button class="btn" id="mMess"${aus}>In die Tabelle</button>` : '');
+    return `<section class="kasten modell" aria-label="Modell" data-modell="${esc(name)}">
+      <div class="${o.tafel ? 'tafelkopf' : 'mkopf'}"><div class="mgroessen">${M.groessen.map(groesse).join('')}</div>
+      <div class="mlauf">${lauf}<button class="btn sekundaer mrechts" id="mStart"${aus}>Auf Start</button></div>${o.tafel ? `<div class="mzusatz">${zusatz || ''}</div>` : ''}</div>
+      <div class="mstandzeile"><p class="mstand" id="mStand" role="status" aria-live="polite"></p>${o.tafel ? '' : `<div class="mzusatz">${teile.indexOf('d') >= 0 && o.erwartung && M.erwartung ? `<button class="btn sekundaer" id="mErw" aria-pressed="false"${aus}>Erwartung zeigen</button>` : ''}</div>`}</div>
+      <p class="mhinweis" id="mHinweis" role="status" aria-live="polite"></p>
+      <div class="modellfeld" data-wahl="${formen}" data-form="${formen.split(',').pop()}" data-teile="${teile}"><div class="mteil mbild" id="mBild"></div><div class="bildtext mzeile" hidden></div>${teile.indexOf('d') >= 0 ? '<div class="mteil mdia" id="mDia"></div>' : ''}${teile.indexOf('t') >= 0 ? `<div class="mteil mtab"><div class="mrollen" id="mRollen"><table class="mtabelle" aria-label="Messwerte"><thead><tr>${M.spalten.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody id="mZeilen"></tbody></table></div></div>` : ''}</div>
+      <div class="bildtext mzeile" hidden></div>${o.tafel ? '' : (zusatz || '')}</section>`;
+  }
+  function modellBinde(w, name, R, o, sichern) {   // den Rahmen in w bedienbar machen; R = der Lauf, o = was die Ansicht will, sichern = speichert den Lauf
+    if (!w || modellFehler(name)) return null;
+    const M = MODELLE_[name], A = M.ablauf || {}, q$ = sel => w.querySelector(sel), h = { name, M, R, o, beruehrt: false };
+    const bild = q$('#mBild'), zeile = [...w.querySelectorAll('.mzeile')], dia = q$('#mDia'), zeilen = q$('#mZeilen'), rollen = q$('#mRollen'), stand = q$('#mStand'), hin = q$('#mHinweis'), tab = q$('.mtabelle');
+    const bSchritt = q$('#mSchritt'), bViele = q$('#mViele'), bStart = q$('#mStart'), bMess = q$('#mMess'), bErw = q$('#mErw'), ende = q$('#mEnde');
+    const laeuft = () => !!M.schritt && R.mess.length > 1, sag = t => { if (hin) hin.textContent = t || ''; };
+    const fest = q => o.fest === true || (Array.isArray(o.fest) && o.fest.indexOf(q.id) >= 0);
+    let scharf = 0, zeileAlt = null;
+    const legD = dia ? mEintrag({ zeichen: '<path d="M14 3 l7 7 l-7 7 l-7 -7 Z" fill="#1d2a3a"/>', text: 'Messwert' })   // Zeichen des Diagramms
+      + (o.erwartung && M.erwartung ? mEintrag({ zeichen: '<path d="M1 10 H27" fill="none" stroke="#a84f00" stroke-width="2.6" stroke-dasharray="8 6"/>', text: 'Erwartung' }) : '') : '';
+    const entschaerfe = () => { clearTimeout(scharf); scharf = 0; if (bStart) bStart.classList.remove('warnung'); };
+    h.male = function () {
+      bild.innerHTML = M.zeichne(R.z, R.g);
+      const zt = modellZeile(M, bild.querySelector('svg')) + legD;   // Bildzeile: nur neu gesetzt, wenn sie sich ändert – mit legende bleibt sie in jedem Zustand gleich
+      if (zt !== zeileAlt) { const neu = zeileAlt !== null; zeileAlt = zt; zeile.forEach(z => { z.innerHTML = zt; z.hidden = !zt; z.classList.toggle('mleg', !!(M.legende || legD)); });
+        if (neu) passeAn(); }   // ändert sich die Bildzeile beim Bedienen (Zeichen kommen dazu), passt die Seite das Bild neu ein – wie beim Regler
+      if (stand) stand.textContent = M.stand ? M.stand(R.z, R.g) : '';
+      M.groessen.forEach(q => { const i = q.werte.indexOf(R.g[q.id]), aus = q$('#mw_' + q.id); if (aus) aus.textContent = gText(q, R.g[q.id]);
+        w.querySelectorAll(`[data-q="${q.id}"]`).forEach(b => { if (o.gesperrt) return;
+          if (b.dataset.d) { b.disabled = !laeuft() && (+b.dataset.d < 0 ? i === 0 : i === q.werte.length - 1); b.setAttribute('aria-disabled', laeuft() ? 'true' : 'false'); }
+          else { const an = +b.dataset.i === i; b.classList.toggle('gewaehlt', an); b.setAttribute('aria-pressed', an); b.setAttribute('aria-disabled', laeuft() && !an ? 'true' : 'false'); } }); });
+      const aus = !!M.schritt && !!M.ende(R.z, R.g);
+      if (bSchritt) bSchritt.hidden = aus; if (bViele) bViele.hidden = aus; if (ende) ende.hidden = !aus;
+      if (bStart && !o.gesperrt) bStart.disabled = M.schritt ? R.mess.length <= 1 : (R.mess.length === 0 && M.groessen.every(q => fest(q) || R.g[q.id] === gStart(q, o)));
+      if (zeilen) { zeilen.innerHTML = R.mess.length ? R.mess.map(r => `<tr>${r.map(v => `<td>${esc(zf(v))}</td>`).join('')}</tr>`).join('')
+          : `<tr class="mleer"><td colspan="${M.spalten.length}">Noch kein Messwert.</td></tr>`;
+        rollen.scrollTop = rollen.scrollHeight;
+        const alt = tab.style.width; tab.style.width = 'min-content'; tab.dataset.min = Math.ceil(tab.getBoundingClientRect().width); tab.style.width = alt; }   // schmaler darf das Feld der Tabelle nicht werden
+      if (dia) dia.innerHTML = modellDiagramm(M, R, !!R.erw && !!o.erwartung);
+      if (bErw) { bErw.setAttribute('aria-pressed', !!R.erw); bErw.textContent = R.erw ? 'Erwartung ausblenden' : 'Erwartung zeigen'; }
+    };
+    w.addEventListener('click', e => {
+      const b = e.target && e.target.closest ? e.target.closest('button') : null; if (!b || b.disabled || o.gesperrt || !w.contains(b)) return;
+      if (b !== bStart) entschaerfe();
+      if (b.dataset.q) { const q = M.groessen.find(x => x.id === b.dataset.q), i = q.werte.indexOf(R.g[q.id]), j = b.dataset.d ? i + +b.dataset.d : +b.dataset.i;
+        if (j === i || j < 0 || j >= q.werte.length) return;
+        if (laeuft()) { sag(`${q.name} lässt sich nur am Start ändern. Tippe erst auf „Auf Start“.`); return; }
+        R.g[q.id] = q.werte[j]; modellNeu(M, R); h.beruehrt = true; sag(''); sichern(); h.male(); return; }
+      if (b === bSchritt || b === bViele) { const n = b === bViele ? (A.n || 5) : 1;
+        for (let i = 0; i < n && !M.ende(R.z, R.g); i++) { M.schritt(R.z, R.g, zufall); R.mess.push(M.mess(R.z, R.g)); }
+        h.beruehrt = true; sag(''); sichern(); h.male(); return; }
+      if (b === bMess) { const r = M.mess(R.z, R.g), schon = R.mess.some(x => JSON.stringify(x) === JSON.stringify(r));
+        if (!schon) R.mess.push(r); sag(schon ? 'Diese Zeile steht schon in der Tabelle.' : ''); h.beruehrt = true; sichern(); h.male(); return; }
+      if (b === bStart) { const viel = M.schritt ? R.mess.length > 2 : R.mess.length > 0;
+        if (viel && !scharf) { b.classList.add('warnung'); sag('Noch einmal tippen: Das Modell beginnt von vorn, die Tabelle wird leer.'); scharf = setTimeout(() => { entschaerfe(); sag(''); }, 5000); return; }
+        entschaerfe(); if (!M.schritt) { M.groessen.forEach(q => { if (!fest(q)) R.g[q.id] = gStart(q, o); }); R.mess = []; }
+        modellNeu(M, R); h.beruehrt = true; sag(''); sichern(); h.male(); return; }
+      if (b === bErw) { R.erw = !R.erw; sichern(); h.male(); }
+    });
+    h.male(); return h;
+  }
+  // Einpassen: Das Modellfeld ist für die Seite ein Bild. Schmaler als so wird es nicht – jedes Teil behält seine Mindestbreite
+  // (Bild 150 px, Schrift im Diagramm 16 px, die Tabelle ihre Wörter und Zahlen).
+  function modellTeilMin(t) { let min = 150; const kl = t.querySelector('svg[data-kleinste]'), tab = t.querySelector('.mtabelle');
+    if (kl) min = Math.max(min, 16 / +kl.dataset.kleinste * (kl.viewBox.baseVal.width || 600) + 4);
+    if (tab) min = (+tab.dataset.min || 120) + 4;
+    return min; }
+  function modellMin(feld) { const fb = feld.getBoundingClientRect().width; let faktor = 0; if (!fb) return 0;
+    feld.querySelectorAll('.mteil').forEach(t => { const b = t.getBoundingClientRect().width; if (b) faktor = Math.max(faktor, modellTeilMin(t) / b); });
+    return Math.ceil(fb * faktor); }
+  // Steht die Messtabelle in einer eigenen Zeile, bekommt sie den Platz, der am Start übrig bleibt: bis zu zehn Zeilen statt vier – das Bild behält seine Größe.
+  function modellZeilen(feld, platz) { const t = feld.querySelector('.mtab'); if (!t) return 0;
+    const allein = feld.dataset.form === '1' || (feld.dataset.form === '2' && feld.dataset.teile === 'bdt'), n = allein ? Math.min(10, 4 + Math.max(0, Math.floor((platz - 2) / 31))) : 4;
+    if (n > 4) feld.style.setProperty('--mz', n); else feld.style.removeProperty('--mz'); return n; }
+  function modellRolle() { app.querySelectorAll('.mrollen').forEach(ro => { ro.scrollTop = ro.scrollHeight; }); }   // nach dem Einpassen: Die neueste Zeile der Messtabelle bleibt zu sehen
+  const modellOk = feld => [...feld.querySelectorAll('.mteil')].every(t => t.getBoundingClientRect().width + 1.5 >= modellTeilMin(t));
+  // V16: Tafelseite – ein Modell allein auf einem Bildschirm, für die digitale Tafel (landschaft_bauer.py --tafel). Alle Größen, alle Teile, die Erwartung und die
+  // Grenze des Modells auf Knopfdruck; nichts wird gespeichert – jede Stunde beginnt am Start.
+  let tafelWahl = null;
+  function tafelPasse() {
+    const feld = app.querySelector('.modellfeld'); if (!feld || !document.body.classList.contains('tafel')) return;
+    const se = document.scrollingElement, groesse = window.innerWidth + 'x' + window.innerHeight;
+    const enger = () => { for (let i = 0; i < 12; i++) { const d = window.innerHeight - se.scrollHeight; if (d >= 0) break;   // zielt 2 px unter den Rand: Zeilen unter dem Bild schrumpfen nicht mit
+      const r = feld.getBoundingClientRect(), b = Math.max(modellMin(feld), (r.height + d - 2) * r.width / r.height); if (!(r.height > 0) || r.width - b < 0.5) break; feld.style.maxWidth = b + 'px'; } };
+    const eigen = () => !!feld.querySelector('.mtab') && (feld.dataset.form === '1' || (feld.dataset.form === '2' && feld.dataset.teile === 'bdt'));   // die Tabelle steht in einer eigenen Reihe
+    const passe = () => { feld.style.maxWidth = ''; feld.style.setProperty('--mz', 4); enger();   // erst das Bild so groß wie möglich, die Tabelle mit vier Zeilen –
+      if (eigen()) { const frei = window.innerHeight - Math.ceil(app.querySelector('main').getBoundingClientRect().bottom + window.scrollY), zh = parseFloat(getComputedStyle(feld).getPropertyValue('--mzh')) || 31;   // dann bekommt die Tabelle den übrigen Platz
+        if (frei > zh + 2) feld.style.setProperty('--mz', Math.min(10, 4 + Math.floor((frei - 2) / zh))); } };
+    if (tafelWahl === groesse) { passe(); if (se.scrollHeight <= window.innerHeight + 1) { modellRolle(); return; } }   // gewählt wird einmal je Bildschirmgröße – danach gibt das Feld nur noch nach; reicht das nicht, wird neu gewählt
+    let best = null;
+    for (const form of feld.dataset.wahl.split(',')) {
+      feld.dataset.form = form; passe();
+      const passt = se.scrollHeight <= window.innerHeight + 1 && se.scrollWidth <= window.innerWidth + 1 && modellOk(feld), mass = feld.querySelector('.mbild').getBoundingClientRect().width;
+      if (!best || (passt && !best.passt) || (passt === best.passt && mass > best.mass + 2)) best = { form, passt, mass };
+    }
+    feld.dataset.form = best.form; passe(); tafelWahl = groesse; modellRolle();
+  }
+  function zeigeTafel() {
+    const name = L.tafel.modell, f = modellFehler(name), M = MODELLE_[name];
+    document.body.classList.add('tafel');
+    const o = { tafel: true, erwartung: !!(M && M.erwartung && M.achsen), zeigt: null, fest: null, start: null };
+    const zusatz = f ? '' : `${o.erwartung ? '<button class="btn sekundaer" id="mErw" aria-pressed="false">Erwartung zeigen</button>' : ''}${M.grenze ? '<button class="btn sekundaer" id="mGrenze" aria-pressed="false">Grenze des Modells</button>' : ''}`;
+    app.innerHTML = `<header class="kopf"><h1>${esc(f ? L.titel : (M.titel || L.titel))}</h1><span class="typ">Modell für die Tafel</span><span class="thema">${esc(L.version || '')}</span></header>
+      <main>${modellHtml(name, o, zusatz)}${!f && M.grenze ? `<p class="modellgrenze" id="mGrenzText" role="status" aria-live="polite" hidden>Grenze des Modells: ${md(M.grenze)}</p>` : ''}</main>`;
+    if (f) return;
+    const R = { g: {}, z: null, mess: [], erw: false, a: {} }; M.groessen.forEach(q => { R.g[q.id] = gStart(q, null); }); modellNeu(M, R);
+    modellJetzt = modellBinde(app.querySelector('.modell'), name, R, o, () => {});
+    const bg = app.querySelector('#mGrenze'), gt = app.querySelector('#mGrenzText');
+    if (bg) bg.addEventListener('click', () => { gt.hidden = !gt.hidden; bg.setAttribute('aria-pressed', !gt.hidden); tafelPasse(); });
+    tafelPasse();
   }
 
   /* ---------- Bildzeile (V9) ----------
@@ -2732,9 +3387,9 @@ footer .meta { font-size:16px; color:var(--grau); }
   function neuWaehlen() { const st = app.querySelector('.station'); if (st) { st.dataset.anordnung = ''; st.dataset.s = ''; st._wahl = null; } }   // eine neue Teilansicht beginnt
   function passeAn() {
     leisteMessen();
-    const st = app.querySelector('.station'); if (!st) return;
+    const st = app.querySelector('.station'); if (!st) { tafelPasse(); return; }   // V16: die Tafelseite passt ihr Modellfeld selbst ein
     bildzeilen();
-    const fuss = app.querySelector('footer.fuss'), medien = [...st.querySelectorAll('.bildbox, .videobox iframe, .kartenfeld')];
+    const fuss = app.querySelector('footer.fuss'), medien = [...st.querySelectorAll('.bildbox, .videobox iframe, .kartenfeld, .modellfeld')];
     const haupt = app.querySelector('main'), polster = haupt ? parseFloat(getComputedStyle(haupt).paddingBottom) || 0 : 0;
     const frei = () => window.innerHeight - Math.max(polster, fuss ? fuss.offsetHeight : 0) - 2;   // Unterkante des Inhalts darf die Fußleiste nicht erreichen
     const unten = el => el.getBoundingClientRect().bottom + window.scrollY;
@@ -2751,7 +3406,8 @@ footer .meta { font-size:16px; color:var(--grau); }
           const kl = e.querySelector ? e.querySelector('svg[data-kleinste]') : null;   // kleinste Schrift im Bild: mindestens 16 px auf dem Bildschirm
           const minSchrift = kl ? 16 / +kl.dataset.kleinste * (kl.viewBox.baseVal.width || 600) + 6 : 0;   // + Rand der Bildbox
           const minKarten = e.classList.contains('kartenfeld') ? (+getComputedStyle(e).getPropertyValue('--n') || 2) * 150 : 0;
-          const breit = Math.min(platz, Math.max(minSchrift, minKarten, Math.max(MEDIUM_MIN, r.height + d) * r.width / r.height));
+          const minModell = e.classList.contains('modellfeld') ? modellMin(e) : 0;   // V16: jedes Teil des Modellfelds behält seine Mindestbreite
+          const breit = Math.min(platz, Math.max(minSchrift, minKarten, minModell, Math.max(MEDIUM_MIN, r.height + d) * r.width / r.height));
           if (Math.abs(breit - r.width) < 2) continue;
           e.style.maxWidth = breit + 'px';
           if (d < 0 && Math.abs(unten(spalte) - vorher) < 1) { e.style.maxWidth = r.width + 'px'; continue; }   // Schrumpfen hilft dieser Spalte nicht
@@ -2772,11 +3428,12 @@ footer .meta { font-size:16px; color:var(--grau); }
     const groesse = window.innerWidth + 'x' + window.innerHeight;
     if (st.dataset.anordnung === groesse) { passe(); merke(); return; }   // V13: schon gewählt – die Anordnung bleibt, auch wenn der Inhalt länger wird als der Bildschirm
     const karten = [...st.querySelectorAll('.kartenfeld[data-wahl]')];
-    const setze = (a, n, b) => { st.classList.remove('a-stapel', 'a-zwei', 'a-schmal', 'a-mitte', 'a-pruef', 'a-rechts', 'b-stapel'); if (a) st.classList.add(a); if (b) st.classList.add(b); if (n) karten.forEach(k => k.style.setProperty('--n', n)); };
+    const mfeld = st.querySelector('.modellfeld[data-wahl]'), mformen = mfeld ? mfeld.dataset.wahl.split(',') : [''];   // V16: Formen des Modellfelds – Teile nebeneinander oder untereinander
+    const setze = (a, n, b, m) => { st.classList.remove('a-stapel', 'a-zwei', 'a-schmal', 'a-mitte', 'a-pruef', 'a-rechts', 'b-stapel'); if (a) st.classList.add(a); if (b) st.classList.add(b); if (n) karten.forEach(k => k.style.setProperty('--n', n)); if (mfeld && m) { mfeld.dataset.form = m; mfeld.style.removeProperty('--mz'); } };
     const merk = st._wahl || (st._wahl = {}), war = merk[groesse];   // V13: je Bildschirmgröße einmal gewählt – nach Drehen und Zurückdrehen steht wieder dieselbe Anordnung
-    if (war) { setze(war.a, war.n, war.b); medien.forEach((e, i) => { if (war.start[i]) e.dataset.start = war.start[i]; else delete e.dataset.start; }); st.dataset.s = ''; passe(); merke(); st.dataset.anordnung = groesse; return; }
+    if (war) { setze(war.a, war.n, war.b, war.m); if (mfeld && war.mz > 4) mfeld.style.setProperty('--mz', war.mz); medien.forEach((e, i) => { if (war.start[i]) e.dataset.start = war.start[i]; else delete e.dataset.start; }); st.dataset.s = ''; passe(); merke(); modellRolle(); st.dataset.anordnung = groesse; return; }
     medien.forEach(e => { delete e.dataset.start; }); st.dataset.s = '';
-    let wahl = { a: '', n: 0, b: '' };
+    let wahl = { a: '', n: 0, b: '', m: '' };
     if (medien.length || frei() - unten(st) < -2) {
       setze('');
       const spalten = getComputedStyle(st).gridTemplateColumns.trim().split(/\s+/).length;
@@ -2785,20 +3442,21 @@ footer .meta { font-size:16px; color:var(--grau); }
       const zahlen = karten.length ? karten[0].dataset.wahl.split(',').map(Number) : [0];
       const innen = st.querySelector('.beschriften') ? ['', 'b-stapel'] : [''];   // Begriffe neben oder unter dem Bild
       let best = null;
-      for (const a of anordnungen) for (const n of zahlen) for (const b of innen) {
-        setze(a, n, b); passe();
-        const lesbar = medien.every(e => { const kl = e.querySelector ? e.querySelector('svg[data-kleinste]') : null; return !kl || +kl.dataset.kleinste * kl.getBoundingClientRect().width / (kl.viewBox.baseVal.width || 600) >= 15.9; });   // Schrift im Bild bleibt lesbar
+      for (const a of anordnungen) for (const n of zahlen) for (const b of innen) for (const m of mformen) {
+        setze(a, n, b, m); passe();
+        const lesbar = medien.every(e => { if (e.classList.contains('modellfeld')) return modellOk(e); const kl = e.querySelector ? e.querySelector('svg[data-kleinste]') : null; return !kl || +kl.dataset.kleinste * kl.getBoundingClientRect().width / (kl.viewBox.baseVal.width || 600) >= 15.9; });   // Schrift im Bild bleibt lesbar
         const passt = lesbar && frei() - unten(st) >= -2 && document.scrollingElement.scrollWidth <= window.innerWidth + 2;
         const eng = (+st.style.getPropertyValue('--s') || 1) < 1 ? 0.9 : 1;   // enge Abstände nur, wenn das Bild dadurch deutlich größer wird
-        const mass = eng * Math.min(...medien.map(e => { const b = e.classList.contains('kartenfeld') ? e.querySelector('.bildkarte') : e; return b ? b.getBoundingClientRect().width : 1e4; }));
+        const mass = eng * Math.min(...medien.map(e => { const b = e.classList.contains('kartenfeld') ? e.querySelector('.bildkarte') : e.classList.contains('modellfeld') ? e.querySelector('.mbild') : e; return b ? b.getBoundingClientRect().width : 1e4; }));
         const ueber = Math.max(0, unten(st) - frei());   // passt keine Anordnung, gewinnt die mit dem kleinsten Überstand – nicht die mit dem größten Bild
-        if (!best || (passt && !best.passt) || (passt && best.passt && mass > best.mass * 1.08) || (!passt && !best.passt && (lesbar && !best.lesbar || lesbar === best.lesbar && ueber < best.ueber - 4))) best = { a, n, b, passt, mass, ueber, lesbar };   // V13: passt keine, geht lesbare Schrift im Bild vor
+        if (!best || (passt && !best.passt) || (passt && best.passt && mass > best.mass * 1.08) || (!passt && !best.passt && (lesbar && !best.lesbar || lesbar === best.lesbar && ueber < best.ueber - 4))) best = { a, n, b, m, passt, mass, ueber, lesbar };   // V13: passt keine, geht lesbare Schrift im Bild vor
       }
-      setze(best.a, best.n, best.b); wahl = best;
+      setze(best.a, best.n, best.b, best.m); wahl = best;
     }
     passe();
+    const mz = mfeld ? modellZeilen(mfeld, frei() - unten(getComputedStyle(st).gridTemplateColumns.trim().split(/\s+/).length < 2 ? st : (mfeld.closest('.f-material, .f-pruef') || st))) : 0; modellRolle();   // V16: übriger Platz geht an die Messtabelle – ihre neueste Zeile bleibt zu sehen
     medien.forEach(e => { const b = e.getBoundingClientRect().width; if (b) e.dataset.start = b; });   // V13: so groß wie jetzt wird kein Bild mehr
-    merk[groesse] = { a: wahl.a, n: wahl.n, b: wahl.b, start: medien.map(e => e.dataset.start) };
+    merk[groesse] = { a: wahl.a, n: wahl.n, b: wahl.b, m: wahl.m, mz, start: medien.map(e => e.dataset.start) };
     st.dataset.s = st.style.getPropertyValue('--s') || 1;
     st.dataset.anordnung = groesse;
   }
@@ -2808,7 +3466,7 @@ footer .meta { font-size:16px; color:var(--grau); }
   window.addEventListener('resize', planeAnpassen); window.addEventListener('orientationchange', planeAnpassen);
 
   const start = L.stationen.find(x => x.nr === zustand.aktuell);
-  if (start && istFrei(start)) zeigeStation(start); else zeigeKarte();
+  if (L.tafel) zeigeTafel(); else if (start && istFrei(start)) zeigeStation(start); else zeigeKarte();
 })();
 </script>
 </body>
